@@ -76,7 +76,7 @@ const createClient = (ctx: NextPageContext) => {
     },
   }));
 
-  const httpLinkWithMiddleware = middlewareLink.concat(httpLink);
+  const httpLinkWithMiddleware = middlewareLink.concat(httpLink as any);
   const cookie = ctx?.req?.headers.cookie;
 
   const wsLink = process.browser
@@ -92,17 +92,20 @@ const createClient = (ctx: NextPageContext) => {
   const link = process.browser
     ? split(
         ({ query }) => {
-          const { kind, operation } = getMainDefinition(query);
-          return kind === "OperationDefinition" && operation === "subscription";
+          const def = getMainDefinition(query);
+          return (
+            def.kind === "OperationDefinition" &&
+            def.operation === "subscription"
+          );
         },
         wsLink,
-        httpLinkWithMiddleware
+        httpLinkWithMiddleware as any
       )
     : httpLinkWithMiddleware;
 
   return new ApolloClient({
     uri: "http://localhost:4000/graphql",
-    link,
+    link: link as any,
     cache: new InMemoryCache(),
   });
 };
