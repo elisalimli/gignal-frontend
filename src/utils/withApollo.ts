@@ -67,7 +67,7 @@ const createClient = (ctx: NextPageContext) => {
   //   cache: new InMemoryCache(),
   // });
   const httpLink = createHttpLink({
-    uri: "https://gignal-server.herokuapp.com//graphql",
+    uri: "https://gignal-server.herokuapp.com/graphql",
   });
 
   const middlewareLink = setContext(() => ({
