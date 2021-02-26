@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "gen": "graphql-codegen --config codegen.yml"
+    "start": "next start -p $PORT",
+    "gen": "graphql-codegen --config codegen.yml",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@apollo/client": "3.3.8",
