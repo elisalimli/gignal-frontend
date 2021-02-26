@@ -50,4 +50,4 @@ const Messages: React.FC<Props> = ({ channel: { id } }) => {
   );
 };
 
-export default withApollo({ ssr: false })(Messages);
+export default Messages;
