@@ -1,0 +1,14 @@
+mutation CreateTeam($name:String!) {
+  createTeam(name: $name) {
+    errors {
+      field
+      message
+    }
+    team {
+      id
+      name
+      creatorId
+    }
+    channelId
+  }
+}

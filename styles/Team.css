@@ -1,0 +1,18 @@
+.team_list {
+    background-color: #677066;
+    border-radius: 11px;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+}
+
+.team_list:hover {
+    border: thick solid #767676;
+    /* border-style: solid;
+    border-width: thick;
+    border-color: #767676; */
+}
+
+.create_team {
+    position: fixed;
+    bottom: 0;
+}

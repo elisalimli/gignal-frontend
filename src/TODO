@@ -1,0 +1,5 @@
+- Teams.graphql fix its name to AllTeams +
+- Create Add member modal + 
+- Add Created and Updated at columns 
+- Complete messages query +
+- Add team's name must be unique

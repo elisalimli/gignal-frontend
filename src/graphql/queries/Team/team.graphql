@@ -1,0 +1,8 @@
+query Team($teamId: Int!) {
+   me {
+    ...MeSnippet
+  }
+  team(teamId: $teamId) {
+      ...TeamSnippet
+  }
+}

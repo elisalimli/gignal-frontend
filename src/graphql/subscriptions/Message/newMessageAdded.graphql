@@ -1,0 +1,5 @@
+subscription NewMessageAdded($channelId:Int!) {
+  newMessageAdded(channelId:$channelId) {
+   ...MessageSnippet
+  }
+}

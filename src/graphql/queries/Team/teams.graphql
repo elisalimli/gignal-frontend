@@ -1,0 +1,8 @@
+query AllTeams {
+  teams {
+    ...RegularTeamsSnippet
+  }
+  invitedTeams {
+    ...RegularTeamsSnippet
+  }
+}

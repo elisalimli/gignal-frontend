@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+    --scrollbarBG: #CFD8DC;
+    --thumbBG: #90A4AE;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+*::-webkit-scrollbar {
+    width: 7px;
+}
+
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+}
+
+/* 
+.profileImg {
+    position: relative;
+    height: 100px;
+    border-radius: 50%;
+} */
+
+/* 
+.back {
+    z-index: 8888;
+    cursor: pointer;
+    position: absolute;
+    background: black;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    opacity: 0.80;
+    border-radius: 50%;
+
+}
+
+.pp:hover .display-inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileImg:hover~.back {
+    display: flex;
+} */
+
+
+button:focus {
+    outline: none;
+}
+
+.display-none {
+    display: none;
+}
+
+.break-all {
+    word-break: break-all;
+}
+
+
+.bar-of-progress {
+    z-index: 50;
+}
+
+/* Index page layout */
+
+
+
+.box {
+    /* color: #fff; */
+    padding: 1em;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 1em;
+    outline: none;
+    border: 1px solid #f2f2f2;
+}
+
+.message-list {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Our Grid Code */
+.app-layout {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 100px 250px 1fr;
+    grid-template-rows: auto 1fr auto;
+}
+
+@media(max-width:800px) {
+    .app-layout {
+        grid-template-columns: 80px 150px 1fr;
+
+    }
+}
+
+.header {
+    background-color: #ffffff;
+}
+
+.teams {
+    background-color: #362233;
+    overflow-y: auto;
+}
+
+.channels {
+    background-color: #52364E;
+    overflow-y: auto;
+
+}
+
+.messages {
+    background-color: #ffffff;
+}
+
+.write {
+    background-color: #f2f2f2;
+}
+
+.teams {
+    grid-column: 1;
+    grid-row: 1 / 4;
+}
+
+.channels {
+    grid-column: 2;
+    grid-row: 1 / 4;
+
+}
+
+.header {
+    grid-column: 3;
+    grid-row: 1;
+    color: #333;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.messages {
+    grid-column: 3;
+    grid-row: 2;
+    overflow-y: scroll;
+}
+
+.input {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.message-text {
+    word-break: break-all;
+    max-width: 100%;
+}
+
+.single_team {
+    @apply flex items-center justify-center rounded-sm cursor-pointer font-semibold
+}

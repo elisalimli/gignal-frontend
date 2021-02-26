@@ -1,0 +1,4 @@
+fragment RegularTeamsSnippet on Team {
+    id 
+    name
+}

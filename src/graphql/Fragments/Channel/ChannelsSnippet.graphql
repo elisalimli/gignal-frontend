@@ -1,0 +1,5 @@
+fragment ChannelsSnippet on Channel {
+        id
+        name
+        teamId
+}

@@ -1,0 +1,5 @@
+query Channel($input: ChannelInput!) {
+  channel(input: $input) {
+    ...ChannelsSnippet
+  }
+}

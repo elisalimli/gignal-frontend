@@ -1,0 +1,7 @@
+.channel_list {
+    font-weight: 500;
+}
+
+.channel_list:hover {
+    background: #3e313c;
+}

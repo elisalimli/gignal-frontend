@@ -1,0 +1,6 @@
+fragment MeSnippet on User {
+    id
+    username
+    createdAt
+    email
+}

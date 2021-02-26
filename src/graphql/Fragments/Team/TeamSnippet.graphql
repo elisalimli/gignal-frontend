@@ -1,0 +1,11 @@
+fragment TeamSnippet on Team {
+    id 
+    name
+    channels {
+      ...ChannelsSnippet
+    }
+    members{
+      ...MemberSnippet 
+    }
+    admin
+}

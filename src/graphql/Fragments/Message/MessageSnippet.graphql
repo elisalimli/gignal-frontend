@@ -1,0 +1,9 @@
+fragment MessageSnippet on Message {
+    id
+    text
+    createdAt
+    creator {
+      id
+      username
+    }
+}
