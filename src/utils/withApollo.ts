@@ -67,7 +67,7 @@ const createClient = (ctx: NextPageContext) => {
   //   cache: new InMemoryCache(),
   // });
   const httpLink = createHttpLink({
-    uri: "https://gignal-server.herokuapp.com/graphql",
+    uri: "https://gignal-server.herokuapp.com",
   });
 
   const middlewareLink = setContext(() => ({
@@ -106,7 +106,7 @@ const createClient = (ctx: NextPageContext) => {
     : httpLinkWithMiddleware;
 
   return new ApolloClient({
-    uri: "https://gignal-server.herokuapp.com//graphql",
+    uri: "https://gignal-server.herokuapp.com",
     link: link as any,
     cache: new InMemoryCache(),
   });
