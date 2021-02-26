@@ -8,9 +8,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "yarn run tailwind && next start -p $PORT",
     "gen": "graphql-codegen --config codegen.yml",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "yarn run tailwind && yarn run purge-tailwind && npm run build"
   },
   "dependencies": {
     "@apollo/client": "3.3.8",
