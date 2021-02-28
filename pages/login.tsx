@@ -50,8 +50,10 @@ const Login = () => {
               typeof router.query.next === "string" &&
               !router.query.next.includes("/team/view")
             ) {
-              router.push(router.query.next as string);
-            } else router.back();
+              window.location.replace(router.query.next);
+            } else {
+              window.location.replace("/");
+            }
           }
         }}
       >

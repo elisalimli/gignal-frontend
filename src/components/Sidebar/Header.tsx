@@ -8,10 +8,10 @@ import {
 import HashtagIcon from "../icons/HashtagIcon";
 
 interface Props {
-  channel: ChannelsSnippetFragment;
+  name: string;
 }
 
-const Header: React.FC<Props> = ({ channel: { name } }) => {
+const Header: React.FC<Props> = ({ name }) => {
   return (
     <div className="header box">
       <h1 className="text-xl font-bold ">

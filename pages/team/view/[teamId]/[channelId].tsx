@@ -1,4 +1,5 @@
 import { Link } from "@chakra-ui/react/";
+import Head from "next/head";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -11,14 +12,14 @@ import ProtectedRoute from "../../../../src/components/utils/ProtectedRoute";
 import Sidebar from "../../../../src/containers/Sidebar";
 import {
   useChannelQuery,
-  useMeQuery,
+  useCreateMessageMutation,
   useTeamQuery,
 } from "../../../../src/generated/graphql";
 import { withApollo } from "../../../../src/utils/withApollo";
 
 interface Props {}
 
-const Main = (props: Props) => {
+const Main = () => {
   const router = useRouter();
   const parsedTeamId = useGetTeamIdFromUrl(router.query.teamId);
   const parsedChannelId = useGetTeamIdFromUrl(router.query.channelId);
@@ -27,6 +28,7 @@ const Main = (props: Props) => {
       teamId: parsedTeamId,
     },
   });
+  const [createMessage] = useCreateMessageMutation();
 
   const { data: channelData, loading: channelLoading } = useChannelQuery({
     variables: { input: { teamId: parsedTeamId, channelId: parsedChannelId } },
@@ -34,14 +36,30 @@ const Main = (props: Props) => {
 
   if (loading || channelLoading) return <Loading />;
 
+  const onSubmitMessage = async (message) => {
+    await createMessage({
+      variables: {
+        input: { channelId: channelData?.channel.id, text: message },
+      },
+    });
+  };
   return (
     <ProtectedRoute>
       {data?.team && channelData ? (
         <div className="app-layout">
+          <Head>
+            <title>
+              Gignal | {data.team.name} #{channelData.channel.name}
+            </title>
+          </Head>
+
           <Sidebar />
-          <Header channel={channelData?.channel} />
+          <Header name={channelData?.channel?.name} />
           <Messages channel={channelData?.channel} />
-          <SendMessage channel={channelData?.channel} />
+          <SendMessage
+            placeholder={channelData?.channel.name}
+            onSubmit={onSubmitMessage}
+          />
         </div>
       ) : (
         <div className="p-5  text-2xl font-bold text-center">

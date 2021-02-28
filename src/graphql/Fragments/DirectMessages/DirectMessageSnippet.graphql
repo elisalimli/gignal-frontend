@@ -1,0 +1,10 @@
+fragment DirectMessageSnippet on DirectMessage  {
+    id
+    text
+    createdAt
+    sender {
+      id
+      username
+    }
+
+}

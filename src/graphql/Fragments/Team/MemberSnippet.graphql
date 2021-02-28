@@ -1,4 +1,9 @@
-fragment MemberSnippet on User {
+fragment MemberSnippet on Member {
       id 
-      username
-}
+      user {
+        id 
+        username
+      }
+      admin
+      isYou
+}     

@@ -1,0 +1,5 @@
+query DirectMessages($input : DirectMessagesInput!) {
+  directMessages(input:$input) {
+    ...DirectMessageSnippet
+   }
+}

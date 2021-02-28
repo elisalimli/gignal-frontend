@@ -77,7 +77,6 @@ const createClient = (ctx: NextPageContext) => {
   }));
 
   const httpLinkWithMiddleware = middlewareLink.concat(httpLink as any);
-  const cookie = ctx?.req?.headers.cookie;
 
   const wsLink = process.browser
     ? new WebSocketLink({

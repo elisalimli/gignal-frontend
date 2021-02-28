@@ -45,7 +45,7 @@ const Register: React.FC<Props> = () => {
         if (res.data?.register.errors) {
           setErrors(toErrorMap(res.data.register.errors));
         } else if (res.data?.register.user) {
-          router.push("/");
+          window.location.replace("/");
         }
       }}
     >

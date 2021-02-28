@@ -22,6 +22,7 @@ export type Query = {
   team?: Maybe<Team>;
   me?: Maybe<User>;
   allUsers?: Maybe<Array<User>>;
+  directMessages: Array<DirectMessage>;
 };
 
 
@@ -37,6 +38,11 @@ export type QueryMessagesArgs = {
 
 export type QueryTeamArgs = {
   teamId: Scalars['Int'];
+};
+
+
+export type QueryDirectMessagesArgs = {
+  input: DirectMessagesInput;
 };
 
 export type Channel = {
@@ -81,15 +87,44 @@ export type Team = {
   name: Scalars['String'];
   creatorId: Scalars['Float'];
   channels: Array<Channel>;
-  members: Array<User>;
+  members: Array<Member>;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
   admin: Scalars['Boolean'];
 };
 
+export type Member = {
+  __typename?: 'Member';
+  id: Scalars['Int'];
+  userId: Scalars['Int'];
+  teamId: Scalars['Int'];
+  team: Team;
+  user: User;
+  isYou: Scalars['Boolean'];
+  admin: Scalars['Boolean'];
+  updatedAt: Scalars['String'];
+};
+
 export type ChannelInput = {
   teamId: Scalars['Int'];
   channelId: Scalars['Int'];
+};
+
+export type DirectMessage = {
+  __typename?: 'DirectMessage';
+  id: Scalars['Int'];
+  teamId: Scalars['Int'];
+  receiverId: Scalars['Int'];
+  senderId: Scalars['Int'];
+  sender: User;
+  text: Scalars['String'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type DirectMessagesInput = {
+  teamId: Scalars['Int'];
+  otherUserId: Scalars['Int'];
 };
 
 export type Mutation = {
@@ -102,6 +137,7 @@ export type Mutation = {
   login: UserResponse;
   logout: Scalars['Boolean'];
   register: UserResponse;
+  createDirectMessage: Scalars['Boolean'];
 };
 
 
@@ -137,6 +173,11 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   options: RegisterInput;
+};
+
+
+export type MutationCreateDirectMessageArgs = {
+  input: CreateDirectMessageInput;
 };
 
 export type CreateChannelResponse = {
@@ -197,6 +238,12 @@ export type RegisterInput = {
   password: Scalars['String'];
 };
 
+export type CreateDirectMessageInput = {
+  receiverId: Scalars['Int'];
+  teamId: Scalars['Int'];
+  text: Scalars['String'];
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   newMessageAdded: Message;
@@ -212,6 +259,15 @@ export type ChannelsSnippetFragment = (
   & Pick<Channel, 'id' | 'name' | 'teamId'>
 );
 
+export type DirectMessageSnippetFragment = (
+  { __typename?: 'DirectMessage' }
+  & Pick<DirectMessage, 'id' | 'text' | 'createdAt'>
+  & { sender: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username'>
+  ) }
+);
+
 export type MessageSnippetFragment = (
   { __typename?: 'Message' }
   & Pick<Message, 'id' | 'text' | 'createdAt'>
@@ -222,8 +278,12 @@ export type MessageSnippetFragment = (
 );
 
 export type MemberSnippetFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'id' | 'username'>
+  { __typename?: 'Member' }
+  & Pick<Member, 'id' | 'admin' | 'isYou'>
+  & { user: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username'>
+  ) }
 );
 
 export type RegularTeamsSnippetFragment = (
@@ -238,7 +298,7 @@ export type TeamSnippetFragment = (
     { __typename?: 'Channel' }
     & ChannelsSnippetFragment
   )>, members: Array<(
-    { __typename?: 'User' }
+    { __typename?: 'Member' }
     & MemberSnippetFragment
   )> }
 );
@@ -371,6 +431,19 @@ export type ChannelQuery = (
   )> }
 );
 
+export type DirectMessagesQueryVariables = Exact<{
+  input: DirectMessagesInput;
+}>;
+
+
+export type DirectMessagesQuery = (
+  { __typename?: 'Query' }
+  & { directMessages: Array<(
+    { __typename?: 'DirectMessage' }
+    & DirectMessageSnippetFragment
+  )> }
+);
+
 export type MessagesQueryVariables = Exact<{
   channelId: Scalars['Int'];
 }>;
@@ -438,6 +511,17 @@ export type NewMessageAddedSubscription = (
   ) }
 );
 
+export const DirectMessageSnippetFragmentDoc = gql`
+    fragment DirectMessageSnippet on DirectMessage {
+  id
+  text
+  createdAt
+  sender {
+    id
+    username
+  }
+}
+    `;
 export const MessageSnippetFragmentDoc = gql`
     fragment MessageSnippet on Message {
   id
@@ -463,9 +547,14 @@ export const ChannelsSnippetFragmentDoc = gql`
 }
     `;
 export const MemberSnippetFragmentDoc = gql`
-    fragment MemberSnippet on User {
+    fragment MemberSnippet on Member {
   id
-  username
+  user {
+    id
+    username
+  }
+  admin
+  isYou
 }
     `;
 export const TeamSnippetFragmentDoc = gql`
@@ -760,6 +849,39 @@ export function useChannelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ch
 export type ChannelQueryHookResult = ReturnType<typeof useChannelQuery>;
 export type ChannelLazyQueryHookResult = ReturnType<typeof useChannelLazyQuery>;
 export type ChannelQueryResult = Apollo.QueryResult<ChannelQuery, ChannelQueryVariables>;
+export const DirectMessagesDocument = gql`
+    query DirectMessages($input: DirectMessagesInput!) {
+  directMessages(input: $input) {
+    ...DirectMessageSnippet
+  }
+}
+    ${DirectMessageSnippetFragmentDoc}`;
+
+/**
+ * __useDirectMessagesQuery__
+ *
+ * To run a query within a React component, call `useDirectMessagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDirectMessagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDirectMessagesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDirectMessagesQuery(baseOptions: Apollo.QueryHookOptions<DirectMessagesQuery, DirectMessagesQueryVariables>) {
+        return Apollo.useQuery<DirectMessagesQuery, DirectMessagesQueryVariables>(DirectMessagesDocument, baseOptions);
+      }
+export function useDirectMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DirectMessagesQuery, DirectMessagesQueryVariables>) {
+          return Apollo.useLazyQuery<DirectMessagesQuery, DirectMessagesQueryVariables>(DirectMessagesDocument, baseOptions);
+        }
+export type DirectMessagesQueryHookResult = ReturnType<typeof useDirectMessagesQuery>;
+export type DirectMessagesLazyQueryHookResult = ReturnType<typeof useDirectMessagesLazyQuery>;
+export type DirectMessagesQueryResult = Apollo.QueryResult<DirectMessagesQuery, DirectMessagesQueryVariables>;
 export const MessagesDocument = gql`
     query Messages($channelId: Int!) {
   messages(channelId: $channelId) {
