@@ -3,7 +3,6 @@ import Head from "next/head";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { useGetTeamIdFromUrl } from "../../../../hooks/useGetTeamIdFromUrl";
 import Header from "../../../../src/components/Sidebar/Header";
 import Messages from "../../../../src/components/Sidebar/Messages";
 import SendMessage from "../../../../src/components/Sidebar/SendMessage";
@@ -16,13 +15,14 @@ import {
   useTeamQuery,
 } from "../../../../src/generated/graphql";
 import { withApollo } from "../../../../src/utils/withApollo";
+import { useGetIdFromUrl } from "../../../../src/utils/hooks/useGetIdFromUrl";
 
 interface Props {}
 
 const Main = () => {
   const router = useRouter();
-  const parsedTeamId = useGetTeamIdFromUrl(router.query.teamId);
-  const parsedChannelId = useGetTeamIdFromUrl(router.query.channelId);
+  const parsedTeamId = useGetIdFromUrl(router.query.teamId);
+  const parsedChannelId = useGetIdFromUrl(router.query.channelId);
   const { data, loading } = useTeamQuery({
     variables: {
       teamId: parsedTeamId,
@@ -43,6 +43,7 @@ const Main = () => {
       },
     });
   };
+
   return (
     <ProtectedRoute>
       {data?.team && channelData ? (

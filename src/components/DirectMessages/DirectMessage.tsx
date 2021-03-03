@@ -15,7 +15,7 @@ const DirectMessage: React.FC<Props> = ({
     text,
     createdAt,
 
-    sender: { username },
+    creator: { username },
   },
   isCreator,
 }) => {

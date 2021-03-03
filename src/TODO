@@ -3,4 +3,5 @@
 - Add Created and Updated at columns +
 - Complete messages query +
 - Add team's name must be unique + 
-- Update Member Snippet
+- Update Member + 
+- Check styled components ssr(class name different in server and client)

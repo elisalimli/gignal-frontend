@@ -1,0 +1,3 @@
+mutation CreateDirectMessage($input: CreateDirectMessageInput!) {
+  createDirectMessage(input: $input)
+}

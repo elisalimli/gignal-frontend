@@ -1,23 +1,21 @@
-import { useRouter } from "next/router";
 import React from "react";
 import { ChannelsSnippetFragment } from "../../generated/graphql";
 import MyLink from "../utils/MyLink";
+import { ChannelList } from "../styled/Channel/ChannelList";
 
 interface Props {
   channel: ChannelsSnippetFragment;
 }
 
 const Channel: React.FC<Props> = ({ channel: { id, name, teamId } }) => {
-  const router = useRouter();
-
   return (
     <MyLink
       href="/team/view/[teamId]/[channelId]"
       as={`/team/view/${teamId}/${id}`}
     >
-      <li className="channel_list cursor-pointer">
-        <span className="ml-1"># {name}</span>
-      </li>
+      <ChannelList>
+        <span style={{ marginLeft: "0.25rem" }}># {name}</span>
+      </ChannelList>
     </MyLink>
   );
 };

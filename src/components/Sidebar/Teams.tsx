@@ -1,43 +1,41 @@
 import React from "react";
+import { TeamsList } from "../styled/Team/TeamsList";
+import { TeamListItem } from "../styled/Team/TeamListItem";
 import { useAllTeamsQuery } from "../../generated/graphql";
 import HomeIcon from "../icons/HomeIcon";
 import PlusIcon from "../icons/PlusIcon";
 import Team from "../Team/Team";
 import MyIcon from "../utils/MyIcon";
 import MyLink from "../utils/MyLink";
+import { TeamsWrapper } from "../styled/Team/TeamsWrapper";
 
 const Teams = () => {
   const { data, loading } = useAllTeamsQuery();
   if (loading) return null;
 
   return (
-    <div className="teams py-2 text-white flex flex-col justify-between items-center">
-      <div className="overflow-y-auto w-full">
-        <ul className="flex flex-col items-center space-y-2">
+    <TeamsWrapper>
+      <TeamsList>
+        <TeamListItem w={45}>
           <MyLink href="/">
-            <li className="single_team team_list">
-              <HomeIcon />
-            </li>
-          </MyLink>{" "}
-          {[...data.teams, ...data.invitedTeams].map((t) => (
-            <Team team={t} key={`team-${t.id}`} />
-          ))}
-        </ul>
-      </div>
+            <HomeIcon />
+          </MyLink>
+        </TeamListItem>
+        {[...data.teams, ...data.invitedTeams].map((t) => (
+          <Team team={t} key={`team-${t.id}`} />
+        ))}
+      </TeamsList>
 
-      <div className="mt-2">
+      <div style={{ margin: "7.5px auto 0px auto" }}>
         <MyLink href="/create-team">
-          <MyIcon
-            w={14}
-            aria-label="Create Channel"
-            background="transparent"
-            colorScheme="pink"
-          >
-            <PlusIcon />
-          </MyIcon>
+          <span>
+            <MyIcon w="3rem" h="2rem">
+              <PlusIcon />
+            </MyIcon>
+          </span>
         </MyLink>
       </div>
-    </div>
+    </TeamsWrapper>
   );
 };
 

@@ -1,11 +1,6 @@
-import { useRouter } from "next/router";
 import React from "react";
-import { useGetTeamIdFromUrl } from "../../../hooks/useGetTeamIdFromUrl";
-import {
-  useChannelQuery,
-  ChannelsSnippetFragment,
-} from "../../generated/graphql";
 import HashtagIcon from "../icons/HashtagIcon";
+import { HeaderWrapper, HeaderName } from "../styled/HeaderWrapper";
 
 interface Props {
   name: string;
@@ -13,12 +8,12 @@ interface Props {
 
 const Header: React.FC<Props> = ({ name }) => {
   return (
-    <div className="header box">
-      <h1 className="text-xl font-bold ">
+    <HeaderWrapper>
+      <HeaderName>
         <HashtagIcon />
         {name}
-      </h1>
-    </div>
+      </HeaderName>
+    </HeaderWrapper>
   );
 };
 

@@ -1,31 +1,17 @@
-import React, { useEffect, useRef } from "react";
-import { useSubscribeToMessages } from "../../../hooks/useSubscribeToMessages";
-import {
-  ChannelsSnippetFragment,
-  MessageSnippetFragment,
-  NewMessageAddedDocument,
-  useMeQuery,
-  useMessagesQuery,
-  useNewMessageAddedSubscription,
-} from "../../generated/graphql";
-import { withApollo } from "../../utils/withApollo";
-import Message from "../Message/Message";
-import Loading from "../utils/Loading";
-import { useScrollToBottom } from "../../../hooks/useScrollToBottom";
-import {
-  useDirectMessagesQuery,
-  DirectMessageSnippetFragment,
-} from "../../generated/graphql";
-import { useGetTeamIdFromUrl } from "../../../hooks/useGetTeamIdFromUrl";
+/* eslint-disable eqeqeq */
 import { useRouter } from "next/router";
-import DirectMessage from "./DirectMessage";
+import React, { useEffect } from "react";
+import { useDirectMessagesQuery, useMeQuery } from "../../generated/graphql";
+import RegularMessagesWrapper from "../Sidebar/RegularMessagesWrapper";
+import Loading from "../utils/Loading";
+import DirectMessageError from "./DirectMessageError";
+import { useGetIdFromUrl } from "../../utils/hooks/useGetIdFromUrl";
 
 interface Props {}
 const DirectMessages: React.FC<Props> = () => {
   const router = useRouter();
-  console.log(router.query);
-  const parsedOtherUserId = useGetTeamIdFromUrl(router.query.userId);
-  const parsedTeamId = useGetTeamIdFromUrl(router.query.teamId);
+  const parsedOtherUserId = useGetIdFromUrl(router.query.userId);
+  const parsedTeamId = useGetIdFromUrl(router.query.teamId);
   const { data, loading, subscribeToMore } = useDirectMessagesQuery({
     variables: {
       input: { otherUserId: parsedOtherUserId, teamId: parsedTeamId },
@@ -33,7 +19,12 @@ const DirectMessages: React.FC<Props> = () => {
     fetchPolicy: "network-only",
   });
   const { data: meData, loading: meLoading } = useMeQuery();
-  console.log("data here", data);
+
+  const isYou = parsedOtherUserId == meData?.me.id;
+
+  useEffect(() => {
+    if (isYou) router.push(`/team/${parsedTeamId}`);
+  }, [isYou, router]);
   //   useNewMessageAddedSubscription({
   //     variables: { channelId: id },
   //   });
@@ -49,16 +40,15 @@ const DirectMessages: React.FC<Props> = () => {
 
   if (loading || meLoading) return <Loading />;
 
-  return (
-    <div className="messages p-6">
-      {data?.directMessages.map((m: DirectMessageSnippetFragment) => (
-        <DirectMessage
-          isCreator={m.sender.id === meData?.me?.id}
-          key={`${m.id}-message`}
-          message={m}
-        />
-      ))}
-    </div>
+  if (!parsedOtherUserId || !parsedTeamId) {
+    router.replace("/");
+    return null;
+  }
+
+  return isYou ? (
+    <DirectMessageError />
+  ) : (
+    <RegularMessagesWrapper data={data?.directMessages} me={meData?.me} />
   );
 };
 

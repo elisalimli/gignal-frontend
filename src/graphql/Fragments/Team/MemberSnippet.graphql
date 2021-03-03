@@ -1,9 +1,7 @@
 fragment MemberSnippet on Member {
       id 
       user {
-        id 
-        username
+        ...RegularMemberUserSnippet
       }
-      admin
-      isYou
+
 }     

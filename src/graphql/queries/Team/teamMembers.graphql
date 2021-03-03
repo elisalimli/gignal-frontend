@@ -1,0 +1,5 @@
+query GetTeamMembers($teamId: Int!) {
+  getTeamMembers(teamId: $teamId) {
+         ...MemberSnippet
+  }
+}

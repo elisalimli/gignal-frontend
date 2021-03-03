@@ -5,7 +5,7 @@ interface Props {}
 const PlusIcon = (props: Props) => {
   return (
     <svg
-      className="w-5 h-5"
+      style={{ width: "1.2rem", height: "1.25rem  " }}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"

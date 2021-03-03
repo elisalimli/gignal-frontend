@@ -13,7 +13,9 @@ import {
 } from "../src/generated/graphql";
 import { toErrorMap } from "../src/utils/toErrorMap";
 import { withApollo } from "../src/utils/withApollo";
-import { form, formHeader } from "../styles/global";
+import { FormWrapper } from "../src/components/styled/FormWrapper";
+import { FormHeader } from "../src/components/styled/FormHeader";
+import MyLink from "../src/components/utils/MyLink";
 
 const Login = () => {
   const router = useRouter();
@@ -58,39 +60,41 @@ const Login = () => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form className={form}>
-            <NextLink href="/">
-              <h1 className={formHeader}>Login now!</h1>
-            </NextLink>
+          <Form>
+            <FormWrapper>
+              <MyLink href="/">
+                <FormHeader>Login now!</FormHeader>
+              </MyLink>
 
-            <InputField
-              name="usernameOrEmail"
-              placeholder="username or email"
-              label="Username or Email"
-            />
-            <InputField
-              name="password"
-              placeholder="password"
-              label="Password"
-              type="password"
-            />
-            <NextLink href="/forgot-password">
-              <Link ml="auto" mt="1" color="blue.400" className="text-sm">
-                Forgot password?
-              </Link>
-            </NextLink>
-            <Button
-              mx="auto"
-              mt="6"
-              isLoading={isSubmitting}
-              type="submit"
-              loadingText="Submitting"
-              colorScheme="blue"
-              width="200px"
-              variant="solid"
-            >
-              Login
-            </Button>
+              <InputField
+                name="usernameOrEmail"
+                placeholder="username or email"
+                label="Username or Email"
+              />
+              <InputField
+                name="password"
+                placeholder="password"
+                label="Password"
+                type="password"
+              />
+              <NextLink href="/forgot-password">
+                <Link ml="auto" mt="1" color="blue.400" className="text-sm">
+                  Forgot password?
+                </Link>
+              </NextLink>
+              <Button
+                mx="auto"
+                mt="6"
+                isLoading={isSubmitting}
+                type="submit"
+                loadingText="Submitting"
+                colorScheme="blue"
+                width="200px"
+                variant="solid"
+              >
+                Login
+              </Button>
+            </FormWrapper>
           </Form>
         )}
       </Formik>

@@ -20,6 +20,7 @@ export type Query = {
   teams?: Maybe<Array<Team>>;
   invitedTeams?: Maybe<Array<Team>>;
   team?: Maybe<Team>;
+  getTeamMembers: Array<Member>;
   me?: Maybe<User>;
   allUsers?: Maybe<Array<User>>;
   directMessages: Array<DirectMessage>;
@@ -37,6 +38,11 @@ export type QueryMessagesArgs = {
 
 
 export type QueryTeamArgs = {
+  teamId: Scalars['Int'];
+};
+
+
+export type QueryGetTeamMembersArgs = {
   teamId: Scalars['Int'];
 };
 
@@ -65,6 +71,7 @@ export type User = {
   id: Scalars['Int'];
   username: Scalars['String'];
   email: Scalars['String'];
+  isYou: Scalars['Boolean'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -87,10 +94,15 @@ export type Team = {
   name: Scalars['String'];
   creatorId: Scalars['Float'];
   channels: Array<Channel>;
-  members: Array<Member>;
+  directMessagesMembers: Array<User>;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
   admin: Scalars['Boolean'];
+};
+
+export type ChannelInput = {
+  teamId: Scalars['Int'];
+  channelId: Scalars['Int'];
 };
 
 export type Member = {
@@ -105,18 +117,13 @@ export type Member = {
   updatedAt: Scalars['String'];
 };
 
-export type ChannelInput = {
-  teamId: Scalars['Int'];
-  channelId: Scalars['Int'];
-};
-
 export type DirectMessage = {
   __typename?: 'DirectMessage';
   id: Scalars['Int'];
   teamId: Scalars['Int'];
   receiverId: Scalars['Int'];
   senderId: Scalars['Int'];
-  sender: User;
+  creator: User;
   text: Scalars['String'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
@@ -262,10 +269,15 @@ export type ChannelsSnippetFragment = (
 export type DirectMessageSnippetFragment = (
   { __typename?: 'DirectMessage' }
   & Pick<DirectMessage, 'id' | 'text' | 'createdAt'>
-  & { sender: (
+  & { creator: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username'>
   ) }
+);
+
+export type RegularMemberUserSnippetFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'id' | 'username'>
 );
 
 export type MessageSnippetFragment = (
@@ -279,10 +291,10 @@ export type MessageSnippetFragment = (
 
 export type MemberSnippetFragment = (
   { __typename?: 'Member' }
-  & Pick<Member, 'id' | 'admin' | 'isYou'>
+  & Pick<Member, 'id'>
   & { user: (
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'username'>
+    & RegularMemberUserSnippetFragment
   ) }
 );
 
@@ -297,9 +309,10 @@ export type TeamSnippetFragment = (
   & { channels: Array<(
     { __typename?: 'Channel' }
     & ChannelsSnippetFragment
-  )>, members: Array<(
-    { __typename?: 'Member' }
-    & MemberSnippetFragment
+  )>, directMessagesMembers: Array<(
+    { __typename?: 'User' }
+    & Pick<User, 'isYou'>
+    & RegularMemberUserSnippetFragment
   )> }
 );
 
@@ -325,6 +338,16 @@ export type CreateChannelMutation = (
       & Pick<Channel, 'id' | 'name' | 'public' | 'teamId'>
     )> }
   ) }
+);
+
+export type CreateDirectMessageMutationVariables = Exact<{
+  input: CreateDirectMessageInput;
+}>;
+
+
+export type CreateDirectMessageMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createDirectMessage'>
 );
 
 export type CreateMessageMutationVariables = Exact<{
@@ -473,6 +496,19 @@ export type TeamQuery = (
   )> }
 );
 
+export type GetTeamMembersQueryVariables = Exact<{
+  teamId: Scalars['Int'];
+}>;
+
+
+export type GetTeamMembersQuery = (
+  { __typename?: 'Query' }
+  & { getTeamMembers: Array<(
+    { __typename?: 'Member' }
+    & MemberSnippetFragment
+  )> }
+);
+
 export type AllTeamsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -516,7 +552,7 @@ export const DirectMessageSnippetFragmentDoc = gql`
   id
   text
   createdAt
-  sender {
+  creator {
     id
     username
   }
@@ -533,6 +569,20 @@ export const MessageSnippetFragmentDoc = gql`
   }
 }
     `;
+export const RegularMemberUserSnippetFragmentDoc = gql`
+    fragment RegularMemberUserSnippet on User {
+  id
+  username
+}
+    `;
+export const MemberSnippetFragmentDoc = gql`
+    fragment MemberSnippet on Member {
+  id
+  user {
+    ...RegularMemberUserSnippet
+  }
+}
+    ${RegularMemberUserSnippetFragmentDoc}`;
 export const RegularTeamsSnippetFragmentDoc = gql`
     fragment RegularTeamsSnippet on Team {
   id
@@ -546,17 +596,6 @@ export const ChannelsSnippetFragmentDoc = gql`
   teamId
 }
     `;
-export const MemberSnippetFragmentDoc = gql`
-    fragment MemberSnippet on Member {
-  id
-  user {
-    id
-    username
-  }
-  admin
-  isYou
-}
-    `;
 export const TeamSnippetFragmentDoc = gql`
     fragment TeamSnippet on Team {
   id
@@ -564,13 +603,14 @@ export const TeamSnippetFragmentDoc = gql`
   channels {
     ...ChannelsSnippet
   }
-  members {
-    ...MemberSnippet
+  directMessagesMembers {
+    ...RegularMemberUserSnippet
+    isYou
   }
   admin
 }
     ${ChannelsSnippetFragmentDoc}
-${MemberSnippetFragmentDoc}`;
+${RegularMemberUserSnippetFragmentDoc}`;
 export const MeSnippetFragmentDoc = gql`
     fragment MeSnippet on User {
   id
@@ -620,6 +660,36 @@ export function useCreateChannelMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateChannelMutationHookResult = ReturnType<typeof useCreateChannelMutation>;
 export type CreateChannelMutationResult = Apollo.MutationResult<CreateChannelMutation>;
 export type CreateChannelMutationOptions = Apollo.BaseMutationOptions<CreateChannelMutation, CreateChannelMutationVariables>;
+export const CreateDirectMessageDocument = gql`
+    mutation CreateDirectMessage($input: CreateDirectMessageInput!) {
+  createDirectMessage(input: $input)
+}
+    `;
+export type CreateDirectMessageMutationFn = Apollo.MutationFunction<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>;
+
+/**
+ * __useCreateDirectMessageMutation__
+ *
+ * To run a mutation, you first call `useCreateDirectMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDirectMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDirectMessageMutation, { data, loading, error }] = useCreateDirectMessageMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateDirectMessageMutation(baseOptions?: Apollo.MutationHookOptions<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>) {
+        return Apollo.useMutation<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>(CreateDirectMessageDocument, baseOptions);
+      }
+export type CreateDirectMessageMutationHookResult = ReturnType<typeof useCreateDirectMessageMutation>;
+export type CreateDirectMessageMutationResult = Apollo.MutationResult<CreateDirectMessageMutation>;
+export type CreateDirectMessageMutationOptions = Apollo.BaseMutationOptions<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>;
 export const CreateMessageDocument = gql`
     mutation CreateMessage($input: CreateMessageInput!) {
   createMessage(input: $input) {
@@ -952,6 +1022,39 @@ export function useTeamLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TeamQ
 export type TeamQueryHookResult = ReturnType<typeof useTeamQuery>;
 export type TeamLazyQueryHookResult = ReturnType<typeof useTeamLazyQuery>;
 export type TeamQueryResult = Apollo.QueryResult<TeamQuery, TeamQueryVariables>;
+export const GetTeamMembersDocument = gql`
+    query GetTeamMembers($teamId: Int!) {
+  getTeamMembers(teamId: $teamId) {
+    ...MemberSnippet
+  }
+}
+    ${MemberSnippetFragmentDoc}`;
+
+/**
+ * __useGetTeamMembersQuery__
+ *
+ * To run a query within a React component, call `useGetTeamMembersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTeamMembersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTeamMembersQuery({
+ *   variables: {
+ *      teamId: // value for 'teamId'
+ *   },
+ * });
+ */
+export function useGetTeamMembersQuery(baseOptions: Apollo.QueryHookOptions<GetTeamMembersQuery, GetTeamMembersQueryVariables>) {
+        return Apollo.useQuery<GetTeamMembersQuery, GetTeamMembersQueryVariables>(GetTeamMembersDocument, baseOptions);
+      }
+export function useGetTeamMembersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTeamMembersQuery, GetTeamMembersQueryVariables>) {
+          return Apollo.useLazyQuery<GetTeamMembersQuery, GetTeamMembersQueryVariables>(GetTeamMembersDocument, baseOptions);
+        }
+export type GetTeamMembersQueryHookResult = ReturnType<typeof useGetTeamMembersQuery>;
+export type GetTeamMembersLazyQueryHookResult = ReturnType<typeof useGetTeamMembersLazyQuery>;
+export type GetTeamMembersQueryResult = Apollo.QueryResult<GetTeamMembersQuery, GetTeamMembersQueryVariables>;
 export const AllTeamsDocument = gql`
     query AllTeams {
   teams {

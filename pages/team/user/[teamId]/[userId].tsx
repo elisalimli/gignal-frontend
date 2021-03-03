@@ -1,28 +1,32 @@
-import { Link } from "@chakra-ui/react/";
-import Head from "next/head";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { useGetTeamIdFromUrl } from "../../../../hooks/useGetTeamIdFromUrl";
+import DirectMessages from "../../../../src/components/DirectMessages/DirectMessages";
 import Header from "../../../../src/components/Sidebar/Header";
-import Messages from "../../../../src/components/Sidebar/Messages";
 import SendMessage from "../../../../src/components/Sidebar/SendMessage";
-import Loading from "../../../../src/components/utils/Loading";
 import ProtectedRoute from "../../../../src/components/utils/ProtectedRoute";
 import Sidebar from "../../../../src/containers/Sidebar";
-import {
-  useChannelQuery,
-  useTeamQuery,
-} from "../../../../src/generated/graphql";
 import { withApollo } from "../../../../src/utils/withApollo";
-import DirectMessages from "../../../../src/components/DirectMessages/DirectMessages";
+import { useCreateDirectMessageMutation } from "../../../../src/generated/graphql";
+import { useGetIdFromUrl } from "../../../../src/utils/hooks/useGetIdFromUrl";
 
 interface Props {}
 
 const Main = (props: Props) => {
-  const router = useRouter();
+  const [createDirectMessage] = useCreateDirectMessageMutation();
 
-  //   if (loading || channelLoading) return <Loading />;
+  const router = useRouter();
+  const handleOnSubmitDirectMessage = async (text) => {
+    const query = router.query;
+    await createDirectMessage({
+      variables: {
+        input: {
+          text,
+          receiverId: useGetIdFromUrl(query.userId),
+          teamId: useGetIdFromUrl(query.teamId),
+        },
+      },
+    });
+  };
 
   return (
     <ProtectedRoute>
@@ -30,7 +34,10 @@ const Main = (props: Props) => {
         <Sidebar />
         <Header name={"someone's name"} />
         <DirectMessages />
-        <SendMessage placeholder="test bob" onSubmit={() => {}} />
+        <SendMessage
+          placeholder="test bob"
+          onSubmit={handleOnSubmitDirectMessage}
+        />
       </div>
     </ProtectedRoute>
   );

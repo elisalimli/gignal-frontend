@@ -4,8 +4,9 @@ fragment TeamSnippet on Team {
     channels {
       ...ChannelsSnippet
     }
-    members{
-      ...MemberSnippet 
+    directMessagesMembers {
+     ...RegularMemberUserSnippet
+      isYou
     }
     admin
 }

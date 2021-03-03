@@ -4,8 +4,7 @@ import "../styles/Channel.css";
 import "../styles/Team.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ThemeProvider } from "next-themes";
-//  import "tailwindcss/tailwind.css";
-// import "../.next/static/css/2d6c7ff55863126f72f2.css";
+// import "tailwindcss/dist/tailwind.min.css";
 
 function App({ Component, pageProps }) {
   return (

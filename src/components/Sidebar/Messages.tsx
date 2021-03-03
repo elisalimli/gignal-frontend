@@ -1,17 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import { useSubscribeToMessages } from "../../../hooks/useSubscribeToMessages";
+import React, { useEffect } from "react";
 import {
   ChannelsSnippetFragment,
-  MessageSnippetFragment,
-  NewMessageAddedDocument,
   useMeQuery,
   useMessagesQuery,
   useNewMessageAddedSubscription,
 } from "../../generated/graphql";
-import { withApollo } from "../../utils/withApollo";
-import Message from "../Message/Message";
+import { useSubscribeToMessages } from "../../utils/hooks/useSubscribeToMessages";
 import Loading from "../utils/Loading";
-import { useScrollToBottom } from "../../../hooks/useScrollToBottom";
+import RegularMessagesWrapper from "./RegularMessagesWrapper";
 
 interface Props {
   channel: ChannelsSnippetFragment;
@@ -31,23 +27,10 @@ const Messages: React.FC<Props> = ({ channel: { id } }) => {
       unsub();
     };
   }, [id]);
-  useEffect(() => useScrollToBottom(chatContainer), [data]);
-
-  const chatContainer = useRef(null);
 
   if (loading || meLoading) return <Loading />;
 
-  return (
-    <div ref={chatContainer} className="messages p-6">
-      {data?.messages.map((m: MessageSnippetFragment) => (
-        <Message
-          isCreator={m.creator.id === meData?.me?.id}
-          key={`${m.id}-message`}
-          message={m}
-        />
-      ))}
-    </div>
-  );
+  return <RegularMessagesWrapper data={data?.messages} me={meData?.me} />;
 };
 
 export default Messages;

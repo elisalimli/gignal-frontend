@@ -36,11 +36,7 @@ const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <FormControl isInvalid={!!error}>
-      {label ? (
-        <FormLabel className="mt-4" htmlFor={field.name}>
-          {label}
-        </FormLabel>
-      ) : null}
+      {label ? <FormLabel htmlFor={field.name}>{label}</FormLabel> : null}
       <InputOrTextarea
         variant={variant}
         {...field}

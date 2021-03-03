@@ -1,6 +1,10 @@
 import React from "react";
 import calendar from "dayjs/plugin/calendar";
 import dayjs from "dayjs";
+import { MessageWrapper } from "../styled/Message/MessageWrapper";
+import { MessageUsername } from "../styled/Message/MessageUsername";
+import { MessageDate } from "../styled/Message/MessageDate";
+import { MessageText } from "../styled/Message/MessageText";
 
 interface Props {
   username: string;
@@ -18,15 +22,13 @@ const MessageContainer: React.FC<Props> = ({
   dayjs.extend(calendar);
 
   return (
-    <div className={`flex flex-col ${isCreator ? "items-start" : "items-end"}`}>
+    <MessageWrapper isCreator={isCreator}>
       <div>
-        <span className="font-semibold">{username}</span>
-        <span className="ml-2 text-gray-400 text-xs">
-          {dayjs(createdAt).calendar()}
-        </span>
+        <MessageUsername>{username}</MessageUsername>
+        <MessageDate>{dayjs(createdAt).calendar()}</MessageDate>
       </div>
-      <div className="text-gray-900 message-text">{text}</div>
-    </div>
+      <MessageText>{text}</MessageText>
+    </MessageWrapper>
   );
 };
 

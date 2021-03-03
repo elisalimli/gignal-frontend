@@ -1,17 +1,16 @@
 import { Button } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { FormHeader } from "../src/components/styled/FormHeader";
+import { FormWrapper } from "../src/components/styled/FormWrapper";
 import InputField from "../src/components/utils/InputField";
+import MyLink from "../src/components/utils/MyLink";
 import ProtectedRoute from "../src/components/utils/ProtectedRoute";
 import Wrapper from "../src/components/utils/Wrapper";
 import { useCreateTeamMutation } from "../src/generated/graphql";
 import { toErrorMap } from "../src/utils/toErrorMap";
 import { withApollo } from "../src/utils/withApollo";
-import { form, formHeader } from "../styles/global";
-
-interface Props {}
 
 const CreateTeam = (props: Props) => {
   const [createTeam] = useCreateTeamMutation();
@@ -36,28 +35,30 @@ const CreateTeam = (props: Props) => {
           }}
         >
           {({ isSubmitting }) => (
-            <Form className={form}>
-              <NextLink href="/">
-                <h1 className={formHeader}>Create Team</h1>
-              </NextLink>
+            <Form>
+              <FormWrapper>
+                <MyLink href="/">
+                  <FormHeader>Create Team</FormHeader>
+                </MyLink>
 
-              <InputField
-                name="name"
-                placeholder="Name of your team"
-                label="Name"
-              />
-              <Button
-                mx="auto"
-                mt="6"
-                isLoading={isSubmitting}
-                type="submit"
-                loadingText="Submitting"
-                colorScheme="blue"
-                width="200px"
-                variant="solid"
-              >
-                Create
-              </Button>
+                <InputField
+                  name="name"
+                  placeholder="Name of your team"
+                  label="Name"
+                />
+                <Button
+                  mx="auto"
+                  mt="6"
+                  isLoading={isSubmitting}
+                  type="submit"
+                  loadingText="Submitting"
+                  colorScheme="blue"
+                  width="200px"
+                  variant="solid"
+                >
+                  Create
+                </Button>
+              </FormWrapper>
             </Form>
           )}
         </Formik>

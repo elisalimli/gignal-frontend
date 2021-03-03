@@ -1,0 +1,4 @@
+fragment RegularMemberUserSnippet on User {
+    id 
+    username
+}

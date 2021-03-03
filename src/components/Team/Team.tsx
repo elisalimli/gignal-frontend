@@ -1,6 +1,7 @@
 import React from "react";
 import { RegularTeamsSnippetFragment } from "../../generated/graphql";
 import MyLink from "../utils/MyLink";
+import { TeamListItem } from "../styled/Team/TeamListItem";
 
 interface Props {
   team: RegularTeamsSnippetFragment;
@@ -9,7 +10,7 @@ interface Props {
 const Team: React.FC<Props> = ({ team: { id, name } }) => {
   return (
     <MyLink href="/team/[teamId]" as={`/team/${id}`}>
-      <li className="single_team team_list">{name.charAt(0).toUpperCase()}</li>
+      <TeamListItem w={45}>{name.charAt(0).toUpperCase()}</TeamListItem>
     </MyLink>
   );
 };

@@ -11,18 +11,17 @@ import {
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { useGetTeamIdFromUrl } from "../../../../hooks/useGetTeamIdFromUrl";
 import { useAddTeamMemberMutation } from "../../../generated/graphql";
 import { toErrorMap } from "../../../utils/toErrorMap";
 import InputField from "../../utils/InputField";
+import { useGetIdFromUrl } from "../../../utils/hooks/useGetIdFromUrl";
 
-const InvitePeopleModal = ({ open, setOpen }) => {
+const InvitePeopleModal = ({ open, onClick }) => {
   const router = useRouter();
-  const handleClose = () => setOpen(false);
   const [addMember] = useAddTeamMemberMutation();
 
   return (
-    <Modal key="invite-people-modal" isOpen={open} onClose={handleClose}>
+    <Modal key="invite-people-modal" isOpen={open} onClose={onClick}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Invite Someone</ModalHeader>
@@ -31,35 +30,17 @@ const InvitePeopleModal = ({ open, setOpen }) => {
           <Formik
             initialValues={{ email: "" }}
             onSubmit={async (values, { setErrors }) => {
-              const teamId = useGetTeamIdFromUrl(router.query.teamId);
+              const teamId = useGetIdFromUrl(router.query.teamId);
               const res = await addMember({
                 variables: { input: { email: values.email, teamId } },
                 update: (cache) => {
                   cache.evict({ fieldName: "team" });
+                  cache.evict({ fieldName: "getTeamMembers" });
                 },
               });
               const { errors, ok } = res?.data?.addTeamMember;
               if (errors) setErrors(toErrorMap(errors));
-              else handleClose();
-
-              //   const res = await createChannel({
-              //     variables: {
-              //       input: {
-              //         name: values.name,
-              //         teamId: useGetTeamIdFromUrl(router.query.teamId),
-              //       },
-              //     },
-              //     update: (cache, { data }) => {
-              //       cache.evict({ fieldName: "team" });
-              //     },
-              //   });
-              //   const { errors, channel } = res?.data?.createChannel;
-              //   if (errors) setErrors(toErrorMap(errors));
-              //   else if (channel) {
-              //     handleClose();
-              //     const { id, teamId } = channel;
-              //     router.push(`/team/view/${teamId}/${id}`);
-              //   }
+              else onClick();
             }}
           >
             {({ isSubmitting }) => (
@@ -84,7 +65,7 @@ const InvitePeopleModal = ({ open, setOpen }) => {
                   </Button>
                   <Button
                     disabled={isSubmitting}
-                    onClick={handleClose}
+                    onClick={onClick}
                     variant="ghost"
                   >
                     Close

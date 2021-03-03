@@ -1,31 +1,34 @@
 import { Text } from "@chakra-ui/react";
 import React from "react";
-import { MemberSnippetFragment } from "../../generated/graphql";
-import Bubble from "./Bubble";
+import {
+  MemberSnippetFragment,
+  RegularMemberUserSnippetFragment,
+} from "../../generated/graphql";
+import { ChannelList } from "../styled/Channel/ChannelList";
+import { StyledBubble } from "../styled/StyledBubble";
+import { MemberWrapper } from "../styled/Channel/MemberWrapper";
+import MyLink from "../utils/MyLink";
 
 interface Props {
-  member: MemberSnippetFragment;
+  member: RegularMemberUserSnippetFragment & { isYou: boolean };
+  teamId: number;
 }
 
-const Member = ({
-  member: {
-    user: { username },
-    admin,
-    isYou,
-  },
-}: Props) => {
+const Member = ({ member: { username, isYou, id }, teamId }: Props) => {
   return (
-    <li className="channel_list pl-1 cursor-pointer">
-      <span className="ml-1 flex items-center">
-        <Bubble on />
-        {username}
-        {isYou ? (
-          <Text display="inline" ml={1} fontSize="xs">
-            you
-          </Text>
-        ) : null}
-      </span>
-    </li>
+    <MyLink href={`/team/user/${teamId}/${id}`}>
+      <ChannelList>
+        <MemberWrapper>
+          <StyledBubble on="online" />
+          {username}
+          {isYou ? (
+            <Text display="inline" ml={1} fontSize="xs">
+              you
+            </Text>
+          ) : null}
+        </MemberWrapper>
+      </ChannelList>
+    </MyLink>
   );
 };
 

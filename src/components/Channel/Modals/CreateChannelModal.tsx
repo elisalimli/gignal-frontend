@@ -11,18 +11,17 @@ import {
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { useGetTeamIdFromUrl } from "../../../../hooks/useGetTeamIdFromUrl";
 import { useCreateChannelMutation } from "../../../generated/graphql";
 import InputField from "../../utils/InputField";
 import { toErrorMap } from "../../../utils/toErrorMap";
+import { useGetIdFromUrl } from "../../../utils/hooks/useGetIdFromUrl";
 
-const CreateChannelModal = ({ open, setOpen }) => {
+const CreateChannelModal = ({ open, onClick }) => {
   const router = useRouter();
-  const handleClose = () => setOpen(false);
   const [createChannel] = useCreateChannelMutation();
 
   return (
-    <Modal key="create-channel-modal" isOpen={open} onClose={handleClose}>
+    <Modal key="create-channel-modal" isOpen={open} onClose={onClick}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Create Channel</ModalHeader>
@@ -35,7 +34,7 @@ const CreateChannelModal = ({ open, setOpen }) => {
                 variables: {
                   input: {
                     name: values.name,
-                    teamId: useGetTeamIdFromUrl(router.query.teamId),
+                    teamId: useGetIdFromUrl(router.query.teamId),
                   },
                 },
                 update: (cache, { data }) => {
@@ -45,7 +44,7 @@ const CreateChannelModal = ({ open, setOpen }) => {
               const { errors, channel } = res?.data?.createChannel;
               if (errors) setErrors(toErrorMap(errors));
               else if (channel) {
-                handleClose();
+                onClick();
                 const { id, teamId } = channel;
                 router.push(`/team/view/${teamId}/${id}`);
               }
@@ -73,7 +72,7 @@ const CreateChannelModal = ({ open, setOpen }) => {
                   </Button>
                   <Button
                     disabled={isSubmitting}
-                    onClick={handleClose}
+                    onClick={onClick}
                     variant="ghost"
                   >
                     Close

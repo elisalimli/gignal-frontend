@@ -38,5 +38,7 @@ module.exports = {
     "arrow-body-style": 0,
 
     "import/prefer-default-export": 0,
+    "operator-linebreak": 0,
+    "prefer-destructuring": 0,
   },
 };

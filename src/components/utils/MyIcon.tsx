@@ -4,18 +4,26 @@ import React, {
   ReactElement,
 } from "react";
 import { IconButton, IconButtonProps } from "@chakra-ui/react";
+import { IconWrapper } from "../styled/IconWrapper";
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {};
+interface Props {
+  onClick?: any;
+  w?: string;
+  h?: string;
+}
 
-const MyIcon: React.FC<IconButtonProps & Props> = ({ children, ...props }) => {
+const MyIcon: React.FC<Props> = ({
+  children,
+  onClick = () => {},
+  w = "36px",
+  h = "28px",
+}) => {
   return (
-    <IconButton
-      {...props}
-      size="sm"
-      transition="ease-in-out"
-      transitionDuration="300ms"
-      icon={children as ReactElement<any, string | JSXElementConstructor<any>>}
-    />
+    <IconWrapper w={w} h={h}>
+      <button type="button" onClick={onClick}>
+        {children}
+      </button>
+    </IconWrapper>
   );
 };
 

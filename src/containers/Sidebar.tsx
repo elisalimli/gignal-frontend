@@ -1,6 +1,6 @@
 import React from "react";
-import Teams from "../components/Sidebar/Teams";
 import Channels from "../components/Sidebar/Channels";
+import Teams from "../components/Sidebar/Teams";
 
 interface Props {}
 

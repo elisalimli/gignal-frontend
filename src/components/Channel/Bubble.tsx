@@ -1,16 +1,19 @@
 import React from "react";
+import styled from "styled-components";
+
+const Green = styled.span`
+  color: #38978d;
+`;
 
 interface Props {
-  on?: Boolean;
+  on?: boolean;
 }
 
-const Bubble = ({ on = true }: Props) => {
+const Bubble: React.FC<Props> = ({ on = true }) => {
   return (
-    <span
-      className={`inline-block w-2 h-2 rounded-full mr-1 ${
-        on ? "bg-green-500" : "bg-gray-500"
-      }`}
-    />
+    <span style={{ marginRight: "0.25rem" }}>
+      {on ? <Green>●</Green> : "○"}
+    </span>
   );
 };
 

@@ -25,7 +25,7 @@ const SendMessage: React.FC<Props> = ({ onSubmit, placeholder }) => {
           resetForm();
         }}
       >
-        {({}) => (
+        {() => (
           <Form>
             <InputField
               name="message"

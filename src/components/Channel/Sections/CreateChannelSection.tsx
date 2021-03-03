@@ -8,22 +8,17 @@ interface Props {}
 const CreateChannelSection = (props: Props) => {
   const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const handleClick = () => setOpen(!open);
   return (
-    <div>
-      <MyIcon
-        w={2}
-        h={6}
-        aria-label="Create Channel"
-        background="transparent"
-        colorScheme="pink"
-        onClick={handleClick}
-      >
+    <div style={{ marginRight: "0.25rem" }}>
+      <MyIcon onClick={handleClick}>
         <PlusIcon />
       </MyIcon>
-      <CreateChannelModal open={open} setOpen={setOpen} />
+      <CreateChannelModal
+        key="direct-messages-modal"
+        open={open}
+        onClick={handleClick}
+      />
     </div>
   );
 };

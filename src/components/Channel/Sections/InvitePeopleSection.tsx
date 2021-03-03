@@ -6,16 +6,18 @@ interface Props {}
 const InvitePeopleSection = (props: Props) => {
   const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const handleClick = () => setOpen(!open);
 
   return (
     <div>
       <button type="button" onClick={handleClick}>
         Invite people +
       </button>
-      <InvitePeopleModal open={open} setOpen={setOpen} />
+      <InvitePeopleModal
+        key="invite-people-modal"
+        open={open}
+        onClick={handleClick}
+      />
     </div>
   );
 };

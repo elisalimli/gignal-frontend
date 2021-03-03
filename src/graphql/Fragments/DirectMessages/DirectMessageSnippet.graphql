@@ -2,7 +2,7 @@ fragment DirectMessageSnippet on DirectMessage  {
     id
     text
     createdAt
-    sender {
+    creator {
       id
       username
     }

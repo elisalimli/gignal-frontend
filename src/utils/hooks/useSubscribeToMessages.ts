@@ -1,7 +1,7 @@
-import { NewMessageAddedDocument } from "../src/generated/graphql";
+import { NewMessageAddedDocument } from "../../generated/graphql";
 
 export const useSubscribeToMessages = (subscribeToMore, id) => {
- return subscribeToMore({
+  return subscribeToMore({
     document: NewMessageAddedDocument,
     variables: { channelId: id },
     updateQuery: (prev, { subscriptionData }) => {
