@@ -94,8 +94,6 @@ const DirectMessageModal: React.FC<Props> = ({
                                 fontWeight:
                                   selectedItem === item ? "bold" : "normal",
                                 padding: 5,
-                                borderRadius: 2.5,
-                                marginBottom: 5,
                                 color:
                                   highlightedIndex === index
                                     ? "white"

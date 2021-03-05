@@ -1,46 +1,57 @@
 /* eslint-disable eqeqeq */
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { useDirectMessagesQuery, useMeQuery } from "../../generated/graphql";
+import {
+  NewDirectMessageAddedDocument,
+  useDirectMessagesQuery,
+  useMeQuery,
+  useNewDirectMessageAddedSubscription,
+} from "../../generated/graphql";
+import { useGetIdFromUrl } from "../../utils/hooks/useGetIdFromUrl";
 import RegularMessagesWrapper from "../Sidebar/RegularMessagesWrapper";
 import Loading from "../utils/Loading";
 import DirectMessageError from "./DirectMessageError";
-import { useGetIdFromUrl } from "../../utils/hooks/useGetIdFromUrl";
+import { useSubscribeTodDirectMessages } from "../../utils/hooks/useSubscribeToDirectMessages";
 
-interface Props {}
-const DirectMessages: React.FC<Props> = () => {
+interface Props {
+  receiverId: number;
+}
+
+const DirectMessages: React.FC<Props> = ({ receiverId }) => {
   const router = useRouter();
-  const parsedOtherUserId = useGetIdFromUrl(router.query.userId);
   const parsedTeamId = useGetIdFromUrl(router.query.teamId);
+
+  const input = { receiverId, teamId: parsedTeamId };
+
   const { data, loading, subscribeToMore } = useDirectMessagesQuery({
     variables: {
-      input: { otherUserId: parsedOtherUserId, teamId: parsedTeamId },
+      input: { otherUserId: receiverId, teamId: parsedTeamId },
     },
     fetchPolicy: "network-only",
   });
   const { data: meData, loading: meLoading } = useMeQuery();
 
-  const isYou = parsedOtherUserId == meData?.me.id;
+  const isYou = receiverId == meData?.me.id;
 
   useEffect(() => {
     if (isYou) router.push(`/team/${parsedTeamId}`);
   }, [isYou, router]);
-  //   useNewMessageAddedSubscription({
-  //     variables: { channelId: id },
-  //   });
-  //   useEffect(() => {
-  //     const unsub = useSubscribeToMessages(subscribeToMore, id);
-  //     return () => {
-  //       unsub();
-  //     };
-  //   }, [id]);
-  //   useEffect(() => useScrollToBottom(chatContainer), [data]);
 
-  //   const chatContainer = useRef(null);
+  useNewDirectMessageAddedSubscription({
+    variables: {
+      input,
+    },
+  });
+  useEffect(() => {
+    const unsub = useSubscribeTodDirectMessages(subscribeToMore, input);
+    return () => {
+      unsub();
+    };
+  }, [receiverId, parsedTeamId]);
 
   if (loading || meLoading) return <Loading />;
 
-  if (!parsedOtherUserId || !parsedTeamId) {
+  if (!receiverId || !parsedTeamId) {
     router.replace("/");
     return null;
   }

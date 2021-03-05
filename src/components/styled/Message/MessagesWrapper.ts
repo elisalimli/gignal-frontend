@@ -6,4 +6,7 @@ export const MessagesWrapper = styled.div`
   grid-row: 2;
   overflow-y: auto;
   padding: 1.25rem;
+  @media (max-width: 568px) {
+    height: 100vh;
+  }
 ` as any;

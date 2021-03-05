@@ -7,5 +7,4 @@ export const FormHeader = styled.h1`
   font-weight: ${theme.fontWeight.bold};
   text-align: center;
   color: ${theme.colors.gray[925]};
-  margin-bottom: 12px;
 `;

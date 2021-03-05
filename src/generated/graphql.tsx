@@ -16,6 +16,7 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   channel?: Maybe<Channel>;
+  getMember?: Maybe<User>;
   messages?: Maybe<Array<Message>>;
   teams?: Maybe<Array<Team>>;
   invitedTeams?: Maybe<Array<Team>>;
@@ -29,6 +30,11 @@ export type Query = {
 
 export type QueryChannelArgs = {
   input: ChannelInput;
+};
+
+
+export type QueryGetMemberArgs = {
+  userId: Scalars['Int'];
 };
 
 
@@ -254,11 +260,22 @@ export type CreateDirectMessageInput = {
 export type Subscription = {
   __typename?: 'Subscription';
   newMessageAdded: Message;
+  newDirectMessageAdded: DirectMessage;
 };
 
 
 export type SubscriptionNewMessageAddedArgs = {
   channelId: Scalars['Int'];
+};
+
+
+export type SubscriptionNewDirectMessageAddedArgs = {
+  input: DirectMessageSubscriptionInput;
+};
+
+export type DirectMessageSubscriptionInput = {
+  teamId: Scalars['Int'];
+  receiverId: Scalars['Int'];
 };
 
 export type ChannelsSnippetFragment = (
@@ -311,7 +328,6 @@ export type TeamSnippetFragment = (
     & ChannelsSnippetFragment
   )>, directMessagesMembers: Array<(
     { __typename?: 'User' }
-    & Pick<User, 'isYou'>
     & RegularMemberUserSnippetFragment
   )> }
 );
@@ -467,6 +483,19 @@ export type DirectMessagesQuery = (
   )> }
 );
 
+export type GetMemberQueryVariables = Exact<{
+  userId: Scalars['Int'];
+}>;
+
+
+export type GetMemberQuery = (
+  { __typename?: 'Query' }
+  & { getMember?: Maybe<(
+    { __typename?: 'User' }
+    & RegularMemberUserSnippetFragment
+  )> }
+);
+
 export type MessagesQueryVariables = Exact<{
   channelId: Scalars['Int'];
 }>;
@@ -532,6 +561,19 @@ export type MeQuery = (
     { __typename?: 'User' }
     & MeSnippetFragment
   )> }
+);
+
+export type NewDirectMessageAddedSubscriptionVariables = Exact<{
+  input: DirectMessageSubscriptionInput;
+}>;
+
+
+export type NewDirectMessageAddedSubscription = (
+  { __typename?: 'Subscription' }
+  & { newDirectMessageAdded: (
+    { __typename?: 'DirectMessage' }
+    & DirectMessageSnippetFragment
+  ) }
 );
 
 export type NewMessageAddedSubscriptionVariables = Exact<{
@@ -605,7 +647,6 @@ export const TeamSnippetFragmentDoc = gql`
   }
   directMessagesMembers {
     ...RegularMemberUserSnippet
-    isYou
   }
   admin
 }
@@ -952,6 +993,39 @@ export function useDirectMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type DirectMessagesQueryHookResult = ReturnType<typeof useDirectMessagesQuery>;
 export type DirectMessagesLazyQueryHookResult = ReturnType<typeof useDirectMessagesLazyQuery>;
 export type DirectMessagesQueryResult = Apollo.QueryResult<DirectMessagesQuery, DirectMessagesQueryVariables>;
+export const GetMemberDocument = gql`
+    query GetMember($userId: Int!) {
+  getMember(userId: $userId) {
+    ...RegularMemberUserSnippet
+  }
+}
+    ${RegularMemberUserSnippetFragmentDoc}`;
+
+/**
+ * __useGetMemberQuery__
+ *
+ * To run a query within a React component, call `useGetMemberQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMemberQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMemberQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetMemberQuery(baseOptions: Apollo.QueryHookOptions<GetMemberQuery, GetMemberQueryVariables>) {
+        return Apollo.useQuery<GetMemberQuery, GetMemberQueryVariables>(GetMemberDocument, baseOptions);
+      }
+export function useGetMemberLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMemberQuery, GetMemberQueryVariables>) {
+          return Apollo.useLazyQuery<GetMemberQuery, GetMemberQueryVariables>(GetMemberDocument, baseOptions);
+        }
+export type GetMemberQueryHookResult = ReturnType<typeof useGetMemberQuery>;
+export type GetMemberLazyQueryHookResult = ReturnType<typeof useGetMemberLazyQuery>;
+export type GetMemberQueryResult = Apollo.QueryResult<GetMemberQuery, GetMemberQueryVariables>;
 export const MessagesDocument = gql`
     query Messages($channelId: Int!) {
   messages(channelId: $channelId) {
@@ -1122,6 +1196,35 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const NewDirectMessageAddedDocument = gql`
+    subscription NewDirectMessageAdded($input: DirectMessageSubscriptionInput!) {
+  newDirectMessageAdded(input: $input) {
+    ...DirectMessageSnippet
+  }
+}
+    ${DirectMessageSnippetFragmentDoc}`;
+
+/**
+ * __useNewDirectMessageAddedSubscription__
+ *
+ * To run a query within a React component, call `useNewDirectMessageAddedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNewDirectMessageAddedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewDirectMessageAddedSubscription({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useNewDirectMessageAddedSubscription(baseOptions: Apollo.SubscriptionHookOptions<NewDirectMessageAddedSubscription, NewDirectMessageAddedSubscriptionVariables>) {
+        return Apollo.useSubscription<NewDirectMessageAddedSubscription, NewDirectMessageAddedSubscriptionVariables>(NewDirectMessageAddedDocument, baseOptions);
+      }
+export type NewDirectMessageAddedSubscriptionHookResult = ReturnType<typeof useNewDirectMessageAddedSubscription>;
+export type NewDirectMessageAddedSubscriptionResult = Apollo.SubscriptionResult<NewDirectMessageAddedSubscription>;
 export const NewMessageAddedDocument = gql`
     subscription NewMessageAdded($channelId: Int!) {
   newMessageAdded(channelId: $channelId) {

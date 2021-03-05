@@ -20,7 +20,7 @@ const MessageContainer: React.FC<Props> = ({
   createdAt,
 }) => {
   dayjs.extend(calendar);
-
+  console.log("is creator", isCreator);
   return (
     <MessageWrapper isCreator={isCreator}>
       <div>

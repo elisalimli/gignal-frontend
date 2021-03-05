@@ -1,0 +1,7 @@
+query GetMember($userId:Int!) {
+
+getMember(userId:$userId){
+  ...RegularMemberUserSnippet
+}
+
+}

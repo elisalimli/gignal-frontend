@@ -5,7 +5,6 @@ export const useSubscribeToMessages = (subscribeToMore, id) => {
     document: NewMessageAddedDocument,
     variables: { channelId: id },
     updateQuery: (prev, { subscriptionData }) => {
-      console.log("sub data here new", subscriptionData);
       if (!subscriptionData.data) {
         return prev;
       }

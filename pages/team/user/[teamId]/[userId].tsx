@@ -5,40 +5,63 @@ import Header from "../../../../src/components/Sidebar/Header";
 import SendMessage from "../../../../src/components/Sidebar/SendMessage";
 import ProtectedRoute from "../../../../src/components/utils/ProtectedRoute";
 import Sidebar from "../../../../src/containers/Sidebar";
-import { withApollo } from "../../../../src/utils/withApollo";
-import { useCreateDirectMessageMutation } from "../../../../src/generated/graphql";
+import {
+  useCreateDirectMessageMutation,
+  useGetMemberQuery,
+} from "../../../../src/generated/graphql";
 import { useGetIdFromUrl } from "../../../../src/utils/hooks/useGetIdFromUrl";
+import { updateCacheAfterDirectMessage } from "../../../../src/utils/updateCacheAfterDirectMessage";
+import { withApollo } from "../../../../src/utils/withApollo";
+import Loading from "../../../../src/components/utils/Loading";
+import { AppLayout } from "../../../../src/components/styled/AppLayout";
 
 interface Props {}
 
-const Main = (props: Props) => {
-  const [createDirectMessage] = useCreateDirectMessageMutation();
-
+const Main: React.FC<Props> = () => {
   const router = useRouter();
+  const receiverId = useGetIdFromUrl(router.query.userId);
+
+  const [createDirectMessage] = useCreateDirectMessageMutation();
+  const { data, loading } = useGetMemberQuery({
+    variables: {
+      userId: receiverId,
+    },
+  });
   const handleOnSubmitDirectMessage = async (text) => {
-    const query = router.query;
+    const routerQuery = router.query;
+    const teamId = useGetIdFromUrl(routerQuery.teamId);
     await createDirectMessage({
       variables: {
         input: {
           text,
-          receiverId: useGetIdFromUrl(query.userId),
-          teamId: useGetIdFromUrl(query.teamId),
+          receiverId,
+          teamId,
         },
+      },
+      update: async (cache) => {
+        updateCacheAfterDirectMessage(
+          teamId,
+          receiverId,
+          cache,
+          data?.getMember
+        );
       },
     });
   };
 
+  if (loading) return <Loading />;
+
   return (
     <ProtectedRoute>
-      <div className="app-layout">
+      <AppLayout>
         <Sidebar />
-        <Header name={"someone's name"} />
-        <DirectMessages />
+        <Header name={data?.getMember?.username} />
+        <DirectMessages receiverId={data?.getMember?.id} />
         <SendMessage
-          placeholder="test bob"
+          placeholder={data?.getMember?.username}
           onSubmit={handleOnSubmitDirectMessage}
         />
-      </div>
+      </AppLayout>
     </ProtectedRoute>
   );
 };

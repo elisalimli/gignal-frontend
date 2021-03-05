@@ -6,5 +6,4 @@ fragment DirectMessageSnippet on DirectMessage  {
       id
       username
     }
-
 }

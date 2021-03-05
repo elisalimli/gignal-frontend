@@ -6,7 +6,7 @@ fragment TeamSnippet on Team {
     }
     directMessagesMembers {
      ...RegularMemberUserSnippet
-      isYou
+      
     }
     admin
 }

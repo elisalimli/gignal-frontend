@@ -34,7 +34,6 @@ const InvitePeopleModal = ({ open, onClick }) => {
               const res = await addMember({
                 variables: { input: { email: values.email, teamId } },
                 update: (cache) => {
-                  cache.evict({ fieldName: "team" });
                   cache.evict({ fieldName: "getTeamMembers" });
                 },
               });

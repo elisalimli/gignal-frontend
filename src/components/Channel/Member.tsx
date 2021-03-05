@@ -14,18 +14,13 @@ interface Props {
   teamId: number;
 }
 
-const Member = ({ member: { username, isYou, id }, teamId }: Props) => {
+const Member = ({ member: { username, id }, teamId }: Props) => {
   return (
     <MyLink href={`/team/user/${teamId}/${id}`}>
       <ChannelList>
         <MemberWrapper>
           <StyledBubble on="online" />
           {username}
-          {isYou ? (
-            <Text display="inline" ml={1} fontSize="xs">
-              you
-            </Text>
-          ) : null}
         </MemberWrapper>
       </ChannelList>
     </MyLink>

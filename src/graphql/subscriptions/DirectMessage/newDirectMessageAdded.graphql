@@ -1,0 +1,5 @@
+subscription NewDirectMessageAdded($input:DirectMessageSubscriptionInput!) {
+  newDirectMessageAdded(input: $input) {
+   ...DirectMessageSnippet
+  }
+}

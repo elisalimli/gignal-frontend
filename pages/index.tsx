@@ -31,14 +31,12 @@ const Home = () => {
                   href={`/team/${team.id}`}
                   passHref
                 >
-                  {/* <a href={`/team/${team.id}`}> */}
                   <TeamContainer>
                     <TeamListItem w={65}>
                       {team.name.charAt(0).toUpperCase()}
                     </TeamListItem>
                     <IndexTeamName>{team.name}</IndexTeamName>
                   </TeamContainer>
-                  {/* </a> */}
                 </NextLink>
               ))}
             </TeamsGrid>
