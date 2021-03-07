@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,700&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 
 *,
 *:before,
@@ -71,7 +76,20 @@ body {
     display: flex;
 } */
 
+.app_layout {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 100px 250px 1fr;
+    grid-template-rows: auto 1fr auto;
 
+    @media (max-width: 568px) {
+        min-height: 100vh;
+    }
+
+    @media (max-width: 800px) {
+        grid-template-columns: 80px 170px 1fr;
+    }
+}
 
 
 .bar-of-progress {
@@ -80,13 +98,6 @@ body {
 
 /* Index page layout */
 
-.w-6 {
-    width: 1.5rem;
-}
-
-.h-6 {
-    height: 1.5rem;
-}
 
 .box {
     padding: 1em;
@@ -96,7 +107,10 @@ body {
 /* Our Grid Code */
 
 
-
+.header-grid {
+    grid-column: 3;
+    grid-row: 1;
+}
 
 
 
@@ -105,6 +119,19 @@ body {
 }
 
 
+.messages {
+    grid-column: 3;
+    grid-row: 2;
+
+
+}
+
+@media (max-width: 568px) {
+    .messages {
+        height: 100vh;
+
+    }
+}
 
 .input {
     grid-column: 3;

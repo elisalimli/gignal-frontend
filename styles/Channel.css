@@ -5,3 +5,9 @@
 .channel_list:hover {
     background: #3e313c;
 }
+
+.channels {
+    grid-column: 2;
+    grid-row: 1 / 4;
+
+}

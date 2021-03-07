@@ -1,32 +1,29 @@
 import React from "react";
-import { TeamsList } from "../styled/Team/TeamsList";
-import { TeamListItem } from "../styled/Team/TeamListItem";
 import { useAllTeamsQuery } from "../../generated/graphql";
 import HomeIcon from "../icons/HomeIcon";
 import PlusIcon from "../icons/PlusIcon";
-import Team from "../Team/Team";
+import Team, { teamListStyle } from "../Team/Team";
 import MyIcon from "../utils/MyIcon";
 import MyLink from "../utils/MyLink";
-import { TeamsWrapper } from "../styled/Team/TeamsWrapper";
 
 const Teams = () => {
   const { data, loading } = useAllTeamsQuery();
   if (loading) return null;
 
   return (
-    <TeamsWrapper>
-      <TeamsList>
-        <TeamListItem w={45}>
+    <div className="teams bg-custom-team  text-white flex flex-col justify-between overflow-y-auto w-full">
+      <ul className="flex flex-col list-none overflow-y-auto">
+        <div className={teamListStyle}>
           <MyLink href="/">
             <HomeIcon />
           </MyLink>
-        </TeamListItem>
+        </div>
         {[...data.teams, ...data.invitedTeams].map((t) => (
           <Team team={t} key={`team-${t.id}`} />
         ))}
-      </TeamsList>
+      </ul>
 
-      <div style={{ margin: "7.5px auto 0px auto" }}>
+      <div className="mx-auto mt-1">
         <MyLink href="/create-team">
           <span>
             <MyIcon w="3rem" h="2rem">
@@ -35,7 +32,7 @@ const Teams = () => {
           </span>
         </MyLink>
       </div>
-    </TeamsWrapper>
+    </div>
   );
 };
 

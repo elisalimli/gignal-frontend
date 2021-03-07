@@ -13,23 +13,30 @@ interface Props {
   text: string;
 }
 
-const MessageContainer: React.FC<Props> = ({
-  isCreator,
-  username,
-  text,
-  createdAt,
-}) => {
-  dayjs.extend(calendar);
-  console.log("is creator", isCreator);
-  return (
-    <MessageWrapper isCreator={isCreator}>
-      <div>
-        <MessageUsername>{username}</MessageUsername>
-        <MessageDate>{dayjs(createdAt).calendar()}</MessageDate>
+// display: flex;
+// flex-direction: column;
+// align-items: ${(props: Props) => {
+//   return props.isCreator ? "flex-start" : "flex-end";
+// }}
+
+const MessageContainer: React.FC<Props> = React.memo(
+  ({ isCreator, username, text, createdAt }) => {
+    dayjs.extend(calendar);
+
+    const position = isCreator ? "items-start" : "items-end";
+
+    return (
+      <div className={`flex flex-col ${position}`}>
+        <div>
+          <span className="font-semibold">{username}</span>
+          <span className="ml-2 text-xs text-gray-light">
+            {dayjs(createdAt).calendar()}
+          </span>
+        </div>
+        <div className="max-w-full text-gray-900">{text}</div>
       </div>
-      <MessageText>{text}</MessageText>
-    </MessageWrapper>
-  );
-};
+    );
+  }
+);
 
 export default MessageContainer;

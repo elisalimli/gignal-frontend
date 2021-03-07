@@ -1,29 +1,17 @@
 import { useRouter } from "next/router";
 import React from "react";
-import styled from "styled-components";
 import { useTeamQuery } from "../../generated/graphql";
-import Channel from "../Channel/Channel";
+import { useGetIdFromUrl } from "../../utils/hooks/useGetIdFromUrl";
+import Channel, { channelListStyle } from "../Channel/Channel";
 import Member from "../Channel/Member";
 import CreateChannelSection from "../Channel/Sections/CreateChannelSection";
-import InvitePeopleSection from "../Channel/Sections/InvitePeopleSection";
-import { ChannelHeader } from "../styled/Channel/ChannelHeader";
-import { ChannelsList } from "../styled/Channel/ChannelsList";
-import { ChannelsListWrapper } from "../styled/Channel/ChannelsWrapper";
-import { ChannelWrapper } from "../styled/Channel/ChannelWrapper";
-import { ChannelActionWrapper } from "../styled/Channel/ChannelActionWrapper";
-import { TeamNameHeader } from "../styled/Team/TeamNameHeader";
-import { UserName } from "../styled/User/UserName";
-import { ChannelList } from "../styled/Channel/ChannelList";
-import { useGetIdFromUrl } from "../../utils/hooks/useGetIdFromUrl";
 import DirectMessagesSection from "../Channel/Sections/DirectMessagesSection";
+import InvitePeopleSection from "../Channel/Sections/InvitePeopleSection";
+import TestSection from "../Channel/Sections/TestSection";
 
 interface Props {}
 
-const paddingLeft = "padding-left: 10px";
-
-const PushLeft = styled.div`
-  ${paddingLeft};
-`;
+const paddingLeft = "pl-2";
 
 const Channels: React.FC<Props> = () => {
   const router = useRouter();
@@ -39,33 +27,29 @@ const Channels: React.FC<Props> = () => {
     team: { channels, id, name, directMessagesMembers: members, admin },
     me: { username },
   } = data;
-
   return (
-    <ChannelWrapper>
-      <PushLeft>
-        <ChannelHeader>
-          <TeamNameHeader>{name}</TeamNameHeader>
-          <UserName>{username}</UserName>
-        </ChannelHeader>
-      </PushLeft>
+    <div className="bg-channel-bg text-channel-color overflow-y-auto channels">
+      <div className={`${paddingLeft} mb-1`}>
+        <h2 className="font-bold text-xl text-white">{name}</h2>
+        <span className="mb-2">{username}</span>
+      </div>
 
-      <ChannelsListWrapper>
-        <ChannelsList>
-          <ChannelActionWrapper>
-            <PushLeft>Channels</PushLeft>
-            {admin ? <CreateChannelSection /> : null}
-          </ChannelActionWrapper>
-          {channels.map((channel) => (
-            <Channel key={`channel-${channel.id}`} channel={channel} />
-          ))}
-        </ChannelsList>
-      </ChannelsListWrapper>
+      <ul className="mb-1 w-full">
+        <div className="flex justify-between items-center">
+          <div className={paddingLeft}>Channels</div>
+          {admin ? <CreateChannelSection /> : null}
+        </div>
+        {channels.map((channel) => (
+          <Channel key={`channel-${channel.id}`} channel={channel} />
+        ))}
+      </ul>
       <div>
         <ul>
-          <ChannelActionWrapper>
-            <PushLeft>Direct Messages</PushLeft>
+          {/* CHANNEL ACTION WRAPPER REAPIR */}
+          <div className="">
+            <span className={paddingLeft}>Direct Messages</span>
             {admin ? <DirectMessagesSection teamId={data?.team?.id} /> : null}
-          </ChannelActionWrapper>
+          </div>
 
           {members.length ? (
             members.map((m) => (
@@ -76,19 +60,27 @@ const Channels: React.FC<Props> = () => {
               />
             ))
           ) : (
-            <ChannelList>No member found</ChannelList>
+            <li className={channelListStyle}>No member found</li>
           )}
 
           {admin ? (
-            <ChannelList>
-              <PushLeft>
+            <li className={`${channelListStyle} ${paddingLeft}`}>
+              <>
                 <InvitePeopleSection />
-              </PushLeft>
-            </ChannelList>
+              </>
+            </li>
+          ) : null}
+
+          {admin ? (
+            <li className={`${channelListStyle} ${paddingLeft}`}>
+              <>
+                <TestSection />
+              </>
+            </li>
           ) : null}
         </ul>
       </div>
-    </ChannelWrapper>
+    </div>
   );
 };
 

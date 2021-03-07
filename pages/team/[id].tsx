@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import Loading from "../../src/components/utils/Loading";
 import { useTeamQuery } from "../../src/generated/graphql";
-import { withApollo } from "../../src/utils/withApollo";
 import { useGetIdFromUrl } from "../../src/utils/hooks/useGetIdFromUrl";
+import { withApollo } from "../../src/utils/withApollo";
 
 const SingleTeam = () => {
   const router = useRouter();

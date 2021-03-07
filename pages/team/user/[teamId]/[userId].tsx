@@ -3,6 +3,7 @@ import React from "react";
 import DirectMessages from "../../../../src/components/DirectMessages/DirectMessages";
 import Header from "../../../../src/components/Sidebar/Header";
 import SendMessage from "../../../../src/components/Sidebar/SendMessage";
+import Loading from "../../../../src/components/utils/Loading";
 import ProtectedRoute from "../../../../src/components/utils/ProtectedRoute";
 import Sidebar from "../../../../src/containers/Sidebar";
 import {
@@ -12,8 +13,6 @@ import {
 import { useGetIdFromUrl } from "../../../../src/utils/hooks/useGetIdFromUrl";
 import { updateCacheAfterDirectMessage } from "../../../../src/utils/updateCacheAfterDirectMessage";
 import { withApollo } from "../../../../src/utils/withApollo";
-import Loading from "../../../../src/components/utils/Loading";
-import { AppLayout } from "../../../../src/components/styled/AppLayout";
 
 interface Props {}
 
@@ -53,7 +52,7 @@ const Main: React.FC<Props> = () => {
 
   return (
     <ProtectedRoute>
-      <AppLayout>
+      <div className="app_layout">
         <Sidebar />
         <Header name={data?.getMember?.username} />
         <DirectMessages receiverId={data?.getMember?.id} />
@@ -61,7 +60,7 @@ const Main: React.FC<Props> = () => {
           placeholder={data?.getMember?.username}
           onSubmit={handleOnSubmitDirectMessage}
         />
-      </AppLayout>
+      </div>
     </ProtectedRoute>
   );
 };

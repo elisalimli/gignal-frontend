@@ -8,7 +8,8 @@ const ProtectedRoute = ({ children }) => {
   const router = useRouter();
   useEffect(() => {
     if (!loading && !data?.me) {
-      if (router.pathname === "/team/view/[teamId]/[channelId]") {
+      console.log("pathname", router.pathname);
+      if (router.pathname.includes("/team")) {
         router.replace(`/login?next=/`);
       } else router.replace(`/login?next=${router.pathname}`);
     }

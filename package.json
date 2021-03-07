@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "gen": "graphql-codegen --config codegen.yml",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "style": "tailwindcss build ./src/styles/tailwind.css -o ./src/styles/index.css"
   },
   "dependencies": {
     "@apollo/client": "3.3.8",
@@ -19,7 +20,6 @@
     "@emotion/styled": "^11.1.5",
     "apollo-link-context": "^1.0.20",
     "apollo-link-ws": "^1.0.20",
-    "babel-plugin-styled-components": "^1.12.0",
     "dayjs": "^1.10.4",
     "downshift": "^6.1.0",
     "formik": "^2.2.6",
@@ -31,7 +31,7 @@
     "next-themes": "^0.0.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "styled-components": "^5.2.1",
+    "react-modal": "^3.12.1",
     "subscriptions-transport-ws": "^0.9.18"
   },
   "devDependencies": {
@@ -40,15 +40,20 @@
     "@graphql-codegen/typescript-operations": "1.17.14",
     "@graphql-codegen/typescript-react-apollo": "2.2.1",
     "@types/react": "^17.0.2",
-    "@types/styled-components": "^5.1.7",
+    "@types/react-modal": "^3.12.0",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
+    "autoprefixer": "^10.2.5",
     "eslint": "^7.20.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "postcss": "^8.2.7",
+    "stylelint": "^13.12.0",
+    "stylelint-config-standard": "^21.0.0",
+    "tailwindcss": "^2.0.3",
     "typescript": "^4.1.5"
   }
 }

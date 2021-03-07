@@ -1,9 +1,10 @@
-import { Button, Link } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import Button from "../src/components/Button";
 import InputField from "../src/components/utils/InputField";
+import MyLink from "../src/components/utils/MyLink";
 import Wrapper from "../src/components/utils/Wrapper";
 import {
   MeDocument,
@@ -13,9 +14,7 @@ import {
 } from "../src/generated/graphql";
 import { toErrorMap } from "../src/utils/toErrorMap";
 import { withApollo } from "../src/utils/withApollo";
-import { FormWrapper } from "../src/components/styled/FormWrapper";
-import { FormHeader } from "../src/components/styled/FormHeader";
-import MyLink from "../src/components/utils/MyLink";
+import { form, formHeader } from "../styles/global";
 
 const Login = () => {
   const router = useRouter();
@@ -52,49 +51,42 @@ const Login = () => {
               typeof router.query.next === "string" &&
               !router.query.next.includes("/team/view")
             ) {
-              window.location.replace(router.query.next);
+              router.push(router.query.next);
             } else {
-              window.location.replace("/");
+              router.push("/");
             }
           }
         }}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <FormWrapper>
-              <MyLink href="/">
-                <FormHeader>Login now!</FormHeader>
-              </MyLink>
-
-              <InputField
-                name="usernameOrEmail"
-                placeholder="username or email"
-                label="Username or Email"
-              />
-              <InputField
-                name="password"
-                placeholder="password"
-                label="Password"
-                type="password"
-              />
-              <NextLink href="/forgot-password">
-                <Link ml="auto" mt="1" color="blue.400" className="text-sm">
-                  Forgot password?
-                </Link>
-              </NextLink>
-              <Button
-                mx="auto"
-                mt="6"
-                isLoading={isSubmitting}
-                type="submit"
-                loadingText="Submitting"
-                colorScheme="blue"
-                width="200px"
-                variant="solid"
-              >
-                Login
-              </Button>
-            </FormWrapper>
+          <Form className={form}>
+            <MyLink href="/">
+              <h1 className={formHeader}>Login now!</h1>
+            </MyLink>
+            <InputField
+              name="usernameOrEmail"
+              placeholder="username or email"
+              label="Username or Email"
+            />
+            <InputField
+              name="password"
+              placeholder="password"
+              label="Password"
+              type="password"
+            />
+            <NextLink href="/forgot-password">
+              <a className="ml-auto mt-1 text-blue-400 text-sm">
+                Forgot password?
+              </a>
+            </NextLink>
+            <Button
+              width="200px"
+              loading={isSubmitting}
+              centered
+              extraClassName="mt-3"
+              type="submit"
+              text="Login"
+            />
           </Form>
         )}
       </Formik>

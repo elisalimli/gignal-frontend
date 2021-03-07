@@ -1,20 +1,19 @@
-import { Button, Link } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { FormHeader } from "../src/components/styled/FormHeader";
-import { FormWrapper } from "../src/components/styled/FormWrapper";
+import Button from "../src/components/Button";
 import InputField from "../src/components/utils/InputField";
 import MyLink from "../src/components/utils/MyLink";
 import {
   MeDocument,
   MeQuery,
   useMeQuery,
-  useRegisterMutation,
+  useRegisterMutation
 } from "../src/generated/graphql";
 import { toErrorMap } from "../src/utils/toErrorMap";
 import { withApollo } from "../src/utils/withApollo";
+import { form, formHeader } from "../styles/global";
 
 interface Props {}
 
@@ -47,46 +46,36 @@ const Register: React.FC<Props> = () => {
         if (res.data?.register.errors) {
           setErrors(toErrorMap(res.data.register.errors));
         } else if (res.data?.register.user) {
-          window.location.replace("/");
+          router.push("/");
         }
       }}
     >
       {({ isSubmitting }) => (
-        <Form>
-          <FormWrapper>
-            <MyLink href="/">
-              <FormHeader>Register now!</FormHeader>
-            </MyLink>
-            <InputField
-              name="username"
-              placeholder="Username"
-              label="Username"
-            />
-            <InputField name="email" placeholder="Email" label="Email" />
-            <InputField
-              name="password"
-              placeholder="Password"
-              label="Password"
-              type="password"
-            />
-            <NextLink href="/login">
-              <Link ml="auto" mt="1" color="blue.400" className="text-sm">
-                Already have an account ? Login here!
-              </Link>
-            </NextLink>
-            <Button
-              mx="auto"
-              mt="6"
-              isLoading={isSubmitting}
-              type="submit"
-              loadingText="Submitting"
-              colorScheme="blue"
-              width="200px"
-              variant="solid"
-            >
-              Register
-            </Button>
-          </FormWrapper>
+        <Form className={form}>
+          <MyLink href="/">
+            <h1 className={formHeader}>Register now!</h1>
+          </MyLink>
+          <InputField name="username" placeholder="Username" label="Username" />
+          <InputField name="email" placeholder="Email" label="Email" />
+          <InputField
+            name="password"
+            placeholder="Password"
+            label="Password"
+            type="password"
+          />
+          <NextLink href="/login">
+            <a className="ml-auto mt-1 text-blue-400 text-sm">
+              Already have an account ? Login here!
+            </a>
+          </NextLink>
+          <Button
+            width="200px"
+            loading={isSubmitting}
+            centered
+            extraClassName="mt-3"
+            type="submit"
+            text="Register"
+          />
         </Form>
       )}
     </Formik>

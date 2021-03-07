@@ -2,9 +2,10 @@ import React from "react";
 
 interface Props {}
 
-const HashtagIcon: React.FC<Props> = () => {
+const CloseIcon = (props: Props) => {
   return (
     <svg
+      className="w-6 h-6"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -14,10 +15,10 @@ const HashtagIcon: React.FC<Props> = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
-        d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
+        d="M6 18L18 6M6 6l12 12"
       />
     </svg>
   );
 };
 
-export default HashtagIcon;
+export default CloseIcon;

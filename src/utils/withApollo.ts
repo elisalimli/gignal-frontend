@@ -84,6 +84,7 @@ const createClient = (ctx: NextPageContext) => {
 
         options: {
           reconnect: true,
+          lazy: true,
         },
       })
     : null;

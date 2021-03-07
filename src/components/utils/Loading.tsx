@@ -1,13 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Spinner } from "@chakra-ui/spinner";
 import React from "react";
-import { LoaderWrapper } from "../styled/LoaderWrapper";
 
 const Loading = () => {
   return (
-    <LoaderWrapper>
+    <div className="h-screen flex justify-center items-center">
       <Spinner />
-    </LoaderWrapper>
+    </div>
   );
 };
 

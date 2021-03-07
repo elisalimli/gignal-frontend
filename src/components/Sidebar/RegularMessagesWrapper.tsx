@@ -17,8 +17,14 @@ const RegularMessagesWrapper: React.FC<Props> = ({ data, me }) => {
   useEffect(() => useScrollToBottom(chatContainer), [data]);
 
   const chatContainer = useRef(null);
+
+  // background-color: #ffffff;
+
+  // overflow-y: auto;
+  // padding: 1.25rem;
+
   return (
-    <MessagesWrapper ref={chatContainer}>
+    <div className="messages bg-white overflow-y-auto p-5" ref={chatContainer}>
       {data.map(
         ({
           createdAt,
@@ -35,7 +41,7 @@ const RegularMessagesWrapper: React.FC<Props> = ({ data, me }) => {
           />
         )
       )}
-    </MessagesWrapper>
+    </div>
   );
 };
 

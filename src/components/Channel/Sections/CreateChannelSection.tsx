@@ -10,7 +10,7 @@ const CreateChannelSection = (props: Props) => {
 
   const handleClick = () => setOpen(!open);
   return (
-    <div style={{ marginRight: "0.25rem" }}>
+    <div className="mr-1">
       <MyIcon onClick={handleClick}>
         <PlusIcon />
       </MyIcon>

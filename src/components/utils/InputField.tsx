@@ -20,6 +20,11 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
 // '' => false
 // 'error message stuff' => true
 
+const style = {
+  input:
+    "w-full bg-white rounded border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",
+};
+
 const InputField: React.FC<InputFieldProps> = ({
   label = false,
   textarea,
@@ -27,28 +32,32 @@ const InputField: React.FC<InputFieldProps> = ({
   variant = "outline",
   ...props
 }) => {
-  let InputOrTextarea;
-  if (textarea) {
-    InputOrTextarea = Textarea;
-  } else InputOrTextarea = Input;
-
   const [field, { error }] = useField(props);
 
   return (
-    <FormControl isInvalid={!!error}>
+    <>
       {label ? (
-        <FormLabel mt={4} htmlFor={field.name}>
+        <label className="mt-4 font-medium" htmlFor={field.name}>
           {label}
-        </FormLabel>
+        </label>
       ) : null}
-      <InputOrTextarea
-        variant={variant}
-        {...field}
-        {...props}
-        id={field.name}
-      />
-      {error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
-    </FormControl>
+
+      {textarea ? (
+        <textarea
+          {...field}
+          {...props}
+          id={field.name}
+          className={style.input}
+        />
+      ) : (
+        <input {...field} {...props} id={field.name} className={style.input} />
+      )}
+      {error ? (
+        <div style={{ color: "#E53E3E" }} className="mt-2 text-sm">
+          {error}
+        </div>
+      ) : null}
+    </>
   );
 };
 export default InputField;

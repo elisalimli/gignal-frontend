@@ -14,9 +14,8 @@ import {
   useCreateMessageMutation,
   useTeamQuery,
 } from "../../../../src/generated/graphql";
-import { withApollo } from "../../../../src/utils/withApollo";
 import { useGetIdFromUrl } from "../../../../src/utils/hooks/useGetIdFromUrl";
-import { AppLayout } from "../../../../src/components/styled/AppLayout";
+import { withApollo } from "../../../../src/utils/withApollo";
 
 interface Props {}
 
@@ -48,7 +47,7 @@ const Main = () => {
   return (
     <ProtectedRoute>
       {data?.team && channelData ? (
-        <AppLayout>
+        <div className="app_layout">
           <Head>
             <title>
               Gignal | {data.team.name} #{channelData.channel.name}
@@ -62,7 +61,7 @@ const Main = () => {
             placeholder={channelData?.channel.name}
             onSubmit={onSubmitMessage}
           />
-        </AppLayout>
+        </div>
       ) : (
         <div className="p-5  text-2xl font-bold text-center">
           Cannot find team

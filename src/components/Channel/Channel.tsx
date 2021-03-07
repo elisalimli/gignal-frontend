@@ -7,15 +7,17 @@ interface Props {
   channel: ChannelsSnippetFragment;
 }
 
+export const channelListStyle = "font-medium hover:bg-channel-list";
+
 const Channel: React.FC<Props> = ({ channel: { id, name, teamId } }) => {
   return (
     <MyLink
       href="/team/view/[teamId]/[channelId]"
       as={`/team/view/${teamId}/${id}`}
     >
-      <ChannelList>
+      <li className={channelListStyle}>
         <span style={{ marginLeft: "0.25rem" }}># {name}</span>
-      </ChannelList>
+      </li>
     </MyLink>
   );
 };

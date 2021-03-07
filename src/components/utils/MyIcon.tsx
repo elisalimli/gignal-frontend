@@ -1,15 +1,10 @@
-import React, {
-  ButtonHTMLAttributes,
-  JSXElementConstructor,
-  ReactElement,
-} from "react";
-import { IconButton, IconButtonProps } from "@chakra-ui/react";
-import { IconWrapper } from "../styled/IconWrapper";
+import React from "react";
 
 interface Props {
   onClick?: any;
   w?: string;
   h?: string;
+  className?: string;
 }
 
 const MyIcon: React.FC<Props> = ({
@@ -17,13 +12,12 @@ const MyIcon: React.FC<Props> = ({
   onClick = () => {},
   w = "36px",
   h = "28px",
+  className,
 }) => {
   return (
-    <IconWrapper w={w} h={h}>
-      <button type="button" onClick={onClick}>
-        {children}
-      </button>
-    </IconWrapper>
+    <button className={className} type="button" onClick={onClick}>
+      {children}
+    </button>
   );
 };
 
