@@ -11,7 +11,7 @@ const CreateChannelSection = (props: Props) => {
   const handleClick = () => setOpen(!open);
   return (
     <div className="mr-1">
-      <MyIcon onClick={handleClick}>
+      <MyIcon className="team-icon" onClick={handleClick}>
         <PlusIcon />
       </MyIcon>
       <CreateChannelModal

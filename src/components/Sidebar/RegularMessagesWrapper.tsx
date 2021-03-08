@@ -18,11 +18,6 @@ const RegularMessagesWrapper: React.FC<Props> = ({ data, me }) => {
 
   const chatContainer = useRef(null);
 
-  // background-color: #ffffff;
-
-  // overflow-y: auto;
-  // padding: 1.25rem;
-
   return (
     <div className="messages bg-white overflow-y-auto p-5" ref={chatContainer}>
       {data.map(

@@ -1,40 +1,57 @@
-import React from "react";
+/* eslint-disable react/button-has-type */
 import { Spinner } from "@chakra-ui/spinner";
+import React from "react";
+import { BorderRadiusTypes } from "../types/css/BorderRadiusTypes";
 
 interface Props {
-  text: string;
-  loading: boolean;
+  loading?: boolean;
   width?: string;
   height?: string;
-  type: string;
+  type: "button" | "submit" | "reset";
   extraClassName?: string;
   centered?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
+  variant: "solid" | "outline" | "ghost";
+  borderRadius: BorderRadiusTypes;
 }
 
 const Button: React.FC<Props> = ({
-  text,
   type,
   loading,
-  extraClassName,
+  extraClassName = null,
   width,
   height,
   centered,
+  disabled,
+  children,
+  onClick,
+  variant,
+  borderRadius,
 }) => {
   let body;
   if (loading) {
     body = <Spinner />;
   } else {
-    body = text;
+    body = children;
   }
-  let style = `text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg flex items-center justify-center ${
-    centered ? "mx-auto" : ""
+
+  const extraStyles = `${centered ? "mx-auto" : ""} ${
+    borderRadius ? `rounded-${borderRadius}` : ""
   }`;
 
+  const style = {
+    common: `border-0 py-2 px-6 focus:outline-none  text-lg flex items-center justify-center`,
+    solid: "bg-purple-500 hover:bg-purple-600 text-white",
+    outline: "hover:bg-gray-200 ",
+  };
   return (
     <button
-      style={{ width, height }}
-      className={`${style} ${extraClassName}`}
+      onClick={onClick}
+      style={{ minWidth: width, height }}
+      className={`${style.common} ${extraStyles} ${style[variant]} ${extraClassName}`}
       type={type}
+      disabled={disabled}
     >
       {body}
     </button>

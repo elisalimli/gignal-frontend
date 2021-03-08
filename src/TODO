@@ -6,5 +6,7 @@
 - Update Member + 
 - Check styled components ssr(class name different in server and client) + 
 - Update cache in [userId].tsx +
+- Update Icons 
+- Fix test 2 channel name(header section,i hope you remind what i'm talkin` about -_- )
 - Good Luck!
 

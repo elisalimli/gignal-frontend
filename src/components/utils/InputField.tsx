@@ -20,9 +20,11 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
 // '' => false
 // 'error message stuff' => true
 
-const style = {
+export const textFieldStyle = {
   input:
     "w-full bg-white rounded border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",
+  error: "mt-2 text-sm",
+  label: "mt-4 font-medium",
 };
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -37,7 +39,7 @@ const InputField: React.FC<InputFieldProps> = ({
   return (
     <>
       {label ? (
-        <label className="mt-4 font-medium" htmlFor={field.name}>
+        <label className={textFieldStyle.label} htmlFor={field.name}>
           {label}
         </label>
       ) : null}
@@ -47,13 +49,18 @@ const InputField: React.FC<InputFieldProps> = ({
           {...field}
           {...props}
           id={field.name}
-          className={style.input}
+          className={textFieldStyle.input}
         />
       ) : (
-        <input {...field} {...props} id={field.name} className={style.input} />
+        <input
+          {...field}
+          {...props}
+          id={field.name}
+          className={textFieldStyle.input}
+        />
       )}
       {error ? (
-        <div style={{ color: "#E53E3E" }} className="mt-2 text-sm">
+        <div style={{ color: "#E53E3E" }} className={textFieldStyle.error}>
           {error}
         </div>
       ) : null}

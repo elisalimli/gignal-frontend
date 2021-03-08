@@ -9,11 +9,13 @@ import { ThemeProvider } from "next-themes";
 
 function App({ Component, pageProps }) {
   return (
-    <ThemeProvider attribute="class">
-      <ChakraProvider>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </ThemeProvider>
+    <div id="myapp">
+      <ThemeProvider attribute="class">
+        <ChakraProvider>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </ThemeProvider>
+    </div>
   );
 }
 

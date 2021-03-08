@@ -21,8 +21,8 @@ const DirectMessagesSection: React.FC<Props> = ({ teamId }) => {
   };
 
   return (
-    <div style={{ marginRight: "0.25rem" }}>
-      <MyIcon onClick={handleClick}>
+    <div className="mr-1">
+      <MyIcon className="team-icon" onClick={handleClick}>
         <PlusIcon />
       </MyIcon>
       <DirectMessageModal

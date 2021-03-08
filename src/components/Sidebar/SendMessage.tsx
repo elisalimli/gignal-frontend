@@ -30,7 +30,6 @@ const SendMessage: React.FC<Props> = ({ onSubmit, placeholder }) => {
             <InputField
               name="message"
               autoComplete="off"
-              borderColor="#C5CFDA"
               placeholder={`Send a message to #${placeholder}`}
             />
           </Form>

@@ -31,6 +31,9 @@ module.exports = {
       custom: {
         team: "#362233",
       },
+      icons: {
+        team: "#8A8A8A",
+      },
       team: {
         border: "#767676",
       },

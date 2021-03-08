@@ -2,12 +2,14 @@ import React from "react";
 import CloseIcon from "../icons/CloseIcon";
 import MyIcon from "../utils/MyIcon";
 
-interface Props {}
+interface Props {
+  onClick: () => void;
+}
 
-const ModalCloseButton = (props: Props) => {
+const ModalCloseButton = ({ onClick }: Props) => {
   return (
     <div style={{ top: 10, right: 10 }} className="absolute">
-      <MyIcon className="text-xl">
+      <MyIcon onClick={onClick} className="text-xl icon-bg-white">
         <CloseIcon />
       </MyIcon>
     </div>

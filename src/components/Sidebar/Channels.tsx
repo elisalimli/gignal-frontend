@@ -7,7 +7,6 @@ import Member from "../Channel/Member";
 import CreateChannelSection from "../Channel/Sections/CreateChannelSection";
 import DirectMessagesSection from "../Channel/Sections/DirectMessagesSection";
 import InvitePeopleSection from "../Channel/Sections/InvitePeopleSection";
-import TestSection from "../Channel/Sections/TestSection";
 
 interface Props {}
 
@@ -46,7 +45,7 @@ const Channels: React.FC<Props> = () => {
       <div>
         <ul>
           {/* CHANNEL ACTION WRAPPER REAPIR */}
-          <div className="">
+          <div className="flex justify-between">
             <span className={paddingLeft}>Direct Messages</span>
             {admin ? <DirectMessagesSection teamId={data?.team?.id} /> : null}
           </div>
@@ -67,14 +66,6 @@ const Channels: React.FC<Props> = () => {
             <li className={`${channelListStyle} ${paddingLeft}`}>
               <>
                 <InvitePeopleSection />
-              </>
-            </li>
-          ) : null}
-
-          {admin ? (
-            <li className={`${channelListStyle} ${paddingLeft}`}>
-              <>
-                <TestSection />
               </>
             </li>
           ) : null}

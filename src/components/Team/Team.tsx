@@ -1,7 +1,6 @@
 import React from "react";
 import { RegularTeamsSnippetFragment } from "../../generated/graphql";
 import MyLink from "../utils/MyLink";
-import { TeamListItem } from "../styled/Team/TeamListItem";
 
 interface Props {
   team: RegularTeamsSnippetFragment;

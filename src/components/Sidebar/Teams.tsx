@@ -26,7 +26,7 @@ const Teams = () => {
       <div className="mx-auto mt-1">
         <MyLink href="/create-team">
           <span>
-            <MyIcon w="3rem" h="2rem">
+            <MyIcon className="team-icon w-12">
               <PlusIcon />
             </MyIcon>
           </span>
