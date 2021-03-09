@@ -6,6 +6,7 @@ import { MemberSnippetFragment } from "../../../generated/graphql";
 import Button from "../../Button";
 import Modal from "../../Modal/Modal";
 import { textFieldStyle } from "../../utils/InputField";
+import ModalFooter from "../../Modal/ModalFooter";
 
 interface Props {
   open: boolean;
@@ -92,13 +93,11 @@ const DirectMessageModal: React.FC<Props> = ({
             </div>
           )}
         </Downshift>
-        <Button
-          extraClassName="ml-auto mt-1"
-          borderRadius="lg"
-          variant="outline"
-        >
-          Close
-        </Button>
+        <ModalFooter>
+          <Button borderRadius="lg" variant="outline">
+            Close
+          </Button>
+        </ModalFooter>
       </div>
     </Modal>
   );

@@ -3,8 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 *,
 *:before,
 *:after {
@@ -42,38 +40,7 @@ body {
     border-radius: 6px;
 }
 
-/* 
-.profileImg {
-    position: relative;
-    height: 100px;
-    border-radius: 50%;
-} */
 
-/* 
-.back {
-    z-index: 8888;
-    cursor: pointer;
-    position: absolute;
-    background: black;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 100px;
-    opacity: 0.80;
-    border-radius: 50%;
-
-}
-
-.pp:hover .display-inline {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.profileImg:hover~.back {
-    display: flex;
-} */
 
 .app_layout {
     display: grid;
@@ -81,22 +48,24 @@ body {
     grid-template-columns: 100px 250px 1fr;
     grid-template-rows: auto 1fr auto;
 
-    @media (max-width: 568px) {
-        min-height: 100vh;
-    }
 
-    @media (max-width: 800px) {
-        grid-template-columns: 80px 170px 1fr;
+}
+
+@media (max-width: 568px) {
+    .app_layout {
+        min-height: 100vh;
+
     }
 }
 
+@media (max-width: 800px) {
+    .app_layout {
+        grid-template-columns: 80px 170px 1fr;
 
-.bar-of-progress {
-    z-index: 50;
+    }
 }
 
 /* Index page layout */
-
 
 .box {
     padding: 1em;
@@ -138,26 +107,5 @@ body {
 }
 
 .icon-bg-white:hover {
-
     background: rgba(0, 0, 0, .3);
-}
-
-.ReactModal__Content {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-
-    margin: 0 auto;
-}
-
-@media(max-width:1100px) {
-    .ReactModal__Content {
-        width: 60%;
-    }
-}
-
-@media(max-width:600px) {
-    .ReactModal__Content {
-        width: 75%;
-    }
 }

@@ -289,7 +289,17 @@ module.exports = {
       default: "1",
     },
     fontFamily: {
-      sans: [
+      serif: ["Georgia", "Cambria", '"Times New Roman"', "Times", "serif"],
+      mono: [
+        "Menlo",
+        "Monaco",
+        "Consolas",
+        '"Liberation Mono"',
+        '"Courier New"',
+        "monospace",
+      ],
+      nunito: [
+        "Nunito",
         "system-ui",
         "-apple-system",
         "BlinkMacSystemFont",
@@ -304,17 +314,6 @@ module.exports = {
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
       ],
-      serif: ["Georgia", "Cambria", '"Times New Roman"', "Times", "serif"],
-      mono: [
-        "Menlo",
-        "Monaco",
-        "Consolas",
-        '"Liberation Mono"',
-        '"Courier New"',
-        "monospace",
-      ],
-      roboto: "Roboto",
-      dosis: "Dosis",
     },
     fontSize: {
       xs: "0.75rem",

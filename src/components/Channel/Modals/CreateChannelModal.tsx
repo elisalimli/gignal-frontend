@@ -7,6 +7,7 @@ import { toErrorMap } from "../../../utils/toErrorMap";
 import Button from "../../Button";
 import Modal from "../../Modal/Modal";
 import InputField from "../../utils/InputField";
+import ModalFooter from "../../Modal/ModalFooter";
 
 const CreateChannelModal = ({ open, onClick }) => {
   const router = useRouter();
@@ -15,7 +16,7 @@ const CreateChannelModal = ({ open, onClick }) => {
   return (
     <Modal
       header="Create Channel"
-      extraStyle={{ height: "40%" }}
+      extraStyle={{ height: "35%" }}
       onClick={onClick}
       open={open}
     >
@@ -50,7 +51,7 @@ const CreateChannelModal = ({ open, onClick }) => {
               placeholder="Channel name"
             />
 
-            <footer className="flex justify-end mt-8">
+            <ModalFooter>
               <Button
                 extraClassName="mr-4"
                 borderRadius="lg"
@@ -70,7 +71,7 @@ const CreateChannelModal = ({ open, onClick }) => {
               >
                 Close
               </Button>
-            </footer>
+            </ModalFooter>
           </Form>
         )}
       </Formik>

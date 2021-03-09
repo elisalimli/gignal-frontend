@@ -7,7 +7,7 @@ interface Props {
 
 const ModalHeader: React.FC<Props> = ({ header }) => {
   return (
-    <Header extraClassName="mb-2 justify-start" fontWeight="bold" size="2xl">
+    <Header extraClassName="mb-3 justify-start" fontWeight="bold" size="2xl">
       {header}
     </Header>
   );

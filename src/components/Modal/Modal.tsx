@@ -8,13 +8,19 @@ interface Props {
   onClick: () => void;
   extraStyle: Object;
   header: string;
+  className?: string;
 }
+
+// You should add classname to modal
+// if you don't want sizing problems (look below React Modal's classname)
+
 const Modal: React.FC<Props> = ({
   open,
   onClick,
   extraStyle,
   header,
   children,
+  className,
 }) => {
   ReactModal.setAppElement("#myapp");
 
@@ -23,10 +29,13 @@ const Modal: React.FC<Props> = ({
       style={{ content: extraStyle }}
       onRequestClose={onClick}
       isOpen={open}
+      className={`${className} my-modal rounded-md shadow-2xl`}
     >
-      <ModalHeader header={header} />
-      <ModalCloseButton onClick={onClick} />
-      <div>{children}</div>
+      <div className="p-4 bg-white  rounded-xl">
+        <ModalHeader header={header} />
+        <ModalCloseButton onClick={onClick} />
+        <div>{children}</div>
+      </div>
     </ReactModal>
   );
 };

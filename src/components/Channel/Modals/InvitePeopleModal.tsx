@@ -7,19 +7,21 @@ import { useGetIdFromUrl } from "../../../utils/hooks/useGetIdFromUrl";
 import { toErrorMap } from "../../../utils/toErrorMap";
 import Modal from "../../Modal/Modal";
 import InputField from "../../utils/InputField";
+
 import Button from "../../Button";
 
 interface Props {
   open: boolean;
   onClick: () => void;
 }
+
 const InvitePeopleModal = ({ open, onClick }: Props) => {
   const router = useRouter();
   const [addMember] = useAddTeamMemberMutation();
   return (
     <Modal
-      header="Invite Someone"
-      extraStyle={{ height: "35%" }}
+      extraStyle={{ height: "40%" }}
+      header="Invite People"
       onClick={onClick}
       open={open}
     >
@@ -39,7 +41,7 @@ const InvitePeopleModal = ({ open, onClick }: Props) => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form className="w-full h-full">
+          <Form className="w-full  h-full">
             <InputField
               name="email"
               label="User's email"

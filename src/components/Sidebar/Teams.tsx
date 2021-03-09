@@ -13,11 +13,11 @@ const Teams = () => {
   return (
     <div className="teams bg-custom-team  text-white flex flex-col justify-between overflow-y-auto w-full">
       <ul className="flex flex-col list-none overflow-y-auto">
-        <div className={teamListStyle}>
-          <MyLink href="/">
+        <MyLink href="/">
+          <div className={teamListStyle}>
             <HomeIcon />
-          </MyLink>
-        </div>
+          </div>
+        </MyLink>
         {[...data.teams, ...data.invitedTeams].map((t) => (
           <Team team={t} key={`team-${t.id}`} />
         ))}

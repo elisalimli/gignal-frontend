@@ -2,6 +2,7 @@
 import "../styles/globals.css";
 import "../styles/Channel.css";
 import "../styles/Team.css";
+import "../styles/Modal.css";
 import "tailwindcss/dist/tailwind.min.css";
 
 import { ChakraProvider } from "@chakra-ui/react";
