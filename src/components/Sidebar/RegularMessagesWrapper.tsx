@@ -5,8 +5,8 @@ import {
   MessageSnippetFragment,
 } from "../../generated/graphql";
 import { useScrollToBottom } from "../../utils/hooks/useScrollToBottom";
+import FileUpload from "../FileUpload";
 import MessageContainer from "../Message/MessageContainer";
-import { MessagesWrapper } from "../styled/Message/MessagesWrapper";
 
 interface Props {
   data: MessageSnippetFragment[] | DirectMessageSnippetFragment[];
@@ -16,26 +16,32 @@ interface Props {
 const RegularMessagesWrapper: React.FC<Props> = ({ data, me }) => {
   useEffect(() => useScrollToBottom(chatContainer), [data]);
 
-  const chatContainer = useRef(null);
-
+  const chatContainer = useRef<HTMLDivElement>(null);
   return (
-    <div className="messages bg-white overflow-y-auto p-5" ref={chatContainer}>
-      {data.map(
-        ({
-          createdAt,
-          text,
-          id,
-          creator: { id: creatorId, username },
-        }: MessageSnippetFragment | DirectMessageSnippetFragment) => (
-          <MessageContainer
-            createdAt={createdAt}
-            text={text}
-            username={username}
-            isCreator={creatorId === me?.id}
-            key={`${id}-message`}
-          />
-        )
-      )}
+    <div
+      ref={chatContainer}
+      className="p-2 messages bg-white overflow-y-auto scroll-smooth"
+    >
+      <FileUpload disableClick>
+        <div className="p-3">
+          {data.map(
+            ({
+              createdAt,
+              text,
+              id,
+              creator: { id: creatorId, username },
+            }: MessageSnippetFragment | DirectMessageSnippetFragment) => (
+              <MessageContainer
+                createdAt={createdAt}
+                text={text}
+                username={username}
+                isCreator={creatorId === me?.id}
+                key={`${id}-message`}
+              />
+            )
+          )}
+        </div>
+      </FileUpload>
     </div>
   );
 };

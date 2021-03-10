@@ -1,11 +1,11 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Spinner } from "@chakra-ui/spinner";
 import React from "react";
+
+import Loader from "react-loader-spinner";
 
 const Loading = () => {
   return (
     <div className="h-screen flex justify-center items-center">
-      <Spinner />
+      <Loader type="TailSpin" color="#000" height={30} width={30} />
     </div>
   );
 };

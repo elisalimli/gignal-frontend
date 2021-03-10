@@ -61,7 +61,7 @@ const Login = () => {
         {({ isSubmitting }) => (
           <Form className={form}>
             <MyLink href="/">
-              <h1 className={`${formHeader} font-nunito`}>Login now!</h1>
+              <h1 className={formHeader}>Login now!</h1>
             </MyLink>
             <InputField
               name="usernameOrEmail"

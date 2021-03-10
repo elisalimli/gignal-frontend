@@ -5,16 +5,13 @@ import "../styles/Team.css";
 import "../styles/Modal.css";
 import "tailwindcss/dist/tailwind.min.css";
 
-import { ChakraProvider } from "@chakra-ui/react";
 import { ThemeProvider } from "next-themes";
 
 function App({ Component, pageProps }) {
   return (
     <div id="myapp">
       <ThemeProvider attribute="class">
-        <ChakraProvider>
-          <Component {...pageProps} />
-        </ChakraProvider>
+        <Component {...pageProps} />
       </ThemeProvider>
     </div>
   );

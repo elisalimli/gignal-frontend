@@ -1,11 +1,13 @@
 import React from "react";
 
-interface Props {}
+interface Props {
+  className?: string;
+}
 
-const PlusIcon = (props: Props) => {
+const PlusIcon: React.FC<Props> = ({ className = "w-5 h-5" }) => {
   return (
     <svg
-      style={{ width: "1.2rem", height: "1.25rem  " }}
+      className={className}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"

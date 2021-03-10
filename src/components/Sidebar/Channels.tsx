@@ -59,7 +59,7 @@ const Channels: React.FC<Props> = () => {
               />
             ))
           ) : (
-            <li className={channelListStyle}>No member found</li>
+            <li className={`${channelListStyle} pl-1`}>No member found</li>
           )}
 
           {admin ? (

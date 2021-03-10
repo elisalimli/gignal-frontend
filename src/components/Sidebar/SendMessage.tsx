@@ -1,6 +1,9 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import InputField from "../utils/InputField";
+import Button from "../Button";
+import PlusIcon from "../icons/PlusIcon";
+import FileUploadSection from "../Sections/FileUploadSection";
 
 interface Props {
   placeholder: string;
@@ -11,7 +14,7 @@ const SendMessage: React.FC<Props> = ({ onSubmit, placeholder }) => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="input box bg-gray-100">
+    <div className="input p-2">
       <Formik
         initialValues={{ message: "" }}
         onSubmit={async (values, { setErrors, resetForm }) => {
@@ -26,7 +29,8 @@ const SendMessage: React.FC<Props> = ({ onSubmit, placeholder }) => {
         }}
       >
         {() => (
-          <Form>
+          <Form className="flex items-center">
+            <FileUploadSection />
             <InputField
               name="message"
               autoComplete="off"

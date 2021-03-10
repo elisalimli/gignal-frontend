@@ -36,7 +36,7 @@ const CreateTeam = () => {
           {({ isSubmitting }) => (
             <Form className={form}>
               <MyLink href="/">
-                <h1 className={formHeader}>Login now!</h1>
+                <h1 className={formHeader}>Create team!</h1>
               </MyLink>
 
               <InputField
@@ -49,9 +49,12 @@ const CreateTeam = () => {
                 loading={isSubmitting}
                 centered
                 extraClassName="mt-3"
+                variant="solid"
+                borderRadius="lg"
                 type="submit"
-                text="Create"
-              />
+              >
+                Create
+              </Button>
             </Form>
           )}
         </Formik>

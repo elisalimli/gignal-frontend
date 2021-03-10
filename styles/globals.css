@@ -22,7 +22,6 @@ body {
     font-family: 'Nunito', sans-serif !important;
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-    min-height: 100vh;
 
 }
 
@@ -108,4 +107,8 @@ body {
 
 .icon-bg-white:hover {
     background: rgba(0, 0, 0, .3);
+}
+
+.scroll-smooth {
+    scroll-behavior: smooth;
 }

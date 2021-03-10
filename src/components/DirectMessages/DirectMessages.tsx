@@ -2,16 +2,14 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import {
-  NewDirectMessageAddedDocument,
   useDirectMessagesQuery,
   useMeQuery,
   useNewDirectMessageAddedSubscription,
 } from "../../generated/graphql";
 import { useGetIdFromUrl } from "../../utils/hooks/useGetIdFromUrl";
+import { useSubscribeTodDirectMessages } from "../../utils/hooks/useSubscribeToDirectMessages";
 import RegularMessagesWrapper from "../Sidebar/RegularMessagesWrapper";
 import Loading from "../utils/Loading";
-import DirectMessageError from "./DirectMessageError";
-import { useSubscribeTodDirectMessages } from "../../utils/hooks/useSubscribeToDirectMessages";
 
 interface Props {
   receiverId: number;
@@ -56,11 +54,7 @@ const DirectMessages: React.FC<Props> = ({ receiverId }) => {
     return null;
   }
 
-  return isYou ? (
-    <DirectMessageError />
-  ) : (
-    <RegularMessagesWrapper data={data?.directMessages} me={meData?.me} />
-  );
+  return <RegularMessagesWrapper data={data?.directMessages} me={meData?.me} />;
 };
 
 export default DirectMessages;

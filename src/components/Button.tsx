@@ -1,6 +1,6 @@
 /* eslint-disable react/button-has-type */
-import { Spinner } from "@chakra-ui/spinner";
 import React from "react";
+import Loader from "react-loader-spinner";
 import { BorderRadiusTypes } from "../types/css/BorderRadiusTypes";
 
 interface Props {
@@ -12,8 +12,9 @@ interface Props {
   centered?: boolean;
   disabled?: boolean;
   onClick?: () => void;
-  variant: "solid" | "outline" | "ghost";
+  variant: "solid" | "outline" | "icon";
   borderRadius: BorderRadiusTypes;
+  padding: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -28,10 +29,11 @@ const Button: React.FC<Props> = ({
   onClick,
   variant,
   borderRadius,
+  padding = "py-2 px-6",
 }) => {
   let body;
   if (loading) {
-    body = <Spinner />;
+    body = <Loader type="TailSpin" color="#fff" height={25} width={25} />;
   } else {
     body = children;
   }
@@ -41,15 +43,17 @@ const Button: React.FC<Props> = ({
   }`;
 
   const style = {
-    common: `border-0 py-2 px-6 focus:outline-none  text-lg flex items-center justify-center`,
+    common: `border-0 focus:outline-none text-lg flex items-center justify-center transition-colors duration-300`,
     solid: "bg-purple-500 hover:bg-purple-600 text-white",
-    outline: "hover:bg-gray-200 ",
+    outline: "hover:bg-gray-200",
+    icon: "bg-gray-200 hover:bg-gray-300 text-gray-500 py-1 px-3",
   };
+
   return (
     <button
       onClick={onClick}
       style={{ minWidth: width, height }}
-      className={`${style.common} ${extraStyles} ${style[variant]} ${extraClassName}`}
+      className={`${style.common} ${extraStyles} ${style[variant]} ${extraClassName} ${padding} `}
       type={type}
       disabled={disabled}
     >

@@ -1,15 +1,8 @@
-import { Text } from "@chakra-ui/react";
 import React from "react";
-import {
-  MemberSnippetFragment,
-  RegularMemberUserSnippetFragment,
-} from "../../generated/graphql";
-import { ChannelList } from "../styled/Channel/ChannelList";
-import { StyledBubble } from "../styled/StyledBubble";
-import { MemberWrapper } from "../styled/Channel/MemberWrapper";
+import { RegularMemberUserSnippetFragment } from "../../generated/graphql";
+import Bubble from "../utils/Bubble";
 import MyLink from "../utils/MyLink";
 import { channelListStyle } from "./Channel";
-import Bubble from "../utils/Bubble";
 
 interface Props {
   member: RegularMemberUserSnippetFragment;

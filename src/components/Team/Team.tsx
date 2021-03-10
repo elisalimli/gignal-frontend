@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const teamListStyle =
-  "bg-gray-750 w-12  h-12 text-white mx-auto mb-2 flex justify-center items-center text-2xl rounded-xl team_list   hover:border-team-border";
+  "bg-gray-750 w-12  h-12 text-white mx-auto mb-2 flex justify-center items-center text-2xl rounded-xl team_list  hover:border-team-border";
 
 const Team: React.FC<Props> = ({ team: { id, name } }) => {
   return (

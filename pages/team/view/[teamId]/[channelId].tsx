@@ -1,12 +1,11 @@
-import { Link } from "@chakra-ui/react/";
 import Head from "next/head";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import Header from "../../../../src/components/Sidebar/Header";
 import Messages from "../../../../src/components/Sidebar/Messages";
 import SendMessage from "../../../../src/components/Sidebar/SendMessage";
 import Loading from "../../../../src/components/utils/Loading";
+import MyLink from "../../../../src/components/utils/MyLink";
 import ProtectedRoute from "../../../../src/components/utils/ProtectedRoute";
 import Sidebar from "../../../../src/containers/Sidebar";
 import {
@@ -65,9 +64,9 @@ const Main = () => {
       ) : (
         <div className="p-5  text-2xl font-bold text-center">
           Cannot find team
-          <NextLink href="/">
-            <Link ml={1}>go home</Link>
-          </NextLink>
+          <MyLink href="/">
+            <span className="ml-1">go home</span>
+          </MyLink>
         </div>
       )}
     </ProtectedRoute>
