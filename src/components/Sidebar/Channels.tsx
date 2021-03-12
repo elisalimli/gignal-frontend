@@ -35,7 +35,7 @@ const Channels: React.FC<Props> = () => {
 
       <ul className="mb-1 w-full">
         <div className="flex justify-between items-center">
-          <div className={paddingLeft}>Channels</div>
+          <div className={paddingLeft}>Channels1 </div>
           {admin ? <CreateChannelSection /> : null}
         </div>
         {channels.map((channel) => (

@@ -1,13 +1,22 @@
+import { useRouter } from "next/router";
 import React, { useCallback } from "react";
-import Dropzone, { useDropzone } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
+import { useCreateMessageMutation } from "../generated/graphql";
+import { useGetIdFromUrl } from "../utils/hooks/useGetIdFromUrl";
 
 interface Props {
   disableClick?: boolean;
 }
 
 const FileUpload: React.FC<Props> = ({ children, disableClick }) => {
-  const onDrop = useCallback((files) => {
-    console.log("files", files);
+  const [createMessage] = useCreateMessageMutation();
+  const router = useRouter();
+
+  const onDrop = useCallback(async (files) => {
+    const channelId = useGetIdFromUrl(router.query.channelId);
+    await createMessage({
+      variables: { input: { channelId, text: null, file: files[0] } },
+    });
   }, []);
 
   const handleOnClick = useCallback((e) => {
@@ -34,7 +43,7 @@ const FileUpload: React.FC<Props> = ({ children, disableClick }) => {
   return (
     <div
       {...getRootProps({
-        style: { ...style, height: "100%" },
+        style: { ...style, minHeight: "100%" },
         onClick: handleOnClick,
       })}
     >

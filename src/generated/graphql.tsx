@@ -11,6 +11,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: any;
 };
 
 export type Query = {
@@ -85,7 +87,9 @@ export type User = {
 export type Message = {
   __typename?: 'Message';
   id: Scalars['Int'];
-  text: Scalars['String'];
+  text?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  fileType?: Maybe<Scalars['String']>;
   channelId: Scalars['Int'];
   creator: User;
   creatorId: Scalars['Int'];
@@ -224,8 +228,10 @@ export type AddTeamMemberInput = {
 
 export type CreateMessageInput = {
   channelId: Scalars['Int'];
-  text: Scalars['String'];
+  text?: Maybe<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
 };
+
 
 export type CreateTeamResponse = {
   __typename?: 'CreateTeamResponse';
@@ -299,7 +305,7 @@ export type RegularMemberUserSnippetFragment = (
 
 export type MessageSnippetFragment = (
   { __typename?: 'Message' }
-  & Pick<Message, 'id' | 'text' | 'createdAt'>
+  & Pick<Message, 'id' | 'text' | 'createdAt' | 'url' | 'fileType'>
   & { creator: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username'>
@@ -609,6 +615,8 @@ export const MessageSnippetFragmentDoc = gql`
     id
     username
   }
+  url
+  fileType
 }
     `;
 export const RegularMemberUserSnippetFragmentDoc = gql`

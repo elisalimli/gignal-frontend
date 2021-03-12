@@ -9,7 +9,7 @@ import {
   MeDocument,
   MeQuery,
   useMeQuery,
-  useRegisterMutation
+  useRegisterMutation,
 } from "../src/generated/graphql";
 import { toErrorMap } from "../src/utils/toErrorMap";
 import { withApollo } from "../src/utils/withApollo";
@@ -72,10 +72,13 @@ const Register: React.FC<Props> = () => {
             width="200px"
             loading={isSubmitting}
             centered
+            variant="solid"
+            borderRadius="lg"
             extraClassName="mt-3"
             type="submit"
-            text="Register"
-          />
+          >
+            Register
+          </Button>
         </Form>
       )}
     </Formik>

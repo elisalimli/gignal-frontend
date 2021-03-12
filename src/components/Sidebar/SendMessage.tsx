@@ -7,7 +7,7 @@ import FileUploadSection from "../Sections/FileUploadSection";
 
 interface Props {
   placeholder: string;
-  onSubmit: (message: string) => void;
+  onSubmit?: (message: string) => void;
 }
 
 const SendMessage: React.FC<Props> = ({ onSubmit, placeholder }) => {

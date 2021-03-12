@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-,  "pages/404.tsx", "src/utils/createWithApollo.tsx", "src/utils/createWithApollo.tsx"    ],
+,  "pages/404.tsx", "src/utils/createWithApollo.tsx", "src/utils/createWithApollo.tsx", "src/utils/createUploadLink.js"    ],
   "exclude": [
     "node_modules"
   ]

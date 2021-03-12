@@ -1,39 +1,61 @@
-import React from "react";
-import calendar from "dayjs/plugin/calendar";
 import dayjs from "dayjs";
-import { MessageWrapper } from "../styled/Message/MessageWrapper";
-import { MessageUsername } from "../styled/Message/MessageUsername";
-import { MessageDate } from "../styled/Message/MessageDate";
-import { MessageText } from "../styled/Message/MessageText";
+import calendar from "dayjs/plugin/calendar";
+import React from "react";
+import Text from "./Text";
+import {
+  MessageSnippetFragment,
+  DirectMessageSnippetFragment,
+} from "../../generated/graphql";
+import RenderText from "./RenderText";
+import Audio from "./Audio";
+import Video from "./Video";
 
 interface Props {
-  username: string;
+  message: MessageSnippetFragment | DirectMessageSnippetFragment;
   isCreator: boolean;
-  createdAt: string;
-  text: string;
 }
 
-// display: flex;
-// flex-direction: column;
-// align-items: ${(props: Props) => {
-//   return props.isCreator ? "flex-start" : "flex-end";
-// }}
-
 const MessageContainer: React.FC<Props> = React.memo(
-  ({ isCreator, username, text, createdAt }) => {
+  ({
+    message: {
+      creator: { username },
+      text,
+      createdAt,
+      url,
+      fileType,
+    },
+    isCreator,
+  }) => {
     dayjs.extend(calendar);
-
+    console.log("iscreator", isCreator);
     const position = isCreator ? "items-start" : "items-end";
 
+    console.log("filetype", fileType, url);
+    let body = null;
+    if (fileType) {
+      const mediaProps = { url, fileType };
+      if (fileType.startsWith("image/")) {
+        body = <img className="mb-2 w-64 h-64" alt="message pic" src={url} />;
+      } else if (fileType.startsWith("audio/")) {
+        body = <Audio {...mediaProps} />;
+      } else if (fileType.startsWith("video/")) {
+        body = <Video {...mediaProps} />;
+      } else if (fileType.startsWith("text/plain")) {
+        body = <RenderText url={url} />;
+      }
+    } else if (text) {
+      body = <Text text={text} />;
+    }
+
     return (
-      <div className={`flex flex-col ${position}`}>
+      <div className={`flex flex-col ${position} mb-2`}>
         <div>
           <span className="font-semibold">{username}</span>
           <span className="ml-2 text-xs text-gray-light">
             {dayjs(createdAt).calendar()}
           </span>
         </div>
-        <div className="max-w-full text-gray-900">{text}</div>
+        {body}
       </div>
     );
   }

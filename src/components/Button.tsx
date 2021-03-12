@@ -14,7 +14,7 @@ interface Props {
   onClick?: () => void;
   variant: "solid" | "outline" | "icon";
   borderRadius: BorderRadiusTypes;
-  padding: string;
+  padding?: string;
 }
 
 const Button: React.FC<Props> = ({

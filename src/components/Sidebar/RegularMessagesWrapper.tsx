@@ -25,18 +25,13 @@ const RegularMessagesWrapper: React.FC<Props> = ({ data, me }) => {
       <FileUpload disableClick>
         <div className="p-3">
           {data.map(
-            ({
-              createdAt,
-              text,
-              id,
-              creator: { id: creatorId, username },
-            }: MessageSnippetFragment | DirectMessageSnippetFragment) => (
+            (
+              message: MessageSnippetFragment | DirectMessageSnippetFragment
+            ) => (
               <MessageContainer
-                createdAt={createdAt}
-                text={text}
-                username={username}
-                isCreator={creatorId === me?.id}
-                key={`${id}-message`}
+                isCreator={me?.id === message?.creator.id}
+                message={message}
+                key={`message-${message.id}`}
               />
             )
           )}

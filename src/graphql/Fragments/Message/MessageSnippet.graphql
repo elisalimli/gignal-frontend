@@ -6,4 +6,6 @@ fragment MessageSnippet on Message {
       id
       username
     }
+   url
+   fileType
 }
