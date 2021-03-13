@@ -148,7 +148,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createChannel: CreateChannelResponse;
   addTeamMember: VoidResponse;
-  createMessage: Message;
+  createMessage: CreateMessageResponse;
   deleteTeam: Scalars['Boolean'];
   createTeam: CreateTeamResponse;
   login: UserResponse;
@@ -224,6 +224,12 @@ export type VoidResponse = {
 export type AddTeamMemberInput = {
   teamId: Scalars['Int'];
   email: Scalars['String'];
+};
+
+export type CreateMessageResponse = {
+  __typename?: 'CreateMessageResponse';
+  errors?: Maybe<Array<FieldError>>;
+  message?: Maybe<Message>;
 };
 
 export type CreateMessageInput = {
@@ -380,8 +386,14 @@ export type CreateMessageMutationVariables = Exact<{
 export type CreateMessageMutation = (
   { __typename?: 'Mutation' }
   & { createMessage: (
-    { __typename?: 'Message' }
-    & Pick<Message, 'id' | 'text' | 'creatorId'>
+    { __typename?: 'CreateMessageResponse' }
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>>, message?: Maybe<(
+      { __typename?: 'Message' }
+      & Pick<Message, 'id' | 'text' | 'creatorId'>
+    )> }
   ) }
 );
 
@@ -742,9 +754,15 @@ export type CreateDirectMessageMutationOptions = Apollo.BaseMutationOptions<Crea
 export const CreateMessageDocument = gql`
     mutation CreateMessage($input: CreateMessageInput!) {
   createMessage(input: $input) {
-    id
-    text
-    creatorId
+    errors {
+      field
+      message
+    }
+    message {
+      id
+      text
+      creatorId
+    }
   }
 }
     `;

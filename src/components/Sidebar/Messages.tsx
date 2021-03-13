@@ -13,10 +13,13 @@ interface Props {
   channel: ChannelsSnippetFragment;
 }
 const Messages: React.FC<Props> = ({ channel: { id } }) => {
-  const { data, loading, subscribeToMore } = useMessagesQuery({
+  const { data, loading, subscribeToMore, error } = useMessagesQuery({
     variables: { channelId: id },
     fetchPolicy: "network-only",
+    errorPolicy: "all",
   });
+
+  console.log("errrorororor", error);
   const { data: meData, loading: meLoading } = useMeQuery();
   useNewMessageAddedSubscription({
     variables: { channelId: id },

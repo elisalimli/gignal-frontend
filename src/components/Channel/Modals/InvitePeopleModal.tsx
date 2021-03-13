@@ -20,7 +20,7 @@ const InvitePeopleModal = ({ open, onClick }: Props) => {
   const [addMember] = useAddTeamMemberMutation();
   return (
     <Modal
-      extraStyle={{ height: "40%" }}
+      extraStyle={{ height: "35%" }}
       header="Invite People"
       onClick={onClick}
       open={open}

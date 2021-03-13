@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { toast } from "react-toastify";
 import { useCreateMessageMutation } from "../generated/graphql";
 import { useGetIdFromUrl } from "../utils/hooks/useGetIdFromUrl";
 
@@ -13,10 +14,31 @@ const FileUpload: React.FC<Props> = ({ children, disableClick }) => {
   const router = useRouter();
 
   const onDrop = useCallback(async (files) => {
+    console.log(files);
+    const file = files[0];
+
     const channelId = useGetIdFromUrl(router.query.channelId);
-    await createMessage({
-      variables: { input: { channelId, text: null, file: files[0] } },
+    const res = await createMessage({
+      variables: { input: { channelId, text: null, file } },
     });
+
+    if (res.data.createMessage.errors) {
+      res.data.createMessage.errors.map((error) => {
+        if (error.field === "size") {
+          toast.warn(error.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            pauseOnFocusLoss: true,
+          });
+        }
+      });
+    }
+    console.log(res);
   }, []);
 
   const handleOnClick = useCallback((e) => {

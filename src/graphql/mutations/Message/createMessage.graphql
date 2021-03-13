@@ -1,7 +1,13 @@
 mutation CreateMessage( $input:CreateMessageInput! ) {
   createMessage(input: $input){
-    id
-    text
-    creatorId
+      errors {
+      field
+      message
+    }
+    message {
+      id
+      text
+      creatorId
+    }
   }
 }

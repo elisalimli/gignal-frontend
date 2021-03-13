@@ -1,9 +1,10 @@
 import React from "react";
 import { MessageMediaProps } from "./Audio";
+import { focusRing } from "../../../styles/global";
 
 const Video: React.FC<MessageMediaProps> = ({ url, fileType }) => {
   return (
-    <video controls width="300px">
+    <video className={focusRing} controls width="300px">
       <source src={url} type={fileType} />
     </video>
   );

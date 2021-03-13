@@ -10,5 +10,7 @@
 - Fix test 2 channel name(header section,i hope you remind what i'm talkin` about -_- ) +
 - Update Regular Message Wrapper add isCreator also for direct messages
 - Implement sending file for direct messages
+- Remove file error from graphql-upload package code
+- And implement file size error stuff
 - Good Luck!
 
