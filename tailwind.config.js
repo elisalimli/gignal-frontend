@@ -3,6 +3,7 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
+  plugins: [require("@tailwindcss/custom-forms")],
   darkMode: "class",
   purge: {
     enabled: true,
@@ -15,6 +16,13 @@ module.exports = {
     ],
   },
   theme: {
+    customForms: (theme) => ({
+      border: {
+        checkbox: {
+          border: "1px solid lightgray !important",
+        },
+      },
+    }),
     screens: {
       sm: "240px",
       smormd: "600px",

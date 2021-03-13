@@ -21,7 +21,7 @@ const CreateChannelModal = ({ open, onClick }) => {
       open={open}
     >
       <Formik
-        initialValues={{ name: "" }}
+        initialValues={{ name: "", checkbox: false }}
         onSubmit={async (values, { setErrors }) => {
           const res = await createChannel({
             variables: {
@@ -43,14 +43,25 @@ const CreateChannelModal = ({ open, onClick }) => {
           }
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, values }) => (
           <Form>
             <InputField
               name="name"
               label="Channel name"
               placeholder="Channel name"
             />
-
+            <div className="flex mt-6">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  className="form-checkbox form-checkbox-border"
+                />
+                <span className="ml-2">
+                  I agree to the
+                  <span className="underline">privacy policy</span>
+                </span>
+              </label>
+            </div>
             <ModalFooter>
               <Button
                 extraClassName="mr-4"

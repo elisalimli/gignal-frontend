@@ -35,7 +35,13 @@ const MessageContainer: React.FC<Props> = React.memo(
     if (fileType) {
       const mediaProps = { url, fileType };
       if (fileType.startsWith("image/")) {
-        body = <img className="mb-2 w-64 h-64" alt="message pic" src={url} />;
+        body = (
+          <img
+            className="mb-2 w-64 h-64 rounded-md"
+            alt="message pic"
+            src={url}
+          />
+        );
       } else if (fileType.startsWith("audio/")) {
         body = <Audio {...mediaProps} />;
       } else if (fileType.startsWith("video/")) {

@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import "../styles/Channel.css";
 import "../styles/Team.css";
 import "../styles/Modal.css";
+import "../styles/Checkbox.css";
 import "tailwindcss/dist/tailwind.min.css";
 import "react-toastify/dist/ReactToastify.css";
 

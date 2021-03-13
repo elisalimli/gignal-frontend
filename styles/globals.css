@@ -29,7 +29,6 @@ body {
     width: 7px;
 }
 
-
 *::-webkit-scrollbar-track {
     background: transparent;
 }
@@ -38,8 +37,6 @@ body {
     background-color: var(--thumbBG);
     border-radius: 6px;
 }
-
-
 
 .app_layout {
     display: grid;
@@ -64,8 +61,6 @@ body {
     }
 }
 
-/* Index page layout */
-
 .box {
     padding: 1em;
     text-align: center;
@@ -73,24 +68,14 @@ body {
 
 /* Our Grid Code */
 
-
 .header-grid {
     grid-column: 3;
     grid-row: 1;
 }
 
-
-
-.write {
-    background-color: #f2f2f2;
-}
-
-
 .messages {
     grid-column: 3;
     grid-row: 2;
-
-
 }
 
 @media (max-width: 568px) {
@@ -111,8 +96,4 @@ body {
 
 .scroll-smooth {
     scroll-behavior: smooth;
-}
-
-.outline-disabled {
-    outline: none !important;
 }
