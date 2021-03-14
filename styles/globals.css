@@ -50,14 +50,12 @@ body {
 @media (max-width: 568px) {
     .app_layout {
         min-height: 100vh;
-
     }
 }
 
 @media (max-width: 800px) {
     .app_layout {
         grid-template-columns: 80px 170px 1fr;
-
     }
 }
 
@@ -81,7 +79,6 @@ body {
 @media (max-width: 568px) {
     .messages {
         height: 100vh;
-
     }
 }
 

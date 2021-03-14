@@ -1,10 +1,21 @@
-import React, { InputHTMLAttributes, LinkHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, LinkHTMLAttributes, Props } from "react";
 import NextLink, { LinkProps } from "next/link";
 
-const MyLink: React.FC<LinkProps> = ({ children, ...props }) => {
+type MyLinkProps = LinkProps & {
+  extraClassName?: string;
+  target?: string;
+};
+const MyLink: React.FC<MyLinkProps> = ({
+  children,
+  extraClassName,
+  target,
+  ...props
+}) => {
   return (
     <NextLink {...props} passHref>
-      <a>{children}</a>
+      <a target={target} className={`${extraClassName}`}>
+        {children}
+      </a>
     </NextLink>
   );
 };

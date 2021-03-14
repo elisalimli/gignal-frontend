@@ -1,5 +1,6 @@
 .ReactModal__Content {
     width: 30%;
+    position: relative;
     display: flex;
     flex-direction: column;
     margin-top: 5%;
@@ -7,6 +8,7 @@
     border-radius: 50px;
     outline: none;
 }
+
 
 
 .ReactModal__Overlay {

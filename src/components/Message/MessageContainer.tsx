@@ -27,10 +27,8 @@ const MessageContainer: React.FC<Props> = React.memo(
     isCreator,
   }) => {
     dayjs.extend(calendar);
-    console.log("iscreator", isCreator);
     const position = isCreator ? "items-start" : "items-end";
 
-    console.log("filetype", fileType, url);
     let body = null;
     if (fileType) {
       const mediaProps = { url, fileType };
