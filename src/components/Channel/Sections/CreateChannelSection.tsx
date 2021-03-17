@@ -2,11 +2,21 @@ import React, { useState } from "react";
 import CreateChannelModal from "../Modals/CreateChannelModal";
 import PlusIcon from "../../icons/PlusIcon";
 import MyIcon from "../../utils/MyIcon";
+import Loading from "../../utils/Loading";
+import { useGetTeamMembersQuery } from "../../../generated/graphql";
 
-interface Props {}
+interface Props {
+  teamId: number;
+}
 
-const CreateChannelSection = (props: Props) => {
+const CreateChannelSection: React.FC<Props> = ({ teamId }) => {
   const [open, setOpen] = useState(false);
+  const { data, loading } = useGetTeamMembersQuery({
+    variables: { teamId },
+    skip: !open,
+  });
+
+  if (loading) return null;
 
   const handleClick = () => setOpen(!open);
   return (
@@ -15,6 +25,8 @@ const CreateChannelSection = (props: Props) => {
         <PlusIcon />
       </MyIcon>
       <CreateChannelModal
+        data={data?.getTeamMembers || []}
+        teamId={teamId}
         key="direct-messages-modal"
         open={open}
         onClick={handleClick}

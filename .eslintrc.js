@@ -36,9 +36,9 @@ module.exports = {
     radix: 0,
     indent: 0,
     "arrow-body-style": 0,
-
     "import/prefer-default-export": 0,
     "operator-linebreak": 0,
     "prefer-destructuring": 0,
+    "jsx-a11y/label-has-associated-control": 0,
   },
 };

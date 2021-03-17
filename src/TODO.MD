@@ -14,5 +14,5 @@
 - [x] Implement sending file for direct messages 
 - [x] Remove file error from graphql-upload package code 
 - [x] And implement file size error stuff 
-- [ ] add cloudinary
-
+- [x] add cloudinary
+- [ ] think about if user don't select any users when create private channel

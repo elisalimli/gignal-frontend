@@ -24,6 +24,7 @@
     "graphql": "^15.5.0",
     "graphql-tag": "^2.11.0",
     "linkify-it": "^3.0.2",
+    "linkifyjs": "^3.0.0-beta.3",
     "next": "^10.0.7",
     "next-apollo": "^5.0.4",
     "next-themes": "^0.0.10",
@@ -34,6 +35,7 @@
     "react-h5-audio-player": "^3.6.1",
     "react-loader-spinner": "^4.0.0",
     "react-modal": "^3.12.1",
+    "react-select": "^4.2.1",
     "react-toastify": "^7.0.3",
     "subscriptions-transport-ws": "^0.9.18",
     "tlds": "^1.218.0"
@@ -48,6 +50,7 @@
     "@types/linkify-it": "^3.0.0",
     "@types/react": "^17.0.2",
     "@types/react-modal": "^3.12.0",
+    "@types/react-select": "^4.0.13",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "autoprefixer": "^10.2.5",

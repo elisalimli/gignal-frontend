@@ -16,6 +16,12 @@ interface Props {
   borderRadius: BorderRadiusTypes;
   padding?: string;
 }
+const style = {
+  common: `border-0 focus:outline-none text-lg flex items-center justify-center transition-colors duration-300`,
+  solid: "bg-purple-500 hover:bg-purple-600 text-white",
+  outline: "hover:bg-gray-200",
+  icon: "bg-gray-200 hover:bg-gray-300 text-gray-500 py-1 px-3",
+};
 
 const Button: React.FC<Props> = ({
   type,
@@ -42,18 +48,11 @@ const Button: React.FC<Props> = ({
     borderRadius ? `rounded-${borderRadius}` : ""
   }`;
 
-  const style = {
-    common: `border-0 focus:outline-none text-lg flex items-center justify-center transition-colors duration-300`,
-    solid: "bg-purple-500 hover:bg-purple-600 text-white",
-    outline: "hover:bg-gray-200",
-    icon: "bg-gray-200 hover:bg-gray-300 text-gray-500 py-1 px-3",
-  };
-
   return (
     <button
       onClick={onClick}
-      style={{ minWidth: width, height }}
       className={`${style.common} ${extraStyles} ${style[variant]} ${extraClassName} ${padding} `}
+      style={{ minWidth: width, height }}
       type={type}
       disabled={disabled}
     >

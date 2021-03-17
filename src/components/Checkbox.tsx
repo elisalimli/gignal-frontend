@@ -2,21 +2,20 @@ import React from "react";
 
 interface Props {
   checked: boolean;
-  name: string;
-  text: string;
+  label: string;
+  onChange: () => void;
 }
 
-const Checkbox: React.FC<Props> = ({ checked, name, text }) => {
+const Checkbox: React.FC<Props> = ({ checked, label, onChange }) => {
   return (
-    <div className="container">
-      {text}
+    <div className="flex items-center">
       <input
-        name={name}
-        type="checkbox"
-        onChange={(e) => console.log(e.target.value)}
         checked={checked}
+        onChange={onChange}
+        type="checkbox"
+        className="form-checkbox form-checkbox-border text-purple-500"
       />
-      <span className="checkmark" />
+      <label className="ml-2">{label}</label>
     </div>
   );
 };

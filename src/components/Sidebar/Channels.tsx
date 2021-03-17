@@ -26,6 +26,8 @@ const Channels: React.FC<Props> = () => {
     team: { channels, id, name, directMessagesMembers: members, admin },
     me: { username },
   } = data;
+  console.log("admin", admin);
+
   return (
     <div className="bg-channel-bg text-channel-color overflow-y-auto channels">
       <div className={`${paddingLeft} mb-1`}>
@@ -35,8 +37,8 @@ const Channels: React.FC<Props> = () => {
 
       <ul className="mb-1 w-full">
         <div className="flex justify-between items-center">
-          <div className={paddingLeft}>Channels1 </div>
-          {admin ? <CreateChannelSection /> : null}
+          <div className={paddingLeft}>Channels</div>
+          {admin ? <CreateChannelSection teamId={data?.team?.id} /> : null}
         </div>
         {channels.map((channel) => (
           <Channel key={`channel-${channel.id}`} channel={channel} />
@@ -44,7 +46,6 @@ const Channels: React.FC<Props> = () => {
       </ul>
       <div>
         <ul>
-          {/* CHANNEL ACTION WRAPPER REAPIR */}
           <div className="flex justify-between">
             <span className={paddingLeft}>Direct Messages</span>
             {admin ? <DirectMessagesSection teamId={data?.team?.id} /> : null}

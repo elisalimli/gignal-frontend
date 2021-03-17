@@ -1,9 +1,16 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+/* eslint-disable import/newline-after-import */
+/* eslint-disable max-len */
+import * as Apollo from "@apollo/client";
+import { gql } from "@apollo/client";
+
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -16,8 +23,9 @@ export type Scalars = {
 };
 
 export type Query = {
-  __typename?: 'Query';
+  __typename?: "Query";
   channel?: Maybe<Channel>;
+  directMessages: Array<DirectMessage>;
   getMember?: Maybe<User>;
   messages?: Maybe<Array<Message>>;
   teams?: Maybe<Array<Team>>;
@@ -26,677 +34,603 @@ export type Query = {
   getTeamMembers: Array<Member>;
   me?: Maybe<User>;
   allUsers?: Maybe<Array<User>>;
-  directMessages: Array<DirectMessage>;
 };
-
 
 export type QueryChannelArgs = {
   input: ChannelInput;
 };
 
-
-export type QueryGetMemberArgs = {
-  userId: Scalars['Int'];
-};
-
-
-export type QueryMessagesArgs = {
-  channelId: Scalars['Int'];
-};
-
-
-export type QueryTeamArgs = {
-  teamId: Scalars['Int'];
-};
-
-
-export type QueryGetTeamMembersArgs = {
-  teamId: Scalars['Int'];
-};
-
-
 export type QueryDirectMessagesArgs = {
   input: DirectMessagesInput;
 };
 
+export type QueryGetMemberArgs = {
+  userId: Scalars["Int"];
+};
+
+export type QueryMessagesArgs = {
+  channelId: Scalars["Int"];
+};
+
+export type QueryTeamArgs = {
+  teamId: Scalars["Int"];
+};
+
+export type QueryGetTeamMembersArgs = {
+  teamId: Scalars["Int"];
+};
+
 export type Channel = {
-  __typename?: 'Channel';
-  id: Scalars['Int'];
-  name: Scalars['String'];
-  public: Scalars['Boolean'];
+  __typename?: "Channel";
+  id: Scalars["Int"];
+  name: Scalars["String"];
+  public: Scalars["Boolean"];
   users?: Maybe<Array<User>>;
   messages?: Maybe<Array<Message>>;
   team: Team;
   creator: User;
-  creatorId: Scalars['Float'];
-  teamId: Scalars['Float'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
+  creatorId: Scalars["Float"];
+  teamId: Scalars["Float"];
+  createdAt: Scalars["String"];
+  updatedAt: Scalars["String"];
 };
 
 export type User = {
-  __typename?: 'User';
-  id: Scalars['Int'];
-  username: Scalars['String'];
-  email: Scalars['String'];
-  isYou: Scalars['Boolean'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
+  __typename?: "User";
+  id: Scalars["Int"];
+  username: Scalars["String"];
+  email: Scalars["String"];
+  isYou: Scalars["Boolean"];
+  createdAt: Scalars["String"];
+  updatedAt: Scalars["String"];
 };
 
 export type Message = {
-  __typename?: 'Message';
-  id: Scalars['Int'];
-  text?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  fileType?: Maybe<Scalars['String']>;
-  channelId: Scalars['Int'];
+  __typename?: "Message";
+  id: Scalars["Int"];
+  text?: Maybe<Scalars["String"]>;
+  url?: Maybe<Scalars["String"]>;
+  fileType?: Maybe<Scalars["String"]>;
+  channelId: Scalars["Int"];
   creator: User;
-  creatorId: Scalars['Int'];
+  creatorId: Scalars["Int"];
   channel: Channel;
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
+  createdAt: Scalars["String"];
+  updatedAt: Scalars["String"];
 };
 
 export type Team = {
-  __typename?: 'Team';
-  id: Scalars['Int'];
-  name: Scalars['String'];
-  creatorId: Scalars['Float'];
+  __typename?: "Team";
+  id: Scalars["Int"];
+  name: Scalars["String"];
+  admin: Scalars["Boolean"];
+  creatorId: Scalars["Float"];
   channels: Array<Channel>;
   directMessagesMembers: Array<User>;
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
-  admin: Scalars['Boolean'];
+  createdAt: Scalars["String"];
+  updatedAt: Scalars["String"];
 };
 
 export type ChannelInput = {
-  teamId: Scalars['Int'];
-  channelId: Scalars['Int'];
-};
-
-export type Member = {
-  __typename?: 'Member';
-  id: Scalars['Int'];
-  userId: Scalars['Int'];
-  teamId: Scalars['Int'];
-  team: Team;
-  user: User;
-  isYou: Scalars['Boolean'];
-  admin: Scalars['Boolean'];
-  updatedAt: Scalars['String'];
+  teamId: Scalars["Int"];
+  channelId: Scalars["Int"];
 };
 
 export type DirectMessage = {
-  __typename?: 'DirectMessage';
-  id: Scalars['Int'];
-  teamId: Scalars['Int'];
-  receiverId: Scalars['Int'];
-  senderId: Scalars['Int'];
+  __typename?: "DirectMessage";
+  id: Scalars["Int"];
+  teamId: Scalars["Int"];
+  receiverId: Scalars["Int"];
+  senderId: Scalars["Int"];
   creator: User;
-  text: Scalars['String'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
+  text: Scalars["String"];
+  createdAt: Scalars["String"];
+  updatedAt: Scalars["String"];
 };
 
 export type DirectMessagesInput = {
-  teamId: Scalars['Int'];
-  otherUserId: Scalars['Int'];
+  teamId: Scalars["Int"];
+  otherUserId: Scalars["Int"];
+};
+
+export type Member = {
+  __typename?: "Member";
+  id: Scalars["Int"];
+  userId: Scalars["Int"];
+  teamId: Scalars["Int"];
+  team: Team;
+  user: User;
+  isYou: Scalars["Boolean"];
+  admin: Scalars["Boolean"];
+  updatedAt: Scalars["String"];
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   createChannel: CreateChannelResponse;
+  createDirectMessage: Scalars["Boolean"];
   addTeamMember: VoidResponse;
   createMessage: CreateMessageResponse;
-  deleteTeam: Scalars['Boolean'];
+  deleteTeam: Scalars["Boolean"];
   createTeam: CreateTeamResponse;
   login: UserResponse;
-  logout: Scalars['Boolean'];
+  logout: Scalars["Boolean"];
   register: UserResponse;
-  createDirectMessage: Scalars['Boolean'];
 };
-
 
 export type MutationCreateChannelArgs = {
   input: CreateChannelInput;
 };
 
+export type MutationCreateDirectMessageArgs = {
+  input: CreateDirectMessageInput;
+};
 
 export type MutationAddTeamMemberArgs = {
   input: AddTeamMemberInput;
 };
 
-
 export type MutationCreateMessageArgs = {
   input: CreateMessageInput;
 };
 
-
 export type MutationDeleteTeamArgs = {
-  teamId: Scalars['Int'];
+  teamId: Scalars["Int"];
 };
-
 
 export type MutationCreateTeamArgs = {
-  name: Scalars['String'];
+  name: Scalars["String"];
 };
-
 
 export type MutationLoginArgs = {
   input: LoginInput;
 };
 
-
 export type MutationRegisterArgs = {
   options: RegisterInput;
 };
 
-
-export type MutationCreateDirectMessageArgs = {
-  input: CreateDirectMessageInput;
-};
-
 export type CreateChannelResponse = {
-  __typename?: 'CreateChannelResponse';
+  __typename?: "CreateChannelResponse";
   errors?: Maybe<Array<FieldError>>;
   channel?: Maybe<Channel>;
 };
 
 export type FieldError = {
-  __typename?: 'FieldError';
-  field: Scalars['String'];
-  message: Scalars['String'];
+  __typename?: "FieldError";
+  field: Scalars["String"];
+  message: Scalars["String"];
 };
 
 export type CreateChannelInput = {
-  teamId: Scalars['Int'];
-  name: Scalars['String'];
-  isPublic?: Maybe<Scalars['Boolean']>;
+  teamId: Scalars["Int"];
+  name: Scalars["String"];
+  isPublic: Scalars["Boolean"];
+  members: Array<Scalars["Int"]>;
+};
+
+export type CreateDirectMessageInput = {
+  receiverId: Scalars["Int"];
+  teamId: Scalars["Int"];
+  text: Scalars["String"];
 };
 
 export type VoidResponse = {
-  __typename?: 'VoidResponse';
+  __typename?: "VoidResponse";
   errors?: Maybe<Array<FieldError>>;
-  ok: Scalars['Boolean'];
+  ok: Scalars["Boolean"];
 };
 
 export type AddTeamMemberInput = {
-  teamId: Scalars['Int'];
-  email: Scalars['String'];
+  teamId: Scalars["Int"];
+  email: Scalars["String"];
 };
 
 export type CreateMessageResponse = {
-  __typename?: 'CreateMessageResponse';
+  __typename?: "CreateMessageResponse";
   errors?: Maybe<Array<FieldError>>;
   message?: Maybe<Message>;
 };
 
 export type CreateMessageInput = {
-  channelId: Scalars['Int'];
-  text?: Maybe<Scalars['String']>;
-  file?: Maybe<Scalars['Upload']>;
+  channelId: Scalars["Int"];
+  text?: Maybe<Scalars["String"]>;
+  file?: Maybe<Scalars["Upload"]>;
 };
 
-
 export type CreateTeamResponse = {
-  __typename?: 'CreateTeamResponse';
+  __typename?: "CreateTeamResponse";
   errors?: Maybe<Array<FieldError>>;
   team?: Maybe<Team>;
-  channelId?: Maybe<Scalars['Int']>;
+  channelId?: Maybe<Scalars["Int"]>;
 };
 
 export type UserResponse = {
-  __typename?: 'UserResponse';
+  __typename?: "UserResponse";
   errors?: Maybe<Array<FieldError>>;
   user?: Maybe<User>;
 };
 
 export type LoginInput = {
-  usernameOrEmail: Scalars['String'];
-  password: Scalars['String'];
+  usernameOrEmail: Scalars["String"];
+  password: Scalars["String"];
 };
 
 export type RegisterInput = {
-  username: Scalars['String'];
-  email: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type CreateDirectMessageInput = {
-  receiverId: Scalars['Int'];
-  teamId: Scalars['Int'];
-  text: Scalars['String'];
+  username: Scalars["String"];
+  email: Scalars["String"];
+  password: Scalars["String"];
 };
 
 export type Subscription = {
-  __typename?: 'Subscription';
-  newMessageAdded: Message;
+  __typename?: "Subscription";
   newDirectMessageAdded: DirectMessage;
+  newMessageAdded: Message;
 };
-
-
-export type SubscriptionNewMessageAddedArgs = {
-  channelId: Scalars['Int'];
-};
-
 
 export type SubscriptionNewDirectMessageAddedArgs = {
   input: DirectMessageSubscriptionInput;
 };
 
-export type DirectMessageSubscriptionInput = {
-  teamId: Scalars['Int'];
-  receiverId: Scalars['Int'];
+export type SubscriptionNewMessageAddedArgs = {
+  channelId: Scalars["Int"];
 };
 
-export type ChannelsSnippetFragment = (
-  { __typename?: 'Channel' }
-  & Pick<Channel, 'id' | 'name' | 'teamId'>
-);
+export type DirectMessageSubscriptionInput = {
+  teamId: Scalars["Int"];
+  receiverId: Scalars["Int"];
+};
 
-export type DirectMessageSnippetFragment = (
-  { __typename?: 'DirectMessage' }
-  & Pick<DirectMessage, 'id' | 'text' | 'createdAt'>
-  & { creator: (
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'username'>
-  ) }
-);
+export type ChannelsSnippetFragment = { __typename?: "Channel" } & Pick<
+  Channel,
+  "id" | "name" | "teamId"
+>;
 
-export type RegularMemberUserSnippetFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'id' | 'username'>
-);
+export type DirectMessageSnippetFragment = {
+  __typename?: "DirectMessage";
+} & Pick<DirectMessage, "id" | "text" | "createdAt"> & {
+    creator: { __typename?: "User" } & Pick<User, "id" | "username">;
+  };
 
-export type MessageSnippetFragment = (
-  { __typename?: 'Message' }
-  & Pick<Message, 'id' | 'text' | 'createdAt' | 'url' | 'fileType'>
-  & { creator: (
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'username'>
-  ) }
-);
+export type RegularMemberUserSnippetFragment = { __typename?: "User" } & Pick<
+  User,
+  "id" | "username"
+>;
 
-export type MemberSnippetFragment = (
-  { __typename?: 'Member' }
-  & Pick<Member, 'id'>
-  & { user: (
-    { __typename?: 'User' }
-    & RegularMemberUserSnippetFragment
-  ) }
-);
+export type MessageSnippetFragment = { __typename?: "Message" } & Pick<
+  Message,
+  "id" | "text" | "createdAt" | "url" | "fileType"
+> & { creator: { __typename?: "User" } & Pick<User, "id" | "username"> };
 
-export type RegularTeamsSnippetFragment = (
-  { __typename?: 'Team' }
-  & Pick<Team, 'id' | 'name'>
-);
+export type MemberSnippetFragment = { __typename?: "Member" } & Pick<
+  Member,
+  "id"
+> & { user: { __typename?: "User" } & RegularMemberUserSnippetFragment };
 
-export type TeamSnippetFragment = (
-  { __typename?: 'Team' }
-  & Pick<Team, 'id' | 'name' | 'admin'>
-  & { channels: Array<(
-    { __typename?: 'Channel' }
-    & ChannelsSnippetFragment
-  )>, directMessagesMembers: Array<(
-    { __typename?: 'User' }
-    & RegularMemberUserSnippetFragment
-  )> }
-);
+export type RegularTeamsSnippetFragment = { __typename?: "Team" } & Pick<
+  Team,
+  "id" | "name"
+>;
 
-export type MeSnippetFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'id' | 'username' | 'createdAt' | 'email'>
-);
+export type TeamSnippetFragment = { __typename?: "Team" } & Pick<
+  Team,
+  "id" | "name" | "admin"
+> & {
+    channels: Array<{ __typename?: "Channel" } & ChannelsSnippetFragment>;
+    directMessagesMembers: Array<
+      { __typename?: "User" } & RegularMemberUserSnippetFragment
+    >;
+  };
+
+export type MeSnippetFragment = { __typename?: "User" } & Pick<
+  User,
+  "id" | "username" | "createdAt" | "email"
+>;
 
 export type CreateChannelMutationVariables = Exact<{
   input: CreateChannelInput;
 }>;
 
-
-export type CreateChannelMutation = (
-  { __typename?: 'Mutation' }
-  & { createChannel: (
-    { __typename?: 'CreateChannelResponse' }
-    & { errors?: Maybe<Array<(
-      { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>>, channel?: Maybe<(
-      { __typename?: 'Channel' }
-      & Pick<Channel, 'id' | 'name' | 'public' | 'teamId'>
-    )> }
-  ) }
-);
+export type CreateChannelMutation = { __typename?: "Mutation" } & {
+  createChannel: { __typename?: "CreateChannelResponse" } & {
+    errors?: Maybe<
+      Array<
+        { __typename?: "FieldError" } & Pick<FieldError, "field" | "message">
+      >
+    >;
+    channel?: Maybe<
+      { __typename?: "Channel" } & Pick<
+        Channel,
+        "id" | "name" | "public" | "teamId"
+      >
+    >;
+  };
+};
 
 export type CreateDirectMessageMutationVariables = Exact<{
   input: CreateDirectMessageInput;
 }>;
 
-
-export type CreateDirectMessageMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'createDirectMessage'>
-);
+export type CreateDirectMessageMutation = { __typename?: "Mutation" } & Pick<
+  Mutation,
+  "createDirectMessage"
+>;
 
 export type CreateMessageMutationVariables = Exact<{
   input: CreateMessageInput;
 }>;
 
-
-export type CreateMessageMutation = (
-  { __typename?: 'Mutation' }
-  & { createMessage: (
-    { __typename?: 'CreateMessageResponse' }
-    & { errors?: Maybe<Array<(
-      { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>>, message?: Maybe<(
-      { __typename?: 'Message' }
-      & Pick<Message, 'id' | 'text' | 'creatorId'>
-    )> }
-  ) }
-);
+export type CreateMessageMutation = { __typename?: "Mutation" } & {
+  createMessage: { __typename?: "CreateMessageResponse" } & {
+    errors?: Maybe<
+      Array<
+        { __typename?: "FieldError" } & Pick<FieldError, "field" | "message">
+      >
+    >;
+    message?: Maybe<
+      { __typename?: "Message" } & Pick<Message, "id" | "text" | "creatorId">
+    >;
+  };
+};
 
 export type AddTeamMemberMutationVariables = Exact<{
   input: AddTeamMemberInput;
 }>;
 
-
-export type AddTeamMemberMutation = (
-  { __typename?: 'Mutation' }
-  & { addTeamMember: (
-    { __typename?: 'VoidResponse' }
-    & Pick<VoidResponse, 'ok'>
-    & { errors?: Maybe<Array<(
-      { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>> }
-  ) }
-);
+export type AddTeamMemberMutation = { __typename?: "Mutation" } & {
+  addTeamMember: { __typename?: "VoidResponse" } & Pick<VoidResponse, "ok"> & {
+      errors?: Maybe<
+        Array<
+          { __typename?: "FieldError" } & Pick<FieldError, "field" | "message">
+        >
+      >;
+    };
+};
 
 export type CreateTeamMutationVariables = Exact<{
-  name: Scalars['String'];
+  name: Scalars["String"];
 }>;
 
-
-export type CreateTeamMutation = (
-  { __typename?: 'Mutation' }
-  & { createTeam: (
-    { __typename?: 'CreateTeamResponse' }
-    & Pick<CreateTeamResponse, 'channelId'>
-    & { errors?: Maybe<Array<(
-      { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>>, team?: Maybe<(
-      { __typename?: 'Team' }
-      & Pick<Team, 'id' | 'name' | 'creatorId'>
-    )> }
-  ) }
-);
+export type CreateTeamMutation = { __typename?: "Mutation" } & {
+  createTeam: { __typename?: "CreateTeamResponse" } & Pick<
+    CreateTeamResponse,
+    "channelId"
+  > & {
+      errors?: Maybe<
+        Array<
+          { __typename?: "FieldError" } & Pick<FieldError, "field" | "message">
+        >
+      >;
+      team?: Maybe<
+        { __typename?: "Team" } & Pick<Team, "id" | "name" | "creatorId">
+      >;
+    };
+};
 
 export type LoginMutationVariables = Exact<{
-  usernameOrEmail: Scalars['String'];
-  password: Scalars['String'];
+  usernameOrEmail: Scalars["String"];
+  password: Scalars["String"];
 }>;
 
-
-export type LoginMutation = (
-  { __typename?: 'Mutation' }
-  & { login: (
-    { __typename?: 'UserResponse' }
-    & { errors?: Maybe<Array<(
-      { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>>, user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username' | 'email' | 'createdAt'>
-    )> }
-  ) }
-);
+export type LoginMutation = { __typename?: "Mutation" } & {
+  login: { __typename?: "UserResponse" } & {
+    errors?: Maybe<
+      Array<
+        { __typename?: "FieldError" } & Pick<FieldError, "field" | "message">
+      >
+    >;
+    user?: Maybe<
+      { __typename?: "User" } & Pick<
+        User,
+        "id" | "username" | "email" | "createdAt"
+      >
+    >;
+  };
+};
 
 export type RegisterMutationVariables = Exact<{
-  username: Scalars['String'];
-  email: Scalars['String'];
-  password: Scalars['String'];
+  username: Scalars["String"];
+  email: Scalars["String"];
+  password: Scalars["String"];
 }>;
 
-
-export type RegisterMutation = (
-  { __typename?: 'Mutation' }
-  & { register: (
-    { __typename?: 'UserResponse' }
-    & { errors?: Maybe<Array<(
-      { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>>, user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username' | 'email' | 'createdAt'>
-    )> }
-  ) }
-);
+export type RegisterMutation = { __typename?: "Mutation" } & {
+  register: { __typename?: "UserResponse" } & {
+    errors?: Maybe<
+      Array<
+        { __typename?: "FieldError" } & Pick<FieldError, "field" | "message">
+      >
+    >;
+    user?: Maybe<
+      { __typename?: "User" } & Pick<
+        User,
+        "id" | "username" | "email" | "createdAt"
+      >
+    >;
+  };
+};
 
 export type ChannelQueryVariables = Exact<{
   input: ChannelInput;
 }>;
 
-
-export type ChannelQuery = (
-  { __typename?: 'Query' }
-  & { channel?: Maybe<(
-    { __typename?: 'Channel' }
-    & ChannelsSnippetFragment
-  )> }
-);
+export type ChannelQuery = { __typename?: "Query" } & {
+  channel?: Maybe<{ __typename?: "Channel" } & ChannelsSnippetFragment>;
+};
 
 export type DirectMessagesQueryVariables = Exact<{
   input: DirectMessagesInput;
 }>;
 
-
-export type DirectMessagesQuery = (
-  { __typename?: 'Query' }
-  & { directMessages: Array<(
-    { __typename?: 'DirectMessage' }
-    & DirectMessageSnippetFragment
-  )> }
-);
+export type DirectMessagesQuery = { __typename?: "Query" } & {
+  directMessages: Array<
+    { __typename?: "DirectMessage" } & DirectMessageSnippetFragment
+  >;
+};
 
 export type GetMemberQueryVariables = Exact<{
-  userId: Scalars['Int'];
+  userId: Scalars["Int"];
 }>;
 
-
-export type GetMemberQuery = (
-  { __typename?: 'Query' }
-  & { getMember?: Maybe<(
-    { __typename?: 'User' }
-    & RegularMemberUserSnippetFragment
-  )> }
-);
+export type GetMemberQuery = { __typename?: "Query" } & {
+  getMember?: Maybe<{ __typename?: "User" } & RegularMemberUserSnippetFragment>;
+};
 
 export type MessagesQueryVariables = Exact<{
-  channelId: Scalars['Int'];
+  channelId: Scalars["Int"];
 }>;
 
-
-export type MessagesQuery = (
-  { __typename?: 'Query' }
-  & { messages?: Maybe<Array<(
-    { __typename?: 'Message' }
-    & MessageSnippetFragment
-  )>> }
-);
+export type MessagesQuery = { __typename?: "Query" } & {
+  messages?: Maybe<Array<{ __typename?: "Message" } & MessageSnippetFragment>>;
+};
 
 export type TeamQueryVariables = Exact<{
-  teamId: Scalars['Int'];
+  teamId: Scalars["Int"];
 }>;
 
-
-export type TeamQuery = (
-  { __typename?: 'Query' }
-  & { me?: Maybe<(
-    { __typename?: 'User' }
-    & MeSnippetFragment
-  )>, team?: Maybe<(
-    { __typename?: 'Team' }
-    & TeamSnippetFragment
-  )> }
-);
+export type TeamQuery = { __typename?: "Query" } & {
+  me?: Maybe<{ __typename?: "User" } & MeSnippetFragment>;
+  team?: Maybe<{ __typename?: "Team" } & TeamSnippetFragment>;
+};
 
 export type GetTeamMembersQueryVariables = Exact<{
-  teamId: Scalars['Int'];
+  teamId: Scalars["Int"];
 }>;
 
+export type GetTeamMembersQuery = { __typename?: "Query" } & {
+  getTeamMembers: Array<{ __typename?: "Member" } & MemberSnippetFragment>;
+};
 
-export type GetTeamMembersQuery = (
-  { __typename?: 'Query' }
-  & { getTeamMembers: Array<(
-    { __typename?: 'Member' }
-    & MemberSnippetFragment
-  )> }
-);
+export type AllTeamsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type AllTeamsQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllTeamsQuery = { __typename?: "Query" } & {
+  teams?: Maybe<Array<{ __typename?: "Team" } & RegularTeamsSnippetFragment>>;
+  invitedTeams?: Maybe<
+    Array<{ __typename?: "Team" } & RegularTeamsSnippetFragment>
+  >;
+};
 
+export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
-export type AllTeamsQuery = (
-  { __typename?: 'Query' }
-  & { teams?: Maybe<Array<(
-    { __typename?: 'Team' }
-    & RegularTeamsSnippetFragment
-  )>>, invitedTeams?: Maybe<Array<(
-    { __typename?: 'Team' }
-    & RegularTeamsSnippetFragment
-  )>> }
-);
-
-export type MeQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MeQuery = (
-  { __typename?: 'Query' }
-  & { me?: Maybe<(
-    { __typename?: 'User' }
-    & MeSnippetFragment
-  )> }
-);
+export type MeQuery = { __typename?: "Query" } & {
+  me?: Maybe<{ __typename?: "User" } & MeSnippetFragment>;
+};
 
 export type NewDirectMessageAddedSubscriptionVariables = Exact<{
   input: DirectMessageSubscriptionInput;
 }>;
 
-
-export type NewDirectMessageAddedSubscription = (
-  { __typename?: 'Subscription' }
-  & { newDirectMessageAdded: (
-    { __typename?: 'DirectMessage' }
-    & DirectMessageSnippetFragment
-  ) }
-);
+export type NewDirectMessageAddedSubscription = {
+  __typename?: "Subscription";
+} & {
+  newDirectMessageAdded: {
+    __typename?: "DirectMessage";
+  } & DirectMessageSnippetFragment;
+};
 
 export type NewMessageAddedSubscriptionVariables = Exact<{
-  channelId: Scalars['Int'];
+  channelId: Scalars["Int"];
 }>;
 
-
-export type NewMessageAddedSubscription = (
-  { __typename?: 'Subscription' }
-  & { newMessageAdded: (
-    { __typename?: 'Message' }
-    & MessageSnippetFragment
-  ) }
-);
+export type NewMessageAddedSubscription = { __typename?: "Subscription" } & {
+  newMessageAdded: { __typename?: "Message" } & MessageSnippetFragment;
+};
 
 export const DirectMessageSnippetFragmentDoc = gql`
-    fragment DirectMessageSnippet on DirectMessage {
-  id
-  text
-  createdAt
-  creator {
+  fragment DirectMessageSnippet on DirectMessage {
     id
-    username
-  }
-}
-    `;
-export const MessageSnippetFragmentDoc = gql`
-    fragment MessageSnippet on Message {
-  id
-  text
-  createdAt
-  creator {
-    id
-    username
-  }
-  url
-  fileType
-}
-    `;
-export const RegularMemberUserSnippetFragmentDoc = gql`
-    fragment RegularMemberUserSnippet on User {
-  id
-  username
-}
-    `;
-export const MemberSnippetFragmentDoc = gql`
-    fragment MemberSnippet on Member {
-  id
-  user {
-    ...RegularMemberUserSnippet
-  }
-}
-    ${RegularMemberUserSnippetFragmentDoc}`;
-export const RegularTeamsSnippetFragmentDoc = gql`
-    fragment RegularTeamsSnippet on Team {
-  id
-  name
-}
-    `;
-export const ChannelsSnippetFragmentDoc = gql`
-    fragment ChannelsSnippet on Channel {
-  id
-  name
-  teamId
-}
-    `;
-export const TeamSnippetFragmentDoc = gql`
-    fragment TeamSnippet on Team {
-  id
-  name
-  channels {
-    ...ChannelsSnippet
-  }
-  directMessagesMembers {
-    ...RegularMemberUserSnippet
-  }
-  admin
-}
-    ${ChannelsSnippetFragmentDoc}
-${RegularMemberUserSnippetFragmentDoc}`;
-export const MeSnippetFragmentDoc = gql`
-    fragment MeSnippet on User {
-  id
-  username
-  createdAt
-  email
-}
-    `;
-export const CreateChannelDocument = gql`
-    mutation CreateChannel($input: CreateChannelInput!) {
-  createChannel(input: $input) {
-    errors {
-      field
-      message
-    }
-    channel {
+    text
+    createdAt
+    creator {
       id
-      name
-      public
-      teamId
+      username
     }
   }
-}
-    `;
-export type CreateChannelMutationFn = Apollo.MutationFunction<CreateChannelMutation, CreateChannelMutationVariables>;
+`;
+export const MessageSnippetFragmentDoc = gql`
+  fragment MessageSnippet on Message {
+    id
+    text
+    createdAt
+    creator {
+      id
+      username
+    }
+    url
+    fileType
+  }
+`;
+export const RegularMemberUserSnippetFragmentDoc = gql`
+  fragment RegularMemberUserSnippet on User {
+    id
+    username
+  }
+`;
+export const MemberSnippetFragmentDoc = gql`
+  fragment MemberSnippet on Member {
+    id
+    user {
+      ...RegularMemberUserSnippet
+    }
+  }
+  ${RegularMemberUserSnippetFragmentDoc}
+`;
+export const RegularTeamsSnippetFragmentDoc = gql`
+  fragment RegularTeamsSnippet on Team {
+    id
+    name
+  }
+`;
+export const ChannelsSnippetFragmentDoc = gql`
+  fragment ChannelsSnippet on Channel {
+    id
+    name
+    teamId
+  }
+`;
+export const TeamSnippetFragmentDoc = gql`
+  fragment TeamSnippet on Team {
+    id
+    name
+    channels {
+      ...ChannelsSnippet
+    }
+    directMessagesMembers {
+      ...RegularMemberUserSnippet
+    }
+    admin
+  }
+  ${ChannelsSnippetFragmentDoc}
+  ${RegularMemberUserSnippetFragmentDoc}
+`;
+export const MeSnippetFragmentDoc = gql`
+  fragment MeSnippet on User {
+    id
+    username
+    createdAt
+    email
+  }
+`;
+export const CreateChannelDocument = gql`
+  mutation CreateChannel($input: CreateChannelInput!) {
+    createChannel(input: $input) {
+      errors {
+        field
+        message
+      }
+      channel {
+        id
+        name
+        public
+        teamId
+      }
+    }
+  }
+`;
+export type CreateChannelMutationFn = Apollo.MutationFunction<
+  CreateChannelMutation,
+  CreateChannelMutationVariables
+>;
 
 /**
  * __useCreateChannelMutation__
@@ -715,18 +649,34 @@ export type CreateChannelMutationFn = Apollo.MutationFunction<CreateChannelMutat
  *   },
  * });
  */
-export function useCreateChannelMutation(baseOptions?: Apollo.MutationHookOptions<CreateChannelMutation, CreateChannelMutationVariables>) {
-        return Apollo.useMutation<CreateChannelMutation, CreateChannelMutationVariables>(CreateChannelDocument, baseOptions);
-      }
-export type CreateChannelMutationHookResult = ReturnType<typeof useCreateChannelMutation>;
-export type CreateChannelMutationResult = Apollo.MutationResult<CreateChannelMutation>;
-export type CreateChannelMutationOptions = Apollo.BaseMutationOptions<CreateChannelMutation, CreateChannelMutationVariables>;
-export const CreateDirectMessageDocument = gql`
-    mutation CreateDirectMessage($input: CreateDirectMessageInput!) {
-  createDirectMessage(input: $input)
+export function useCreateChannelMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateChannelMutation,
+    CreateChannelMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    CreateChannelMutation,
+    CreateChannelMutationVariables
+  >(CreateChannelDocument, baseOptions);
 }
-    `;
-export type CreateDirectMessageMutationFn = Apollo.MutationFunction<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>;
+export type CreateChannelMutationHookResult = ReturnType<
+  typeof useCreateChannelMutation
+>;
+export type CreateChannelMutationResult = Apollo.MutationResult<CreateChannelMutation>;
+export type CreateChannelMutationOptions = Apollo.BaseMutationOptions<
+  CreateChannelMutation,
+  CreateChannelMutationVariables
+>;
+export const CreateDirectMessageDocument = gql`
+  mutation CreateDirectMessage($input: CreateDirectMessageInput!) {
+    createDirectMessage(input: $input)
+  }
+`;
+export type CreateDirectMessageMutationFn = Apollo.MutationFunction<
+  CreateDirectMessageMutation,
+  CreateDirectMessageMutationVariables
+>;
 
 /**
  * __useCreateDirectMessageMutation__
@@ -745,28 +695,44 @@ export type CreateDirectMessageMutationFn = Apollo.MutationFunction<CreateDirect
  *   },
  * });
  */
-export function useCreateDirectMessageMutation(baseOptions?: Apollo.MutationHookOptions<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>) {
-        return Apollo.useMutation<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>(CreateDirectMessageDocument, baseOptions);
-      }
-export type CreateDirectMessageMutationHookResult = ReturnType<typeof useCreateDirectMessageMutation>;
+export function useCreateDirectMessageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDirectMessageMutation,
+    CreateDirectMessageMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    CreateDirectMessageMutation,
+    CreateDirectMessageMutationVariables
+  >(CreateDirectMessageDocument, baseOptions);
+}
+export type CreateDirectMessageMutationHookResult = ReturnType<
+  typeof useCreateDirectMessageMutation
+>;
 export type CreateDirectMessageMutationResult = Apollo.MutationResult<CreateDirectMessageMutation>;
-export type CreateDirectMessageMutationOptions = Apollo.BaseMutationOptions<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>;
+export type CreateDirectMessageMutationOptions = Apollo.BaseMutationOptions<
+  CreateDirectMessageMutation,
+  CreateDirectMessageMutationVariables
+>;
 export const CreateMessageDocument = gql`
-    mutation CreateMessage($input: CreateMessageInput!) {
-  createMessage(input: $input) {
-    errors {
-      field
-      message
-    }
-    message {
-      id
-      text
-      creatorId
+  mutation CreateMessage($input: CreateMessageInput!) {
+    createMessage(input: $input) {
+      errors {
+        field
+        message
+      }
+      message {
+        id
+        text
+        creatorId
+      }
     }
   }
-}
-    `;
-export type CreateMessageMutationFn = Apollo.MutationFunction<CreateMessageMutation, CreateMessageMutationVariables>;
+`;
+export type CreateMessageMutationFn = Apollo.MutationFunction<
+  CreateMessageMutation,
+  CreateMessageMutationVariables
+>;
 
 /**
  * __useCreateMessageMutation__
@@ -785,24 +751,40 @@ export type CreateMessageMutationFn = Apollo.MutationFunction<CreateMessageMutat
  *   },
  * });
  */
-export function useCreateMessageMutation(baseOptions?: Apollo.MutationHookOptions<CreateMessageMutation, CreateMessageMutationVariables>) {
-        return Apollo.useMutation<CreateMessageMutation, CreateMessageMutationVariables>(CreateMessageDocument, baseOptions);
-      }
-export type CreateMessageMutationHookResult = ReturnType<typeof useCreateMessageMutation>;
-export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
-export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<CreateMessageMutation, CreateMessageMutationVariables>;
-export const AddTeamMemberDocument = gql`
-    mutation AddTeamMember($input: AddTeamMemberInput!) {
-  addTeamMember(input: $input) {
-    errors {
-      field
-      message
-    }
-    ok
-  }
+export function useCreateMessageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateMessageMutation,
+    CreateMessageMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    CreateMessageMutation,
+    CreateMessageMutationVariables
+  >(CreateMessageDocument, baseOptions);
 }
-    `;
-export type AddTeamMemberMutationFn = Apollo.MutationFunction<AddTeamMemberMutation, AddTeamMemberMutationVariables>;
+export type CreateMessageMutationHookResult = ReturnType<
+  typeof useCreateMessageMutation
+>;
+export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
+export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
+  CreateMessageMutation,
+  CreateMessageMutationVariables
+>;
+export const AddTeamMemberDocument = gql`
+  mutation AddTeamMember($input: AddTeamMemberInput!) {
+    addTeamMember(input: $input) {
+      errors {
+        field
+        message
+      }
+      ok
+    }
+  }
+`;
+export type AddTeamMemberMutationFn = Apollo.MutationFunction<
+  AddTeamMemberMutation,
+  AddTeamMemberMutationVariables
+>;
 
 /**
  * __useAddTeamMemberMutation__
@@ -821,29 +803,45 @@ export type AddTeamMemberMutationFn = Apollo.MutationFunction<AddTeamMemberMutat
  *   },
  * });
  */
-export function useAddTeamMemberMutation(baseOptions?: Apollo.MutationHookOptions<AddTeamMemberMutation, AddTeamMemberMutationVariables>) {
-        return Apollo.useMutation<AddTeamMemberMutation, AddTeamMemberMutationVariables>(AddTeamMemberDocument, baseOptions);
-      }
-export type AddTeamMemberMutationHookResult = ReturnType<typeof useAddTeamMemberMutation>;
-export type AddTeamMemberMutationResult = Apollo.MutationResult<AddTeamMemberMutation>;
-export type AddTeamMemberMutationOptions = Apollo.BaseMutationOptions<AddTeamMemberMutation, AddTeamMemberMutationVariables>;
-export const CreateTeamDocument = gql`
-    mutation CreateTeam($name: String!) {
-  createTeam(name: $name) {
-    errors {
-      field
-      message
-    }
-    team {
-      id
-      name
-      creatorId
-    }
-    channelId
-  }
+export function useAddTeamMemberMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddTeamMemberMutation,
+    AddTeamMemberMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    AddTeamMemberMutation,
+    AddTeamMemberMutationVariables
+  >(AddTeamMemberDocument, baseOptions);
 }
-    `;
-export type CreateTeamMutationFn = Apollo.MutationFunction<CreateTeamMutation, CreateTeamMutationVariables>;
+export type AddTeamMemberMutationHookResult = ReturnType<
+  typeof useAddTeamMemberMutation
+>;
+export type AddTeamMemberMutationResult = Apollo.MutationResult<AddTeamMemberMutation>;
+export type AddTeamMemberMutationOptions = Apollo.BaseMutationOptions<
+  AddTeamMemberMutation,
+  AddTeamMemberMutationVariables
+>;
+export const CreateTeamDocument = gql`
+  mutation CreateTeam($name: String!) {
+    createTeam(name: $name) {
+      errors {
+        field
+        message
+      }
+      team {
+        id
+        name
+        creatorId
+      }
+      channelId
+    }
+  }
+`;
+export type CreateTeamMutationFn = Apollo.MutationFunction<
+  CreateTeamMutation,
+  CreateTeamMutationVariables
+>;
 
 /**
  * __useCreateTeamMutation__
@@ -862,29 +860,45 @@ export type CreateTeamMutationFn = Apollo.MutationFunction<CreateTeamMutation, C
  *   },
  * });
  */
-export function useCreateTeamMutation(baseOptions?: Apollo.MutationHookOptions<CreateTeamMutation, CreateTeamMutationVariables>) {
-        return Apollo.useMutation<CreateTeamMutation, CreateTeamMutationVariables>(CreateTeamDocument, baseOptions);
-      }
-export type CreateTeamMutationHookResult = ReturnType<typeof useCreateTeamMutation>;
+export function useCreateTeamMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateTeamMutation,
+    CreateTeamMutationVariables
+  >
+) {
+  return Apollo.useMutation<CreateTeamMutation, CreateTeamMutationVariables>(
+    CreateTeamDocument,
+    baseOptions
+  );
+}
+export type CreateTeamMutationHookResult = ReturnType<
+  typeof useCreateTeamMutation
+>;
 export type CreateTeamMutationResult = Apollo.MutationResult<CreateTeamMutation>;
-export type CreateTeamMutationOptions = Apollo.BaseMutationOptions<CreateTeamMutation, CreateTeamMutationVariables>;
+export type CreateTeamMutationOptions = Apollo.BaseMutationOptions<
+  CreateTeamMutation,
+  CreateTeamMutationVariables
+>;
 export const LoginDocument = gql`
-    mutation Login($usernameOrEmail: String!, $password: String!) {
-  login(input: {usernameOrEmail: $usernameOrEmail, password: $password}) {
-    errors {
-      field
-      message
-    }
-    user {
-      id
-      username
-      email
-      createdAt
+  mutation Login($usernameOrEmail: String!, $password: String!) {
+    login(input: { usernameOrEmail: $usernameOrEmail, password: $password }) {
+      errors {
+        field
+        message
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+      }
     }
   }
-}
-    `;
-export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+`;
+export type LoginMutationFn = Apollo.MutationFunction<
+  LoginMutation,
+  LoginMutationVariables
+>;
 
 /**
  * __useLoginMutation__
@@ -904,29 +918,45 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  *   },
  * });
  */
-export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
-      }
+export function useLoginMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginMutation,
+    LoginMutationVariables
+  >
+) {
+  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
+    LoginDocument,
+    baseOptions
+  );
+}
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
-export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<
+  LoginMutation,
+  LoginMutationVariables
+>;
 export const RegisterDocument = gql`
-    mutation Register($username: String!, $email: String!, $password: String!) {
-  register(options: {username: $username, email: $email, password: $password}) {
-    errors {
-      field
-      message
-    }
-    user {
-      id
-      username
-      email
-      createdAt
+  mutation Register($username: String!, $email: String!, $password: String!) {
+    register(
+      options: { username: $username, email: $email, password: $password }
+    ) {
+      errors {
+        field
+        message
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+      }
     }
   }
-}
-    `;
-export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, RegisterMutationVariables>;
+`;
+export type RegisterMutationFn = Apollo.MutationFunction<
+  RegisterMutation,
+  RegisterMutationVariables
+>;
 
 /**
  * __useRegisterMutation__
@@ -947,19 +977,31 @@ export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, Regis
  *   },
  * });
  */
-export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<RegisterMutation, RegisterMutationVariables>) {
-        return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument, baseOptions);
-      }
+export function useRegisterMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterMutation,
+    RegisterMutationVariables
+  >
+) {
+  return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(
+    RegisterDocument,
+    baseOptions
+  );
+}
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
-export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export type RegisterMutationOptions = Apollo.BaseMutationOptions<
+  RegisterMutation,
+  RegisterMutationVariables
+>;
 export const ChannelDocument = gql`
-    query Channel($input: ChannelInput!) {
-  channel(input: $input) {
-    ...ChannelsSnippet
+  query Channel($input: ChannelInput!) {
+    channel(input: $input) {
+      ...ChannelsSnippet
+    }
   }
-}
-    ${ChannelsSnippetFragmentDoc}`;
+  ${ChannelsSnippetFragmentDoc}
+`;
 
 /**
  * __useChannelQuery__
@@ -977,22 +1019,36 @@ export const ChannelDocument = gql`
  *   },
  * });
  */
-export function useChannelQuery(baseOptions: Apollo.QueryHookOptions<ChannelQuery, ChannelQueryVariables>) {
-        return Apollo.useQuery<ChannelQuery, ChannelQueryVariables>(ChannelDocument, baseOptions);
-      }
-export function useChannelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChannelQuery, ChannelQueryVariables>) {
-          return Apollo.useLazyQuery<ChannelQuery, ChannelQueryVariables>(ChannelDocument, baseOptions);
-        }
+export function useChannelQuery(
+  baseOptions: Apollo.QueryHookOptions<ChannelQuery, ChannelQueryVariables>
+) {
+  return Apollo.useQuery<ChannelQuery, ChannelQueryVariables>(
+    ChannelDocument,
+    baseOptions
+  );
+}
+export function useChannelLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ChannelQuery, ChannelQueryVariables>
+) {
+  return Apollo.useLazyQuery<ChannelQuery, ChannelQueryVariables>(
+    ChannelDocument,
+    baseOptions
+  );
+}
 export type ChannelQueryHookResult = ReturnType<typeof useChannelQuery>;
 export type ChannelLazyQueryHookResult = ReturnType<typeof useChannelLazyQuery>;
-export type ChannelQueryResult = Apollo.QueryResult<ChannelQuery, ChannelQueryVariables>;
+export type ChannelQueryResult = Apollo.QueryResult<
+  ChannelQuery,
+  ChannelQueryVariables
+>;
 export const DirectMessagesDocument = gql`
-    query DirectMessages($input: DirectMessagesInput!) {
-  directMessages(input: $input) {
-    ...DirectMessageSnippet
+  query DirectMessages($input: DirectMessagesInput!) {
+    directMessages(input: $input) {
+      ...DirectMessageSnippet
+    }
   }
-}
-    ${DirectMessageSnippetFragmentDoc}`;
+  ${DirectMessageSnippetFragmentDoc}
+`;
 
 /**
  * __useDirectMessagesQuery__
@@ -1010,22 +1066,46 @@ export const DirectMessagesDocument = gql`
  *   },
  * });
  */
-export function useDirectMessagesQuery(baseOptions: Apollo.QueryHookOptions<DirectMessagesQuery, DirectMessagesQueryVariables>) {
-        return Apollo.useQuery<DirectMessagesQuery, DirectMessagesQueryVariables>(DirectMessagesDocument, baseOptions);
-      }
-export function useDirectMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DirectMessagesQuery, DirectMessagesQueryVariables>) {
-          return Apollo.useLazyQuery<DirectMessagesQuery, DirectMessagesQueryVariables>(DirectMessagesDocument, baseOptions);
-        }
-export type DirectMessagesQueryHookResult = ReturnType<typeof useDirectMessagesQuery>;
-export type DirectMessagesLazyQueryHookResult = ReturnType<typeof useDirectMessagesLazyQuery>;
-export type DirectMessagesQueryResult = Apollo.QueryResult<DirectMessagesQuery, DirectMessagesQueryVariables>;
-export const GetMemberDocument = gql`
-    query GetMember($userId: Int!) {
-  getMember(userId: $userId) {
-    ...RegularMemberUserSnippet
-  }
+export function useDirectMessagesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    DirectMessagesQuery,
+    DirectMessagesQueryVariables
+  >
+) {
+  return Apollo.useQuery<DirectMessagesQuery, DirectMessagesQueryVariables>(
+    DirectMessagesDocument,
+    baseOptions
+  );
 }
-    ${RegularMemberUserSnippetFragmentDoc}`;
+export function useDirectMessagesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    DirectMessagesQuery,
+    DirectMessagesQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<DirectMessagesQuery, DirectMessagesQueryVariables>(
+    DirectMessagesDocument,
+    baseOptions
+  );
+}
+export type DirectMessagesQueryHookResult = ReturnType<
+  typeof useDirectMessagesQuery
+>;
+export type DirectMessagesLazyQueryHookResult = ReturnType<
+  typeof useDirectMessagesLazyQuery
+>;
+export type DirectMessagesQueryResult = Apollo.QueryResult<
+  DirectMessagesQuery,
+  DirectMessagesQueryVariables
+>;
+export const GetMemberDocument = gql`
+  query GetMember($userId: Int!) {
+    getMember(userId: $userId) {
+      ...RegularMemberUserSnippet
+    }
+  }
+  ${RegularMemberUserSnippetFragmentDoc}
+`;
 
 /**
  * __useGetMemberQuery__
@@ -1043,22 +1123,41 @@ export const GetMemberDocument = gql`
  *   },
  * });
  */
-export function useGetMemberQuery(baseOptions: Apollo.QueryHookOptions<GetMemberQuery, GetMemberQueryVariables>) {
-        return Apollo.useQuery<GetMemberQuery, GetMemberQueryVariables>(GetMemberDocument, baseOptions);
-      }
-export function useGetMemberLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMemberQuery, GetMemberQueryVariables>) {
-          return Apollo.useLazyQuery<GetMemberQuery, GetMemberQueryVariables>(GetMemberDocument, baseOptions);
-        }
-export type GetMemberQueryHookResult = ReturnType<typeof useGetMemberQuery>;
-export type GetMemberLazyQueryHookResult = ReturnType<typeof useGetMemberLazyQuery>;
-export type GetMemberQueryResult = Apollo.QueryResult<GetMemberQuery, GetMemberQueryVariables>;
-export const MessagesDocument = gql`
-    query Messages($channelId: Int!) {
-  messages(channelId: $channelId) {
-    ...MessageSnippet
-  }
+export function useGetMemberQuery(
+  baseOptions: Apollo.QueryHookOptions<GetMemberQuery, GetMemberQueryVariables>
+) {
+  return Apollo.useQuery<GetMemberQuery, GetMemberQueryVariables>(
+    GetMemberDocument,
+    baseOptions
+  );
 }
-    ${MessageSnippetFragmentDoc}`;
+export function useGetMemberLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetMemberQuery,
+    GetMemberQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<GetMemberQuery, GetMemberQueryVariables>(
+    GetMemberDocument,
+    baseOptions
+  );
+}
+export type GetMemberQueryHookResult = ReturnType<typeof useGetMemberQuery>;
+export type GetMemberLazyQueryHookResult = ReturnType<
+  typeof useGetMemberLazyQuery
+>;
+export type GetMemberQueryResult = Apollo.QueryResult<
+  GetMemberQuery,
+  GetMemberQueryVariables
+>;
+export const MessagesDocument = gql`
+  query Messages($channelId: Int!) {
+    messages(channelId: $channelId) {
+      ...MessageSnippet
+    }
+  }
+  ${MessageSnippetFragmentDoc}
+`;
 
 /**
  * __useMessagesQuery__
@@ -1076,26 +1175,45 @@ export const MessagesDocument = gql`
  *   },
  * });
  */
-export function useMessagesQuery(baseOptions: Apollo.QueryHookOptions<MessagesQuery, MessagesQueryVariables>) {
-        return Apollo.useQuery<MessagesQuery, MessagesQueryVariables>(MessagesDocument, baseOptions);
-      }
-export function useMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MessagesQuery, MessagesQueryVariables>) {
-          return Apollo.useLazyQuery<MessagesQuery, MessagesQueryVariables>(MessagesDocument, baseOptions);
-        }
-export type MessagesQueryHookResult = ReturnType<typeof useMessagesQuery>;
-export type MessagesLazyQueryHookResult = ReturnType<typeof useMessagesLazyQuery>;
-export type MessagesQueryResult = Apollo.QueryResult<MessagesQuery, MessagesQueryVariables>;
-export const TeamDocument = gql`
-    query Team($teamId: Int!) {
-  me {
-    ...MeSnippet
-  }
-  team(teamId: $teamId) {
-    ...TeamSnippet
-  }
+export function useMessagesQuery(
+  baseOptions: Apollo.QueryHookOptions<MessagesQuery, MessagesQueryVariables>
+) {
+  return Apollo.useQuery<MessagesQuery, MessagesQueryVariables>(
+    MessagesDocument,
+    baseOptions
+  );
 }
-    ${MeSnippetFragmentDoc}
-${TeamSnippetFragmentDoc}`;
+export function useMessagesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MessagesQuery,
+    MessagesQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<MessagesQuery, MessagesQueryVariables>(
+    MessagesDocument,
+    baseOptions
+  );
+}
+export type MessagesQueryHookResult = ReturnType<typeof useMessagesQuery>;
+export type MessagesLazyQueryHookResult = ReturnType<
+  typeof useMessagesLazyQuery
+>;
+export type MessagesQueryResult = Apollo.QueryResult<
+  MessagesQuery,
+  MessagesQueryVariables
+>;
+export const TeamDocument = gql`
+  query Team($teamId: Int!) {
+    me {
+      ...MeSnippet
+    }
+    team(teamId: $teamId) {
+      ...TeamSnippet
+    }
+  }
+  ${MeSnippetFragmentDoc}
+  ${TeamSnippetFragmentDoc}
+`;
 
 /**
  * __useTeamQuery__
@@ -1113,22 +1231,33 @@ ${TeamSnippetFragmentDoc}`;
  *   },
  * });
  */
-export function useTeamQuery(baseOptions: Apollo.QueryHookOptions<TeamQuery, TeamQueryVariables>) {
-        return Apollo.useQuery<TeamQuery, TeamQueryVariables>(TeamDocument, baseOptions);
-      }
-export function useTeamLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TeamQuery, TeamQueryVariables>) {
-          return Apollo.useLazyQuery<TeamQuery, TeamQueryVariables>(TeamDocument, baseOptions);
-        }
+export function useTeamQuery(
+  baseOptions: Apollo.QueryHookOptions<TeamQuery, TeamQueryVariables>
+) {
+  return Apollo.useQuery<TeamQuery, TeamQueryVariables>(
+    TeamDocument,
+    baseOptions
+  );
+}
+export function useTeamLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<TeamQuery, TeamQueryVariables>
+) {
+  return Apollo.useLazyQuery<TeamQuery, TeamQueryVariables>(
+    TeamDocument,
+    baseOptions
+  );
+}
 export type TeamQueryHookResult = ReturnType<typeof useTeamQuery>;
 export type TeamLazyQueryHookResult = ReturnType<typeof useTeamLazyQuery>;
 export type TeamQueryResult = Apollo.QueryResult<TeamQuery, TeamQueryVariables>;
 export const GetTeamMembersDocument = gql`
-    query GetTeamMembers($teamId: Int!) {
-  getTeamMembers(teamId: $teamId) {
-    ...MemberSnippet
+  query GetTeamMembers($teamId: Int!) {
+    getTeamMembers(teamId: $teamId) {
+      ...MemberSnippet
+    }
   }
-}
-    ${MemberSnippetFragmentDoc}`;
+  ${MemberSnippetFragmentDoc}
+`;
 
 /**
  * __useGetTeamMembersQuery__
@@ -1146,25 +1275,49 @@ export const GetTeamMembersDocument = gql`
  *   },
  * });
  */
-export function useGetTeamMembersQuery(baseOptions: Apollo.QueryHookOptions<GetTeamMembersQuery, GetTeamMembersQueryVariables>) {
-        return Apollo.useQuery<GetTeamMembersQuery, GetTeamMembersQueryVariables>(GetTeamMembersDocument, baseOptions);
-      }
-export function useGetTeamMembersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTeamMembersQuery, GetTeamMembersQueryVariables>) {
-          return Apollo.useLazyQuery<GetTeamMembersQuery, GetTeamMembersQueryVariables>(GetTeamMembersDocument, baseOptions);
-        }
-export type GetTeamMembersQueryHookResult = ReturnType<typeof useGetTeamMembersQuery>;
-export type GetTeamMembersLazyQueryHookResult = ReturnType<typeof useGetTeamMembersLazyQuery>;
-export type GetTeamMembersQueryResult = Apollo.QueryResult<GetTeamMembersQuery, GetTeamMembersQueryVariables>;
-export const AllTeamsDocument = gql`
-    query AllTeams {
-  teams {
-    ...RegularTeamsSnippet
-  }
-  invitedTeams {
-    ...RegularTeamsSnippet
-  }
+export function useGetTeamMembersQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetTeamMembersQuery,
+    GetTeamMembersQueryVariables
+  >
+) {
+  return Apollo.useQuery<GetTeamMembersQuery, GetTeamMembersQueryVariables>(
+    GetTeamMembersDocument,
+    baseOptions
+  );
 }
-    ${RegularTeamsSnippetFragmentDoc}`;
+export function useGetTeamMembersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTeamMembersQuery,
+    GetTeamMembersQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<GetTeamMembersQuery, GetTeamMembersQueryVariables>(
+    GetTeamMembersDocument,
+    baseOptions
+  );
+}
+export type GetTeamMembersQueryHookResult = ReturnType<
+  typeof useGetTeamMembersQuery
+>;
+export type GetTeamMembersLazyQueryHookResult = ReturnType<
+  typeof useGetTeamMembersLazyQuery
+>;
+export type GetTeamMembersQueryResult = Apollo.QueryResult<
+  GetTeamMembersQuery,
+  GetTeamMembersQueryVariables
+>;
+export const AllTeamsDocument = gql`
+  query AllTeams {
+    teams {
+      ...RegularTeamsSnippet
+    }
+    invitedTeams {
+      ...RegularTeamsSnippet
+    }
+  }
+  ${RegularTeamsSnippetFragmentDoc}
+`;
 
 /**
  * __useAllTeamsQuery__
@@ -1181,22 +1334,41 @@ export const AllTeamsDocument = gql`
  *   },
  * });
  */
-export function useAllTeamsQuery(baseOptions?: Apollo.QueryHookOptions<AllTeamsQuery, AllTeamsQueryVariables>) {
-        return Apollo.useQuery<AllTeamsQuery, AllTeamsQueryVariables>(AllTeamsDocument, baseOptions);
-      }
-export function useAllTeamsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllTeamsQuery, AllTeamsQueryVariables>) {
-          return Apollo.useLazyQuery<AllTeamsQuery, AllTeamsQueryVariables>(AllTeamsDocument, baseOptions);
-        }
-export type AllTeamsQueryHookResult = ReturnType<typeof useAllTeamsQuery>;
-export type AllTeamsLazyQueryHookResult = ReturnType<typeof useAllTeamsLazyQuery>;
-export type AllTeamsQueryResult = Apollo.QueryResult<AllTeamsQuery, AllTeamsQueryVariables>;
-export const MeDocument = gql`
-    query Me {
-  me {
-    ...MeSnippet
-  }
+export function useAllTeamsQuery(
+  baseOptions?: Apollo.QueryHookOptions<AllTeamsQuery, AllTeamsQueryVariables>
+) {
+  return Apollo.useQuery<AllTeamsQuery, AllTeamsQueryVariables>(
+    AllTeamsDocument,
+    baseOptions
+  );
 }
-    ${MeSnippetFragmentDoc}`;
+export function useAllTeamsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AllTeamsQuery,
+    AllTeamsQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<AllTeamsQuery, AllTeamsQueryVariables>(
+    AllTeamsDocument,
+    baseOptions
+  );
+}
+export type AllTeamsQueryHookResult = ReturnType<typeof useAllTeamsQuery>;
+export type AllTeamsLazyQueryHookResult = ReturnType<
+  typeof useAllTeamsLazyQuery
+>;
+export type AllTeamsQueryResult = Apollo.QueryResult<
+  AllTeamsQuery,
+  AllTeamsQueryVariables
+>;
+export const MeDocument = gql`
+  query Me {
+    me {
+      ...MeSnippet
+    }
+  }
+  ${MeSnippetFragmentDoc}
+`;
 
 /**
  * __useMeQuery__
@@ -1213,22 +1385,30 @@ export const MeDocument = gql`
  *   },
  * });
  */
-export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
-        return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
-      }
-export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
-          return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
-        }
+export function useMeQuery(
+  baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>
+) {
+  return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+}
+export function useMeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>
+) {
+  return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(
+    MeDocument,
+    baseOptions
+  );
+}
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const NewDirectMessageAddedDocument = gql`
-    subscription NewDirectMessageAdded($input: DirectMessageSubscriptionInput!) {
-  newDirectMessageAdded(input: $input) {
-    ...DirectMessageSnippet
+  subscription NewDirectMessageAdded($input: DirectMessageSubscriptionInput!) {
+    newDirectMessageAdded(input: $input) {
+      ...DirectMessageSnippet
+    }
   }
-}
-    ${DirectMessageSnippetFragmentDoc}`;
+  ${DirectMessageSnippetFragmentDoc}
+`;
 
 /**
  * __useNewDirectMessageAddedSubscription__
@@ -1246,18 +1426,29 @@ export const NewDirectMessageAddedDocument = gql`
  *   },
  * });
  */
-export function useNewDirectMessageAddedSubscription(baseOptions: Apollo.SubscriptionHookOptions<NewDirectMessageAddedSubscription, NewDirectMessageAddedSubscriptionVariables>) {
-        return Apollo.useSubscription<NewDirectMessageAddedSubscription, NewDirectMessageAddedSubscriptionVariables>(NewDirectMessageAddedDocument, baseOptions);
-      }
-export type NewDirectMessageAddedSubscriptionHookResult = ReturnType<typeof useNewDirectMessageAddedSubscription>;
+export function useNewDirectMessageAddedSubscription(
+  baseOptions: Apollo.SubscriptionHookOptions<
+    NewDirectMessageAddedSubscription,
+    NewDirectMessageAddedSubscriptionVariables
+  >
+) {
+  return Apollo.useSubscription<
+    NewDirectMessageAddedSubscription,
+    NewDirectMessageAddedSubscriptionVariables
+  >(NewDirectMessageAddedDocument, baseOptions);
+}
+export type NewDirectMessageAddedSubscriptionHookResult = ReturnType<
+  typeof useNewDirectMessageAddedSubscription
+>;
 export type NewDirectMessageAddedSubscriptionResult = Apollo.SubscriptionResult<NewDirectMessageAddedSubscription>;
 export const NewMessageAddedDocument = gql`
-    subscription NewMessageAdded($channelId: Int!) {
-  newMessageAdded(channelId: $channelId) {
-    ...MessageSnippet
+  subscription NewMessageAdded($channelId: Int!) {
+    newMessageAdded(channelId: $channelId) {
+      ...MessageSnippet
+    }
   }
-}
-    ${MessageSnippetFragmentDoc}`;
+  ${MessageSnippetFragmentDoc}
+`;
 
 /**
  * __useNewMessageAddedSubscription__
@@ -1275,8 +1466,18 @@ export const NewMessageAddedDocument = gql`
  *   },
  * });
  */
-export function useNewMessageAddedSubscription(baseOptions: Apollo.SubscriptionHookOptions<NewMessageAddedSubscription, NewMessageAddedSubscriptionVariables>) {
-        return Apollo.useSubscription<NewMessageAddedSubscription, NewMessageAddedSubscriptionVariables>(NewMessageAddedDocument, baseOptions);
-      }
-export type NewMessageAddedSubscriptionHookResult = ReturnType<typeof useNewMessageAddedSubscription>;
+export function useNewMessageAddedSubscription(
+  baseOptions: Apollo.SubscriptionHookOptions<
+    NewMessageAddedSubscription,
+    NewMessageAddedSubscriptionVariables
+  >
+) {
+  return Apollo.useSubscription<
+    NewMessageAddedSubscription,
+    NewMessageAddedSubscriptionVariables
+  >(NewMessageAddedDocument, baseOptions);
+}
+export type NewMessageAddedSubscriptionHookResult = ReturnType<
+  typeof useNewMessageAddedSubscription
+>;
 export type NewMessageAddedSubscriptionResult = Apollo.SubscriptionResult<NewMessageAddedSubscription>;

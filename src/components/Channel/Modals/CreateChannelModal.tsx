@@ -1,17 +1,38 @@
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { useCreateChannelMutation } from "../../../generated/graphql";
+import {
+  useCreateChannelMutation,
+  useGetTeamMembersQuery,
+} from "../../../generated/graphql";
 import { useGetIdFromUrl } from "../../../utils/hooks/useGetIdFromUrl";
 import { toErrorMap } from "../../../utils/toErrorMap";
 import Button from "../../Button";
+import Checkbox from "../../Checkbox";
 import Modal from "../../Modal/Modal";
-import InputField from "../../utils/InputField";
 import ModalFooter from "../../Modal/ModalFooter";
+import InputField from "../../utils/InputField";
+import MultiSelectUsers from "../MultiSelectUsers";
 
-const CreateChannelModal = ({ open, onClick }) => {
+interface Props {
+  open: boolean;
+  onClick: () => void;
+  teamId: number;
+  data: any;
+}
+
+const CreateChannelModal: React.FC<Props> = ({
+  open,
+  onClick,
+  teamId,
+  data,
+}) => {
   const router = useRouter();
   const [createChannel] = useCreateChannelMutation();
+
+  const handleSelectOnChange = (e, setFieldValue) => {
+    setFieldValue("members", e);
+  };
 
   return (
     <Modal
@@ -21,47 +42,60 @@ const CreateChannelModal = ({ open, onClick }) => {
       open={open}
     >
       <Formik
-        initialValues={{ name: "", checkbox: false }}
+        initialValues={{ name: "", public: true, members: [] }}
         onSubmit={async (values, { setErrors }) => {
+          console.log(values);
+
+          const members = [];
+          if (!values.public) {
+            values.members.forEach((m) => members.push(m.value));
+          }
+
           const res = await createChannel({
             variables: {
               input: {
                 name: values.name,
                 teamId: useGetIdFromUrl(router.query.teamId),
+                isPublic: values.public,
+                members,
               },
             },
-            update: (cache, { data }) => {
+            update: (cache) => {
               cache.evict({ fieldName: "team" });
             },
           });
+          console.log(res);
           const { errors, channel } = res?.data?.createChannel;
           if (errors) setErrors(toErrorMap(errors));
           else if (channel) {
             onClick();
-            const { id, teamId } = channel;
+            const { id } = channel;
             router.push(`/team/view/${teamId}/${id}`);
           }
         }}
       >
-        {({ isSubmitting, values }) => (
+        {({ isSubmitting, values, setFieldValue }) => (
           <Form>
             <InputField
               name="name"
               label="Channel name"
               placeholder="Channel name"
             />
-            <div className="flex mt-6">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  className="form-checkbox form-checkbox-border"
-                />
-                <span className="ml-2">
-                  I agree to the
-                  <span className="underline">privacy policy</span>
-                </span>
-              </label>
+            <div className="mt-3 ml-1">
+              <Checkbox
+                onChange={() => setFieldValue("public", !values.public)}
+                checked={!values.public}
+                label="Private channel"
+              />
             </div>
+            {!values.public && (
+              <MultiSelectUsers
+                data={data}
+                onChange={(e) => handleSelectOnChange(e, setFieldValue)}
+                placeholder="select members to invite"
+              />
+            )}
+
             <ModalFooter>
               <Button
                 extraClassName="mr-4"

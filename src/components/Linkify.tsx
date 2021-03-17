@@ -1,119 +1,55 @@
-import LinkifyIt from "linkify-it";
+/* eslint-disable no-else-return */
 import React from "react";
-import tlds from "tlds";
+import linkify from "linkifyjs";
+import mention from "linkifyjs/plugins/mention";
+import Linkify from "linkifyjs/react";
+// import hashtag from "linkifyjs/plugins/hashtag";
 import MyLink from "./utils/MyLink";
 
-const defaultComponentDecorator = (
-  decoratedHref: string,
-  decoratedText: string,
-  key: number
-): React.ReactNode => {
+mention(linkify);
+// hashtag(linkify);
+interface LinkProps {
+  to?: string;
+}
+
+const Url: React.FC<LinkProps> = ({ to, children }) => {
   return (
-    <MyLink
-      extraClassName="text-blue-500"
-      target="_blank"
-      href={decoratedHref}
-      key={key}
-    >
-      {decoratedText}
+    <MyLink extraClassName="text-blue-500" target="_blank" href={to}>
+      {children}
     </MyLink>
   );
 };
 
-const defaultTextDecorator = (text: string): string => {
-  return text;
+const Mention: React.FC<LinkProps> = ({ to, children }) => {
+  return (
+    <MyLink extraClassName="text-blue-500" href={to}>
+      {children}
+    </MyLink>
+  );
 };
 
-const defaultHrefDecorator = (href: string): string => {
-  return href;
+const options = {
+  tagName: {
+    mention: () => Mention,
+    url: () => Url,
+  },
+  attributes: (href, type) => {
+    console.log("type", type, href);
+    if (type === "mention") {
+      return {
+        to: `/user${href}`,
+      };
+    } else if (type === "url") {
+      return { to: href };
+    }
+    return {};
+  },
 };
 
-const linkify = new LinkifyIt();
-linkify.tlds(tlds);
+interface Props {}
 
-const defaultMatchDecorator = (text: string): Array<Object> => {
-  return linkify.match(text);
+const Main: React.FC<Props> = ({ children }) => {
+  return <Linkify options={options}>{children}</Linkify>;
 };
 
-type Props = {
-  children: React.ReactNode;
-  componentDecorator: (string, string, number) => React.ReactNode;
-  hrefDecorator: (string) => string;
-  matchDecorator: (string) => Array<Object>;
-  textDecorator: (string) => string;
-};
-
-export default class Linkify extends React.Component<Props, {}> {
-  static defaultProps = {
-    componentDecorator: defaultComponentDecorator,
-    hrefDecorator: defaultHrefDecorator,
-    matchDecorator: defaultMatchDecorator,
-    textDecorator: defaultTextDecorator,
-  };
-
-  parseString(string: string) {
-    if (string === "") {
-      return string;
-    }
-
-    const matches = this.props.matchDecorator(string);
-    if (!matches) {
-      return string;
-    }
-
-    const elements = [];
-    let lastIndex = 0;
-    matches.forEach((match, i) => {
-      // Push preceding text if there is any
-      if (match.index > lastIndex) {
-        elements.push(string.substring(lastIndex, match.index));
-      }
-
-      const decoratedHref = this.props.hrefDecorator(match.url);
-      const decoratedText = this.props.textDecorator(match.text);
-      const decoratedComponent = this.props.componentDecorator(
-        decoratedHref,
-        decoratedText,
-        i
-      );
-      elements.push(decoratedComponent);
-
-      lastIndex = match.lastIndex;
-    });
-
-    // Push remaining text if there is any
-    if (string.length > lastIndex) {
-      elements.push(string.substring(lastIndex));
-    }
-
-    return elements.length === 1 ? elements[0] : elements;
-  }
-
-  parse(children: any, key: number = 0) {
-    if (typeof children === "string") {
-      return this.parseString(children);
-    } else if (
-      React.isValidElement(children) &&
-      children.type !== "a" &&
-      children.type !== "button"
-    ) {
-      return React.cloneElement(
-        children,
-        { key: key },
-        this.parse(children.props.children)
-      );
-    } else if (Array.isArray(children)) {
-      return children.map((child, i) => this.parse(child, i));
-    }
-
-    return children;
-  }
-
-  render(): React.ReactNode {
-    return (
-      <div style={{ wordBreak: "break-word" }}>
-        {this.parse(this.props.children)}
-      </div>
-    );
-  }
-}
+export default Main;
