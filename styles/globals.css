@@ -94,3 +94,70 @@ body {
 .scroll-smooth {
     scroll-behavior: smooth;
 }
+
+/* ------------------- */
+
+.song {
+    user-select: none;
+    margin: 0 20px;
+}
+
+.controls {
+    flex-grow: 1;
+    margin: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player__button {
+    width: fit-content;
+    background-color: transparent;
+    border: none;
+    margin-right: 10px;
+}
+
+
+.player__button:focus {
+    outline: none;
+}
+
+.player__button:hover {
+    cursor: pointer;
+}
+
+.bar {
+    user-select: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.bar__progress {
+    flex: 1;
+    border-radius: 5px;
+    margin: 0 20px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+.player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+@media screen and (max-width: 800px) {
+    .controls {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .bar {
+        width: 90%;
+    }
+}

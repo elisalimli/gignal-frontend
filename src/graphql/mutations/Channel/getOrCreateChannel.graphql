@@ -1,0 +1,3 @@
+mutation GetOrCreateChannel($input: GetOrCreateChannelInput!) {
+  getOrCreateChannel(input: $input)
+}

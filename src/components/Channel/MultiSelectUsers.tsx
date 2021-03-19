@@ -1,12 +1,6 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import Select from "react-select";
 import { MemberSnippetFragment } from "../../generated/graphql";
-
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
 
 interface Props {
   data: MemberSnippetFragment[];

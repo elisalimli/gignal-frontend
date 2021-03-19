@@ -21,6 +21,10 @@ interface Props {
   data: any;
 }
 
+export const handleChangeMemberOnSelect = (e, setFieldValue) => {
+  setFieldValue("members", e);
+};
+
 const CreateChannelModal: React.FC<Props> = ({
   open,
   onClick,
@@ -29,10 +33,6 @@ const CreateChannelModal: React.FC<Props> = ({
 }) => {
   const router = useRouter();
   const [createChannel] = useCreateChannelMutation();
-
-  const handleSelectOnChange = (e, setFieldValue) => {
-    setFieldValue("members", e);
-  };
 
   return (
     <Modal
@@ -91,7 +91,7 @@ const CreateChannelModal: React.FC<Props> = ({
             {!values.public && (
               <MultiSelectUsers
                 data={data}
-                onChange={(e) => handleSelectOnChange(e, setFieldValue)}
+                onChange={(e) => handleChangeMemberOnSelect(e, setFieldValue)}
                 placeholder="select members to invite"
               />
             )}

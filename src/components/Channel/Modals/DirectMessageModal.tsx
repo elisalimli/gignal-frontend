@@ -1,11 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
 import Select from "react-select";
-import { MemberSnippetFragment } from "../../../generated/graphql";
+import {
+  MemberSnippetFragment,
+  useGetOrCreateChannelMutation,
+} from "../../../generated/graphql";
+import { useGetIdFromUrl } from "../../../utils/hooks/useGetIdFromUrl";
+import { toErrorMap } from "../../../utils/toErrorMap";
 import Button from "../../Button";
+import Checkbox from "../../Checkbox";
 import Modal from "../../Modal/Modal";
 import ModalFooter from "../../Modal/ModalFooter";
+import InputField from "../../utils/InputField";
+import MultiSelectUsers from "../MultiSelectUsers";
+import { handleChangeMemberOnSelect } from "./CreateChannelModal";
 
 interface Props {
   open: boolean;
@@ -21,6 +31,7 @@ const DirectMessageModal: React.FC<Props> = ({
   teamId,
 }) => {
   const router = useRouter();
+  const [getOrCreateChannel] = useGetOrCreateChannelMutation();
 
   const handleOnChange = (e) => {
     router.push(`/team/user/${teamId}/${e.value}`);
@@ -30,26 +41,57 @@ const DirectMessageModal: React.FC<Props> = ({
   return (
     <Modal
       header="Direct Message"
-      extraStyle={{ height: "35%" }}
+      extraStyle={{ height: "25%" }}
       onClick={onClick}
       open={open}
     >
-      <div className="h-full flex flex-col w-full ">
-        <Select
-          onChange={handleOnChange}
-          placeholder="user name"
-          options={data.map((i) => ({
-            value: i.user.id,
-            label: i.user.username,
-          }))}
-        />
+      <Formik
+        initialValues={{ members: [] }}
+        onSubmit={async (values, { setErrors }) => {
+          console.log(values);
 
-        <ModalFooter>
-          <Button borderRadius="lg" variant="outline">
-            Close
-          </Button>
-        </ModalFooter>
-      </div>
+          const members = [];
+
+          values.members.forEach((m) => members.push(m.value));
+
+          console.log("members", members);
+          const res = await getOrCreateChannel({
+            variables: { input: { teamId, members } },
+          });
+          console.log("res", res);
+        }}
+      >
+        {({ isSubmitting, values, setFieldValue }) => (
+          <Form>
+            <MultiSelectUsers
+              data={data}
+              onChange={(e) => handleChangeMemberOnSelect(e, setFieldValue)}
+              placeholder="select members to invite"
+            />
+            <ModalFooter>
+              <Button
+                extraClassName="mr-4 "
+                borderRadius="lg"
+                variant="solid"
+                loading={isSubmitting}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Start Chat
+              </Button>
+              <Button
+                borderRadius="lg"
+                disabled={isSubmitting}
+                onClick={onClick}
+                variant="outline"
+                type="button"
+              >
+                Close
+              </Button>
+            </ModalFooter>
+          </Form>
+        )}
+      </Formik>
     </Modal>
   );
 };

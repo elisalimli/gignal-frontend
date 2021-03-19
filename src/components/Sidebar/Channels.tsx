@@ -26,7 +26,6 @@ const Channels: React.FC<Props> = () => {
     team: { channels, id, name, directMessagesMembers: members, admin },
     me: { username },
   } = data;
-  console.log("admin", admin);
 
   return (
     <div className="bg-channel-bg text-channel-color overflow-y-auto channels">
@@ -46,9 +45,9 @@ const Channels: React.FC<Props> = () => {
       </ul>
       <div>
         <ul>
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <span className={paddingLeft}>Direct Messages</span>
-            {admin ? <DirectMessagesSection teamId={data?.team?.id} /> : null}
+            <DirectMessagesSection teamId={data?.team?.id} />
           </div>
 
           {members.length ? (
