@@ -30,7 +30,7 @@ const DirectMessagesSection: React.FC<Props> = ({ teamId }) => {
         data={data?.getTeamMembers || []}
         key="direct-messages-modal"
         open={open}
-        onClick={handleClick}
+        onClose={handleClick}
       />
     </div>
   );

@@ -1,76 +1,116 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Formik, Form } from "formik";
+import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import React from "react";
-import Select from "react-select";
+import React, { useState } from "react";
 import {
   MemberSnippetFragment,
   useGetOrCreateChannelMutation,
 } from "../../../generated/graphql";
-import { useGetIdFromUrl } from "../../../utils/hooks/useGetIdFromUrl";
-import { toErrorMap } from "../../../utils/toErrorMap";
 import Button from "../../Button";
-import Checkbox from "../../Checkbox";
 import Modal from "../../Modal/Modal";
 import ModalFooter from "../../Modal/ModalFooter";
-import InputField from "../../utils/InputField";
+import { textFieldStyle } from "../../utils/InputField";
 import MultiSelectUsers from "../MultiSelectUsers";
 import { handleChangeMemberOnSelect } from "./CreateChannelModal";
+import {
+  TeamSnippetFragmentDoc,
+  TeamSnippetFragment,
+} from "../../../generated/graphql";
+
+const updateCacheAfterInvite = (teamId, cache, _data) => {
+  const id = `Team:${teamId}`;
+  const fragmentName = "TeamSnippet";
+  const fragment = cache.readFragment({
+    id,
+    fragment: TeamSnippetFragmentDoc,
+    fragmentName,
+  }) as TeamSnippetFragment;
+  const newChannel = {
+    ..._data.getOrCreateChannel.channel,
+    dm: true,
+    teamId,
+  };
+
+  cache.writeFragment({
+    id,
+    fragmentName,
+    fragment: TeamSnippetFragmentDoc,
+    data: {
+      channels: [
+        ...fragment.channels,
+        { ...newChannel, __typename: "Channel" },
+      ],
+    },
+  });
+};
 
 interface Props {
   open: boolean;
-  onClick: () => void;
+  onClose: () => void;
   data: MemberSnippetFragment[];
   teamId: number;
 }
 
 const DirectMessageModal: React.FC<Props> = ({
   open,
-  onClick,
+  onClose,
   data,
   teamId,
 }) => {
   const router = useRouter();
+  const [error, setError] = useState(null);
   const [getOrCreateChannel] = useGetOrCreateChannelMutation();
-
-  const handleOnChange = (e) => {
-    router.push(`/team/user/${teamId}/${e.value}`);
-    onClick();
-  };
 
   return (
     <Modal
       header="Direct Message"
       extraStyle={{ height: "25%" }}
-      onClick={onClick}
+      onClick={onClose}
       open={open}
     >
       <Formik
         initialValues={{ members: [] }}
-        onSubmit={async (values, { setErrors }) => {
-          console.log(values);
-
+        onSubmit={async (values) => {
+          setError(null);
           const members = [];
-
           values.members.forEach((m) => members.push(m.value));
 
-          console.log("members", members);
-          const res = await getOrCreateChannel({
+          const { data: mutationData } = await getOrCreateChannel({
             variables: { input: { teamId, members } },
+            update: (cache, { data: _data }) => {
+              const errors = _data.getOrCreateChannel.errors;
+              if (errors) return;
+              updateCacheAfterInvite(teamId, cache, _data);
+            },
           });
-          console.log("res", res);
+
+          console.log("mutation data", mutationData);
+          const {
+            getOrCreateChannel: { errors },
+          } = mutationData;
+          if (errors && errors[0].field === "members") {
+            setError(errors[0].message);
+          } else if (mutationData.getOrCreateChannel?.channel) {
+            router.push(
+              `/team/view/${teamId}/${mutationData.getOrCreateChannel.channel.id}`
+            );
+            onClose();
+          }
         }}
       >
         {({ isSubmitting, values, setFieldValue }) => (
           <Form>
-            <MultiSelectUsers
-              data={data}
-              onChange={(e) => handleChangeMemberOnSelect(e, setFieldValue)}
-              placeholder="select members to invite"
-            />
-            <ModalFooter>
+            <div className="mt-5">
+              <MultiSelectUsers
+                data={data}
+                onChange={(e) => handleChangeMemberOnSelect(e, setFieldValue)}
+                placeholder="select members to invite"
+              />
+              {error && <div className={textFieldStyle.error}>{error}</div>}
+            </div>
+            <ModalFooter mt={10}>
               <Button
-                extraClassName="mr-4 "
+                extraClassName="mr-4"
                 borderRadius="lg"
                 variant="solid"
                 loading={isSubmitting}
@@ -82,7 +122,7 @@ const DirectMessageModal: React.FC<Props> = ({
               <Button
                 borderRadius="lg"
                 disabled={isSubmitting}
-                onClick={onClick}
+                onClick={onClose}
                 variant="outline"
                 type="button"
               >

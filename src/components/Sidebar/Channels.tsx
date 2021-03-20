@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
-import React from "react";
-import { useTeamQuery } from "../../generated/graphql";
+import React, { useEffect, useState } from "react";
+import { useTeamQuery, ChannelsSnippetFragment } from "../../generated/graphql";
 import { useGetIdFromUrl } from "../../utils/hooks/useGetIdFromUrl";
 import Channel, { channelListStyle } from "../Channel/Channel";
 import Member from "../Channel/Member";
 import CreateChannelSection from "../Channel/Sections/CreateChannelSection";
 import DirectMessagesSection from "../Channel/Sections/DirectMessagesSection";
 import InvitePeopleSection from "../Channel/Sections/InvitePeopleSection";
+import ChannelList from "../ChannelList";
 
 interface Props {}
 
@@ -14,6 +15,10 @@ const paddingLeft = "pl-2";
 
 const Channels: React.FC<Props> = () => {
   const router = useRouter();
+  const [state, setState] = useState<{
+    regularChannels: ChannelsSnippetFragment[];
+    dmChannels: ChannelsSnippetFragment[];
+  }>({ regularChannels: [], dmChannels: [] });
   const { data, loading } = useTeamQuery({
     variables: {
       teamId: useGetIdFromUrl(router.query.teamId),
@@ -27,6 +32,28 @@ const Channels: React.FC<Props> = () => {
     me: { username },
   } = data;
 
+  useEffect(() => {
+    const regular = [];
+    const dm = [];
+    channels.forEach((c) => {
+      if (c.dm) dm.push(c);
+      else regular.push(c);
+    });
+    setState({ dmChannels: dm, regularChannels: regular });
+  }, [channels]);
+
+  const regularChannelsBody = state.regularChannels.map((channel) => (
+    <Channel key={`channel-${channel.id}`} channel={channel} />
+  ));
+
+  const membersBody = members.map((m) => (
+    <Member key={`team-member-${m.id}`} member={m} teamId={data?.team.id} />
+  ));
+
+  const dmChannelsBody = state.dmChannels.map((dm) => (
+    <Channel channel={dm} key={`dm-channel-${dm.id}`} />
+  ));
+
   return (
     <div className="bg-channel-bg text-channel-color overflow-y-auto channels">
       <div className={`${paddingLeft} mb-1`}>
@@ -39,9 +66,7 @@ const Channels: React.FC<Props> = () => {
           <div className={paddingLeft}>Channels</div>
           {admin ? <CreateChannelSection teamId={data?.team?.id} /> : null}
         </div>
-        {channels.map((channel) => (
-          <Channel key={`channel-${channel.id}`} channel={channel} />
-        ))}
+        {regularChannelsBody}
       </ul>
       <div>
         <ul>
@@ -49,24 +74,17 @@ const Channels: React.FC<Props> = () => {
             <span className={paddingLeft}>Direct Messages</span>
             <DirectMessagesSection teamId={data?.team?.id} />
           </div>
+          {dmChannelsBody}
 
-          {members.length ? (
-            members.map((m) => (
-              <Member
-                key={`team-member-${m.id}`}
-                member={m}
-                teamId={data?.team.id}
-              />
-            ))
+          {members.length || state.dmChannels.length ? (
+            membersBody
           ) : (
-            <li className={`${channelListStyle} pl-1`}>No member found</li>
+            <ChannelList extraClassName="pl-1">No member found</ChannelList>
           )}
 
           {admin ? (
             <li className={`${channelListStyle} ${paddingLeft}`}>
-              <>
-                <InvitePeopleSection />
-              </>
+              <InvitePeopleSection />
             </li>
           ) : null}
         </ul>

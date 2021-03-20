@@ -11,6 +11,7 @@ interface Props {
 const MultiSelectUsers: React.FC<Props> = ({ data, onChange, placeholder }) => {
   return (
     <Select
+      name="members"
       onChange={onChange}
       placeholder={placeholder}
       isMulti

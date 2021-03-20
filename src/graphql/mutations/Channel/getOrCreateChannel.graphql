@@ -1,3 +1,12 @@
 mutation GetOrCreateChannel($input: GetOrCreateChannelInput!) {
-  getOrCreateChannel(input: $input)
+  getOrCreateChannel(input: $input) {
+   errors {
+      field
+      message
+    }
+    channel {
+      id
+      name
+    } 
+     }
 }

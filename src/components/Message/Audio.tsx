@@ -9,12 +9,7 @@ export interface MessageMediaProps {
 const Audio: React.FC<MessageMediaProps> = ({ url, fileType }) => {
   return (
     <div style={{ width: 300 }}>
-      <AudioPlayer
-        src={url}
-        showSkipControls={false}
-        showJumpControls={false}
-        loop={false}
-      />
+      <AudioPlayer src={url} />
     </div>
   );
 };

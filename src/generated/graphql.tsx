@@ -148,7 +148,7 @@ export type Member = {
 export type Mutation = {
   __typename?: 'Mutation';
   createChannel: CreateChannelResponse;
-  getOrCreateChannel: Scalars['Int'];
+  getOrCreateChannel: GetOrCreateChannelResponse;
   createDirectMessage: Scalars['Boolean'];
   addTeamMember: VoidResponse;
   createMessage: CreateMessageResponse;
@@ -221,6 +221,18 @@ export type CreateChannelInput = {
   name: Scalars['String'];
   isPublic: Scalars['Boolean'];
   members: Array<Scalars['Int']>;
+};
+
+export type GetOrCreateChannelResponse = {
+  __typename?: 'GetOrCreateChannelResponse';
+  errors?: Maybe<Array<FieldError>>;
+  channel?: Maybe<DmChannel>;
+};
+
+export type DmChannel = {
+  __typename?: 'DMChannel';
+  id: Scalars['Int'];
+  name: Scalars['String'];
 };
 
 export type GetOrCreateChannelInput = {
@@ -305,7 +317,7 @@ export type DirectMessageSubscriptionInput = {
 
 export type ChannelsSnippetFragment = (
   { __typename?: 'Channel' }
-  & Pick<Channel, 'id' | 'name' | 'teamId'>
+  & Pick<Channel, 'id' | 'name' | 'teamId' | 'dm'>
 );
 
 export type DirectMessageSnippetFragment = (
@@ -388,7 +400,16 @@ export type GetOrCreateChannelMutationVariables = Exact<{
 
 export type GetOrCreateChannelMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'getOrCreateChannel'>
+  & { getOrCreateChannel: (
+    { __typename?: 'GetOrCreateChannelResponse' }
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>>, channel?: Maybe<(
+      { __typename?: 'DMChannel' }
+      & Pick<DmChannel, 'id' | 'name'>
+    )> }
+  ) }
 );
 
 export type CreateDirectMessageMutationVariables = Exact<{
@@ -679,6 +700,7 @@ export const ChannelsSnippetFragmentDoc = gql`
   id
   name
   teamId
+  dm
 }
     `;
 export const TeamSnippetFragmentDoc = gql`
@@ -746,7 +768,16 @@ export type CreateChannelMutationResult = Apollo.MutationResult<CreateChannelMut
 export type CreateChannelMutationOptions = Apollo.BaseMutationOptions<CreateChannelMutation, CreateChannelMutationVariables>;
 export const GetOrCreateChannelDocument = gql`
     mutation GetOrCreateChannel($input: GetOrCreateChannelInput!) {
-  getOrCreateChannel(input: $input)
+  getOrCreateChannel(input: $input) {
+    errors {
+      field
+      message
+    }
+    channel {
+      id
+      name
+    }
+  }
 }
     `;
 export type GetOrCreateChannelMutationFn = Apollo.MutationFunction<GetOrCreateChannelMutation, GetOrCreateChannelMutationVariables>;

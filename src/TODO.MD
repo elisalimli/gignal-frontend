@@ -15,6 +15,6 @@
 - [x] Remove file error from graphql-upload package code 
 - [x] And implement file size error stuff 
 - [x] add cloudinary
-- [ ] think about if user don't select any users when create private channel
-- [ ] private channels at direct messaging  
-- [ ] add @chakra-ui/slider 
+- [] think about if user don't select any users when create private channel
+- [] private channels at direct messaging  
+- [x] add custom audio player
