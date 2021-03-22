@@ -27,8 +27,7 @@ const wsLink = process.browser
       },
     })
   : null;
-
-let count = 1;
+let channelId = -1;
 
 const createClient = (ctx: NextPageContext) => {
   const middlewareLink = setContext(() => ({
@@ -63,7 +62,63 @@ const createClient = (ctx: NextPageContext) => {
       typePolicies: {
         Query: {
           fields: {
-            messages: relayStylePagination(),
+            messages: {
+              keyArgs: [],
+
+              merge: (
+                existing: PaginatedMessagesResponse | undefined,
+                incoming: PaginatedMessagesResponse,
+                { args }
+              ): PaginatedMessagesResponse => {
+                console.log(existing, incoming);
+                if (incoming?.messages && existing?.messages) {
+                  console.log("hannelId", args.input.channelId, channelId);
+                  if (channelId > 0 && args.input.channelId !== channelId) {
+                    channelId = args.input.channelId;
+
+                    return incoming;
+                  }
+                  channelId = args.input.channelId;
+
+                  const result =
+                    (existing.messages.length - 1) / incoming.messages.length;
+                  if (incoming.messages.length === 0) return existing;
+                  if (existing.messages.length === 0) return incoming;
+                  if (
+                    incoming?.messages[0].__ref !== existing?.messages[0].__ref
+                  ) {
+                    return {
+                      ...incoming,
+                      messages: [...existing.messages, ...incoming.messages],
+                    };
+                  }
+                  if (
+                    incoming?.messages[0].__ref !== existing?.messages[0].__ref
+                  ) {
+                    return {
+                      ...incoming,
+                      messages: [...existing.messages, ...incoming.messages],
+                    };
+                  }
+                  if (
+                    incoming.messages.length * result ===
+                    existing.messages.length - 1
+                  ) {
+                    return existing;
+                  }
+
+                  // return incoming;
+                }
+                if (!existing) {
+                  return incoming;
+                }
+
+                return {
+                  ...existing,
+                  messages: [...incoming, ...(existing?.messages || [])],
+                };
+              },
+            },
           },
         },
       },

@@ -11,7 +11,8 @@ export const useSubscribeToMessages = (subscribeToMore, id) => {
       const newMessage = subscriptionData.data.newMessageAdded;
       return {
         ...prev.messages,
-        messages: [newMessage, ...prev.messages.messages],
+        // messages: [newMessage, ...prev.messages.messages],
+        messages: [newMessage],
       };
     },
   });

@@ -15,6 +15,7 @@ interface Props {
   fetchMore: any;
   channelId: number;
   hasMore: boolean;
+  loading: boolean;
 }
 
 const RegularMessagesWrapper: React.FC<Props> = ({
@@ -23,6 +24,7 @@ const RegularMessagesWrapper: React.FC<Props> = ({
   fetchMore,
   channelId,
   hasMore,
+  loading,
 }) => {
   useEffect(() => {
     setTimeout(() => {
@@ -42,58 +44,32 @@ const RegularMessagesWrapper: React.FC<Props> = ({
     ));
 
   const chatContainer = useRef<HTMLDivElement>(null);
-  // console.log(data[data.length - 1].createdAt);
 
+  const handleScroll = () => {
+    if (chatContainer.current.scrollTop === 0 && hasMore && !loading) {
+      fetchMore({
+        variables: {
+          input: {
+            channelId,
+            limit: 5,
+            cursor: data[data.length - 1].createdAt,
+          },
+        },
+      });
+
+      setTimeout(() => {
+        chatContainer.current.scrollTo(0, 240);
+      }, 200);
+    }
+  };
   return (
     <div
+      onScroll={handleScroll}
       ref={chatContainer}
-      className="p-2 overflow-y-auto scroll-smooth bg-white"
+      className="p-2 overflow-y-auto bg-white"
     >
       <FileUpload disableClick>
-        <div className="p-3">
-          {hasMore && (
-            <Button
-              onClick={() => {
-                fetchMore({
-                  variables: {
-                    input: {
-                      channelId,
-                      limit: 5,
-                      cursor: data[data.length - 1].createdAt,
-                    },
-                  },
-                  // updateQuery: (prev, { subscriptionData }) => {
-                  //   if (!subscriptionData) {
-                  //     return prev;
-                  //   }
-
-                  //   console.log(
-                  //     "baklava prev",
-                  //     prev,
-                  //     "baklava sub data",
-                  //     subscriptionData
-                  //   );
-
-                  //   return {
-                  //     ...prev,
-                  //     // messages: [
-                  //     //   subscriptionData.newChannelMessage,
-                  //     //   ...prev.messages,
-                  //     // ],
-                  //   };
-                  // },
-                });
-              }}
-              centered
-              borderRadius="lg"
-              variant="solid"
-              type="button"
-            >
-              Load more
-            </Button>
-          )}
-          {body}
-        </div>
+        <div className="p-3">{body}</div>
       </FileUpload>
     </div>
   );
