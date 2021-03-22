@@ -8,10 +8,10 @@ export const useSubscribeToMessages = (subscribeToMore, id) => {
       if (!subscriptionData.data) {
         return prev;
       }
-
+      const newMessage = subscriptionData.data.newMessageAdded;
       return {
-        __typename: "Query",
-        messages: [...prev.messages, subscriptionData.data.newMessageAdded],
+        ...prev.messages,
+        messages: [newMessage, ...prev.messages.messages],
       };
     },
   });

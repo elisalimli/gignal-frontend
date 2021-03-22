@@ -20,7 +20,7 @@ export type Query = {
   channel?: Maybe<Channel>;
   directMessages: Array<DirectMessage>;
   getMember?: Maybe<User>;
-  messages?: Maybe<Array<Message>>;
+  messages?: Maybe<PaginatedMessagesResponse>;
   teams?: Maybe<Array<Team>>;
   invitedTeams?: Maybe<Array<Team>>;
   team?: Maybe<Team>;
@@ -46,7 +46,7 @@ export type QueryGetMemberArgs = {
 
 
 export type QueryMessagesArgs = {
-  channelId: Scalars['Int'];
+  input: MessagesInput;
 };
 
 
@@ -131,6 +131,18 @@ export type DirectMessage = {
 export type DirectMessagesInput = {
   teamId: Scalars['Int'];
   otherUserId: Scalars['Int'];
+};
+
+export type PaginatedMessagesResponse = {
+  __typename?: 'PaginatedMessagesResponse';
+  messages: Array<Message>;
+  hasMore: Scalars['Boolean'];
+};
+
+export type MessagesInput = {
+  channelId: Scalars['Int'];
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
 };
 
 export type Member = {
@@ -231,8 +243,8 @@ export type GetOrCreateChannelResponse = {
 
 export type DmChannel = {
   __typename?: 'DMChannel';
-  id: Scalars['Int'];
-  name: Scalars['String'];
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
 };
 
 export type GetOrCreateChannelInput = {
@@ -559,16 +571,20 @@ export type GetMemberQuery = (
 );
 
 export type MessagesQueryVariables = Exact<{
-  channelId: Scalars['Int'];
+  input: MessagesInput;
 }>;
 
 
 export type MessagesQuery = (
   { __typename?: 'Query' }
-  & { messages?: Maybe<Array<(
-    { __typename?: 'Message' }
-    & MessageSnippetFragment
-  )>> }
+  & { messages?: Maybe<(
+    { __typename?: 'PaginatedMessagesResponse' }
+    & Pick<PaginatedMessagesResponse, 'hasMore'>
+    & { messages: Array<(
+      { __typename?: 'Message' }
+      & MessageSnippetFragment
+    )> }
+  )> }
 );
 
 export type TeamQueryVariables = Exact<{
@@ -1137,9 +1153,12 @@ export type GetMemberQueryHookResult = ReturnType<typeof useGetMemberQuery>;
 export type GetMemberLazyQueryHookResult = ReturnType<typeof useGetMemberLazyQuery>;
 export type GetMemberQueryResult = Apollo.QueryResult<GetMemberQuery, GetMemberQueryVariables>;
 export const MessagesDocument = gql`
-    query Messages($channelId: Int!) {
-  messages(channelId: $channelId) {
-    ...MessageSnippet
+    query Messages($input: MessagesInput!) {
+  messages(input: $input) {
+    messages {
+      ...MessageSnippet
+    }
+    hasMore
   }
 }
     ${MessageSnippetFragmentDoc}`;
@@ -1156,7 +1175,7 @@ export const MessagesDocument = gql`
  * @example
  * const { data, loading, error } = useMessagesQuery({
  *   variables: {
- *      channelId: // value for 'channelId'
+ *      input: // value for 'input'
  *   },
  * });
  */

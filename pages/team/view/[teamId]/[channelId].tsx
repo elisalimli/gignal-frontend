@@ -33,8 +33,6 @@ const Main = () => {
     variables: { input: { teamId: parsedTeamId, channelId: parsedChannelId } },
   });
 
-  console.log("channel data", channelData);
-
   if (loading || channelLoading) return <Loading />;
 
   const onSubmitMessage = async (message) => {

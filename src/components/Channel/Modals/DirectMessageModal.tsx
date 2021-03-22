@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import {
   MemberSnippetFragment,
+  TeamSnippetFragment,
+  TeamSnippetFragmentDoc,
   useGetOrCreateChannelMutation,
 } from "../../../generated/graphql";
 import Button from "../../Button";
@@ -12,10 +14,6 @@ import ModalFooter from "../../Modal/ModalFooter";
 import { textFieldStyle } from "../../utils/InputField";
 import MultiSelectUsers from "../MultiSelectUsers";
 import { handleChangeMemberOnSelect } from "./CreateChannelModal";
-import {
-  TeamSnippetFragmentDoc,
-  TeamSnippetFragment,
-} from "../../../generated/graphql";
 
 const updateCacheAfterInvite = (teamId, cache, _data) => {
   const id = `Team:${teamId}`;

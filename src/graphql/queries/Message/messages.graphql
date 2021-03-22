@@ -1,5 +1,8 @@
-query Messages($channelId:Int!) {
-  messages(channelId: $channelId) {
-    ...MessageSnippet
+query Messages($input:MessagesInput!) {
+  messages(input: $input) {
+    messages {
+      ...MessageSnippet
+    }
+    hasMore
   }
 }

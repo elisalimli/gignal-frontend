@@ -8,6 +8,7 @@ export const useScrollToBottom = (
     const scroll =
       chatContainerRef.current.scrollHeight -
       chatContainerRef.current.clientHeight;
-    chatContainerRef.current.scrollTo(0, scroll);
+
+    chatContainerRef.current.scrollBy({ top: scroll });
   }
 };
