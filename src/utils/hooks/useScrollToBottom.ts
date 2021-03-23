@@ -4,6 +4,7 @@ import { MutableRefObject } from "react";
 export const useScrollToBottom = (
   chatContainerRef: MutableRefObject<HTMLDivElement>
 ) => {
+  console.log("asda");
   if (chatContainerRef.current) {
     const scroll =
       chatContainerRef.current.scrollHeight -

@@ -17,7 +17,7 @@ const MyIcon: React.FC<Props> = ({
   borderRadius = "lg",
   className,
 }) => {
-  const extraClassName = className ? className : null;
+  const extraClassName = className || null;
   return (
     <button
       className={`${commonStyle} ${extraClassName} rounded-${borderRadius}`}

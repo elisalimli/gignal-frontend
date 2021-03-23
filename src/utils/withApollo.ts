@@ -1,19 +1,13 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  split,
-  createHttpLink,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, split } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { setContext } from "apollo-link-context";
 import { createUploadLink } from "apollo-upload-client";
 import { NextPageContext } from "next";
+import { PaginatedMessagesResponse } from "../generated/graphql";
 // import { createFileLink } from './createFileLink';
 // import createUploadLink from "../utils/createUploadLink";
 import createWithApollo from "./createWithApollo";
-import { Query, PaginatedMessagesResponse } from "../generated/graphql";
-import { relayStylePagination } from "@apollo/client/utilities";
 
 const httpLink = createUploadLink({ uri: "http://localhost:4000/graphql" });
 
@@ -72,7 +66,6 @@ const createClient = (ctx: NextPageContext) => {
               ): PaginatedMessagesResponse => {
                 console.log(existing, incoming);
                 if (incoming?.messages && existing?.messages) {
-                  console.log("hannelId", args.input.channelId, channelId);
                   if (channelId > 0 && args.input.channelId !== channelId) {
                     channelId = args.input.channelId;
 
@@ -82,6 +75,7 @@ const createClient = (ctx: NextPageContext) => {
 
                   const result =
                     (existing.messages.length - 1) / incoming.messages.length;
+
                   if (incoming.messages.length === 0) return existing;
                   if (existing.messages.length === 0) return incoming;
                   if (

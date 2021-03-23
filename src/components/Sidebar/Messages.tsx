@@ -15,9 +15,15 @@ interface Props {
 }
 const Messages: React.FC<Props> = ({ channel: { id } }) => {
   const [limit, setLimit] = useState(10);
-  const { data, loading, subscribeToMore, fetchMore } = useMessagesQuery({
+  const {
+    data,
+    loading,
+    subscribeToMore,
+    fetchMore,
+    variables,
+  } = useMessagesQuery({
     variables: {
-      input: { channelId: id, limit: 5, cursor: null },
+      input: { channelId: id, limit: 20, cursor: null },
     },
     fetchPolicy: "network-only",
     notifyOnNetworkStatusChange: true,
@@ -42,6 +48,7 @@ const Messages: React.FC<Props> = ({ channel: { id } }) => {
       hasMore={data?.messages?.hasMore}
       fetchMore={fetchMore}
       loading={loading}
+      variables={variables}
       data={data?.messages?.messages || []}
       channelId={id}
       me={meData?.me}
