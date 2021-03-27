@@ -1,20 +1,22 @@
 import { useField } from "formik";
-import React, { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
+import React, { InputHTMLAttributes } from "react";
+
+type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+  label?: string | boolean;
+  name: string;
+  textarea?: boolean;
+  variant?: string;
+};
+
+// '' => false
+// 'error message stuff' => true
 
 export const textFieldStyle = {
   input:
-    "w-full bg-white rounded border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",
+    "w-full bg-white border-default rounded-sm border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",
   error: "text-red-600 mt-2 text-sm",
   label: "mt-4 font-medium",
 };
-
-type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
-  TextareaHTMLAttributes<HTMLTextAreaElement> & {
-    label?: string | boolean;
-    name: string;
-    textarea?: boolean;
-    variant?: string;
-  };
 
 const InputField: React.FC<InputFieldProps> = ({
   label = false,
