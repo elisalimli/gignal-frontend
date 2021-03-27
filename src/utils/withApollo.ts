@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { ApolloClient, InMemoryCache, split } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
@@ -81,19 +82,17 @@ const createClient = (ctx: NextPageContext) => {
                   const result =
                     (existing.messages.length - 1) / incoming.messages.length;
 
+                  const incomingMessages = incoming?.messages as any;
+                  const existingMessages = existing?.messages as any;
                   if (incoming.messages.length === 0) return existing;
                   if (existing.messages.length === 0) return incoming;
-                  if (
-                    incoming?.messages[0].__ref !== existing?.messages[0].__ref
-                  ) {
+                  if (incomingMessages[0].__ref !== existingMessages[0].__ref) {
                     return {
                       ...incoming,
                       messages: [...existing.messages, ...incoming.messages],
                     };
                   }
-                  if (
-                    incoming?.messages[0].__ref !== existing?.messages[0].__ref
-                  ) {
+                  if (incomingMessages[0].__ref !== existingMessages[0].__ref) {
                     return {
                       ...incoming,
                       messages: [...existing.messages, ...incoming.messages],
@@ -114,7 +113,10 @@ const createClient = (ctx: NextPageContext) => {
 
                 return {
                   ...existing,
-                  messages: [...incoming, ...(existing?.messages || [])],
+                  messages: [
+                    ...(incoming as any),
+                    ...(existing?.messages || []),
+                  ],
                 };
               },
             },

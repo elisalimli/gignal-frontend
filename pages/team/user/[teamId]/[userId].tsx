@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import React from "react";
-import DirectMessages from "../../../../src/components/DirectMessages/DirectMessages";
 import Header from "../../../../src/components/Sidebar/Header";
 import SendMessage from "../../../../src/components/Sidebar/SendMessage";
 import Loading from "../../../../src/components/utils/Loading";
@@ -55,7 +54,6 @@ const Main: React.FC<Props> = () => {
       <div className="app_layout">
         <Sidebar />
         <Header name={data?.getMember?.username} />
-        <DirectMessages receiverId={data?.getMember?.id} />
         <SendMessage
           placeholder={data?.getMember?.username}
           onSubmit={handleOnSubmitDirectMessage}

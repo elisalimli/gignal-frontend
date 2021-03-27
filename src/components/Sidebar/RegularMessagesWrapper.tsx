@@ -52,7 +52,7 @@ const RegularMessagesWrapper: React.FC<Props> = ({
 
   const body = [...data]
     .reverse()
-    .map((message: MessageSnippetFragment | DirectMessageSnippetFragment) => (
+    .map((message: MessageSnippetFragment) => (
       <MessageContainer
         isCreator={me?.id === message?.creator.id}
         message={message}

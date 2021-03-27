@@ -11,7 +11,7 @@ import Audio from "./Audio";
 import Video from "./Video";
 
 interface Props {
-  message: MessageSnippetFragment | DirectMessageSnippetFragment;
+  message: MessageSnippetFragment;
   isCreator: boolean;
 }
 

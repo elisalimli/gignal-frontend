@@ -7,23 +7,8 @@ interface Props {
   isCreator: boolean;
 }
 
-const Message: React.FC<Props> = ({
-  message: {
-    text,
-    createdAt,
-
-    creator: { username },
-  },
-  isCreator,
-}) => {
-  return (
-    <MessageContainer
-      text={text}
-      createdAt={createdAt}
-      username={username}
-      isCreator={isCreator}
-    />
-  );
+const Message: React.FC<Props> = ({ message, isCreator }) => {
+  return <MessageContainer isCreator={isCreator} message={message} />;
 };
 
 export default Message;

@@ -1,7 +1,6 @@
 import React from "react";
 import { ChannelsSnippetFragment } from "../../generated/graphql";
 import MyLink from "../utils/MyLink";
-import { ChannelList } from "../styled/Channel/ChannelList";
 
 interface Props {
   channel: ChannelsSnippetFragment;
