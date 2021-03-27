@@ -1,12 +1,13 @@
 import { useField } from "formik";
 import React, { InputHTMLAttributes } from "react";
 
-type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
-  label?: string | boolean;
-  name: string;
-  textarea?: boolean;
-  variant?: string;
-};
+type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
+  TextareaHTMLAttributes<HTMLTextAreaElement> & {
+    label?: string | boolean;
+    name: string;
+    textarea?: boolean;
+    variant?: string;
+  };
 
 // '' => false
 // 'error message stuff' => true
