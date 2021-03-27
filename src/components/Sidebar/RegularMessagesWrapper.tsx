@@ -36,8 +36,19 @@ const RegularMessagesWrapper: React.FC<Props> = ({
     setTimeout(() => {
       useScrollToBottom(chatContainer);
     }, 10);
-    setHeight(chatContainer.current.scrollHeight - 500);
+    setTimeout(() => {
+      setHeight(
+        chatContainer.current.scrollHeight - chatContainer.current.scrollTop
+      );
+      setShow(false);
+    }, 500);
   }, [channelId]);
+
+  useEffect(() => {
+    setTimeout(() => useScrollToBottom(chatContainer), 10);
+  }, [data]);
+
+  const chatContainer = useRef<HTMLDivElement>(null);
 
   const body = [...data]
     .reverse()
@@ -49,11 +60,13 @@ const RegularMessagesWrapper: React.FC<Props> = ({
       />
     ));
 
-  const chatContainer = useRef<HTMLDivElement>(null);
-
   const handleScroll = () => {
-    if (chatContainer.current.scrollTop < height) setShow(true);
-    else if (show) setShow(false);
+    if (
+      chatContainer.current.scrollHeight - chatContainer.current.scrollTop >
+      height
+    ) {
+      setShow(true);
+    } else setShow(false);
 
     if (chatContainer.current.scrollTop === 0 && hasMore && !loading) {
       const before = chatContainer.current.scrollHeight;
@@ -66,11 +79,9 @@ const RegularMessagesWrapper: React.FC<Props> = ({
         },
       });
 
-      const { scrollHeight } = chatContainer.current;
-
       setTimeout(() => {
+        const { scrollHeight } = chatContainer.current;
         chatContainer.current.scrollTo(0, scrollHeight - 150 - before);
-        setHeight(scrollHeight - 500);
       }, 200);
     }
   };

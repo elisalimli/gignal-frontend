@@ -34,7 +34,6 @@ const options = {
     url: () => Url,
   },
   attributes: (href, type) => {
-    console.log("type", type, href);
     if (type === "mention") {
       return {
         to: `/user${href}`,

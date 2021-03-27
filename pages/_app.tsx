@@ -5,7 +5,9 @@ import "../styles/Team.css";
 import "../styles/Modal.css";
 import "../styles/Checkbox.css";
 import "../styles/styles.css";
-import "tailwindcss/dist/tailwind.min.css";
+import "../styles/tailwind.css";
+// import "../styles/index.css";
+// import "tailwindcss/dist/tailwind.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import { ThemeProvider } from "next-themes";

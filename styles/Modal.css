@@ -1,5 +1,5 @@
 .ReactModal__Content {
-    width: 30%;
+    width: 40%;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@
 
 @media(max-width:1100px) {
     .ReactModal__Content {
-        width: 60%;
+        width: 50%;
     }
 }
 

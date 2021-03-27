@@ -82,7 +82,6 @@ const DirectMessageModal: React.FC<Props> = ({
             },
           });
 
-          console.log("mutation data", mutationData);
           const {
             getOrCreateChannel: { errors },
           } = mutationData;

@@ -66,7 +66,7 @@ const Main = () => {
           />
         </div>
       ) : (
-        <div className="p-5  text-2xl font-bold text-center">
+        <div className="p-5 text-2xl font-bold text-center">
           Cannot find team
           <MyLink href="/">
             <span className="ml-1">go home</span>

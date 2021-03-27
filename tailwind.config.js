@@ -11,10 +11,17 @@ module.exports = {
     enabled: true,
 
     content: [
-      "src/components/**/*.{js,ts,jsx,tsx}",
-      "src/components/**/**/*.{js,ts,jsx,tsx}",
+      "./styles/*.{js,ts,jsx,tsx}",
+      "./src/utils/*.{js,ts,jsx,tsx}",
+      "./src/components/*.{js,ts,jsx,tsx}",
+      "./src/components/**/*.{js,ts,jsx,tsx}",
+      "./src/components/**/**/*.{js,ts,jsx,tsx}",
+      "./src/containers/*.{js,ts,jsx,tsx}",
+      "./src/containers/*.{js,ts,jsx,tsx}",
+      "./pages/*.{js,ts,jsx,tsx}",
       "./pages/**/*.{js,ts,jsx,tsx}",
-      "./pages/**/**/*.{js,ts,jsx,tsx}",
+      "./pages/**/*.{js,ts,jsx,tsx}",
+      "./pages/**/**/**/**/*.{js,ts,jsx,tsx}",
     ],
   },
   theme: {
@@ -906,5 +913,4 @@ module.exports = {
     transitionDelay: ["responsive"],
     animation: ["responsive"],
   },
-  variants: {},
 };

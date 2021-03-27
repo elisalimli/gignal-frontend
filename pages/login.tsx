@@ -42,7 +42,6 @@ const Login = () => {
               });
             },
           });
-          console.log("login res", res);
           if (res.data?.login.errors) {
             setErrors(toErrorMap(res.data.login.errors));
           } else if (res.data?.login.user) {

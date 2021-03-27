@@ -15,7 +15,6 @@ const SingleTeam = () => {
     router.replace("/");
   }
 
-  console.log("data", data, loading);
   if (data) {
     router.push(`/team/view/${data?.team?.id}/${data?.team?.channels[0].id}`);
   }

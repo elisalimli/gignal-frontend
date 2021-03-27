@@ -9,12 +9,15 @@ import { PaginatedMessagesResponse } from "../generated/graphql";
 // import createUploadLink from "../utils/createUploadLink";
 import createWithApollo from "./createWithApollo";
 
-const httpLink = createUploadLink({ uri: "http://localhost:4000/graphql" });
+const production = true;
+const serverURL = production ? "192.168.99.100:8080" : "localhost:8080";
+console.log(serverURL);
+
+const httpLink = createUploadLink({ uri: `http://${serverURL}/graphql` });
 
 const wsLink = process.browser
   ? new WebSocketLink({
-      uri: `ws://localhost:4000/subscriptions`,
-
+      uri: `ws://${serverURL}/subscriptions`,
       options: {
         reconnect: true,
         lazy: true,
@@ -24,6 +27,7 @@ const wsLink = process.browser
 let channelId = -1;
 
 const createClient = (ctx: NextPageContext) => {
+  console.log("ctx,", ctx?.req?.headers?.cookie);
   const middlewareLink = setContext(() => ({
     credentials: "include",
     headers: {
@@ -49,7 +53,8 @@ const createClient = (ctx: NextPageContext) => {
     : httpLinkWithMiddleware;
 
   return new ApolloClient({
-    uri: "http://localhost:4000/graphql",
+    // uri: "http://localhost:4000/graphql",
+
     link: link as any,
 
     cache: new InMemoryCache({

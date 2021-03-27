@@ -1,15 +1,5 @@
 import { useField } from "formik";
-import React, { InputHTMLAttributes } from "react";
-
-type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
-  label?: string | boolean;
-  name: string;
-  textarea?: boolean;
-  variant?: string;
-};
-
-// '' => false
-// 'error message stuff' => true
+import React, { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 
 export const textFieldStyle = {
   input:
@@ -17,6 +7,14 @@ export const textFieldStyle = {
   error: "text-red-600 mt-2 text-sm",
   label: "mt-4 font-medium",
 };
+
+type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
+  TextareaHTMLAttributes<HTMLTextAreaElement> & {
+    label?: string | boolean;
+    name: string;
+    textarea?: boolean;
+    variant?: string;
+  };
 
 const InputField: React.FC<InputFieldProps> = ({
   label = false,

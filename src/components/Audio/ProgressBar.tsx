@@ -11,14 +11,15 @@ interface ProgressBarForwardRefProps {
 }
 interface ProgressBarProps extends ProgressBarForwardRefProps {
   progressBar: React.RefObject<HTMLDivElement>;
+  onSeek?: any;
 }
 
 interface ProgressBarState {
-  isDraggingProgress: boolean;
-  currentTimePos: string;
-  hasDownloadProgressAnimation: boolean;
-  downloadProgressArr: DownloadProgress[];
-  waitingForSeekCallback: boolean;
+  isDraggingProgress?: boolean;
+  currentTimePos?: string;
+  hasDownloadProgressAnimation?: boolean;
+  downloadProgressArr?: DownloadProgress[];
+  waitingForSeekCallback?: boolean;
 }
 
 interface DownloadProgress {
@@ -34,11 +35,11 @@ interface TimePosInfo {
 class ProgressBar extends Component<ProgressBarProps, ProgressBarState> {
   audio?: HTMLAudioElement;
 
-  timeOnMouseMove = 0; // Audio's current time while mouse is down and moving over the progress bar
+  timeOnMouseMove? = 0; // Audio's current time while mouse is down and moving over the progress bar
 
-  hasAddedAudioEventListener = false;
+  hasAddedAudioEventListener? = false;
 
-  downloadProgressAnimationTimer?: number;
+  downloadProgressAnimationTimer?: number | any;
 
   state: ProgressBarState = {
     isDraggingProgress: false,
@@ -236,6 +237,20 @@ class ProgressBar extends Component<ProgressBarProps, ProgressBarState> {
       hasDownloadProgressAnimation,
     } = this.state;
 
+    const downloadProggressBody =
+      showDownloadProgress &&
+      downloadProgressArr.map(({ left, width }, i) => (
+        <div
+          key={i}
+          className="audio_download-progress"
+          style={{
+            left,
+            width,
+            transitionDuration: hasDownloadProgressAnimation ? ".2s" : "0s",
+          }}
+        />
+      ));
+
     return (
       <div
         className="audio_progress-container"
@@ -265,20 +280,7 @@ class ProgressBar extends Component<ProgressBarProps, ProgressBarState> {
               style={{ width: currentTimePos }}
             />
           )}
-          {showDownloadProgress &&
-            downloadProgressArr.map(({ left, width }, i) => (
-              <div
-                key={i}
-                className="audio_download-progress"
-                style={{
-                  left,
-                  width,
-                  transitionDuration: hasDownloadProgressAnimation
-                    ? ".2s"
-                    : "0s",
-                }}
-              />
-            ))}
+          {downloadProggressBody}
         </div>
       </div>
     );

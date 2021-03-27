@@ -37,15 +37,13 @@ const CreateChannelModal: React.FC<Props> = ({
   return (
     <Modal
       header="Create Channel"
-      extraStyle={{ height: "35%" }}
+      extraStyle={{ height: "30%" }}
       onClick={onClick}
       open={open}
     >
       <Formik
         initialValues={{ name: "", public: true, members: [] }}
         onSubmit={async (values, { setErrors }) => {
-          console.log(values);
-
           const members = [];
           if (!values.public) {
             values.members.forEach((m) => members.push(m.value));
@@ -64,7 +62,6 @@ const CreateChannelModal: React.FC<Props> = ({
               cache.evict({ fieldName: "team" });
             },
           });
-          console.log(res);
           const { errors, channel } = res?.data?.createChannel;
           if (errors) setErrors(toErrorMap(errors));
           else if (channel) {

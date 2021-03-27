@@ -8,7 +8,6 @@ const ProtectedRoute = ({ children }) => {
   const router = useRouter();
   useEffect(() => {
     if (!loading && !data?.me) {
-      console.log("pathname", router.pathname);
       if (router.pathname.includes("/team")) {
         router.replace(`/login?next=/`);
       } else router.replace(`/login?next=${router.pathname}`);
@@ -16,6 +15,7 @@ const ProtectedRoute = ({ children }) => {
   }, [data, router, loading]);
 
   if (data?.me) return children;
+
   return <Loading />;
 };
 

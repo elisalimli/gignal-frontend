@@ -14,7 +14,6 @@ const FileUpload: React.FC<Props> = ({ children, disableClick }) => {
   const router = useRouter();
 
   const onDrop = useCallback(async (files) => {
-    console.log(files);
     const file = files[0];
 
     const channelId = useGetIdFromUrl(router.query.channelId);
@@ -38,7 +37,6 @@ const FileUpload: React.FC<Props> = ({ children, disableClick }) => {
         }
       });
     }
-    console.log(res);
   }, []);
 
   const handleOnClick = useCallback((e) => {

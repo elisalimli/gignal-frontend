@@ -11,7 +11,7 @@
     "start": "next start -p $PORT",
     "gen": "graphql-codegen --config codegen.yml",
     "heroku-postbuild": "npm run build",
-    "style": "tailwindcss build ./src/styles/tailwind.css -o ./src/styles/index.css"
+    "style": "tailwindcss build ./styles/tailwind.css -o ./styles/index.css"
   },
   "dependencies": {
     "@apollo/client": "3.3.8",
