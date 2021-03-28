@@ -6,7 +6,7 @@ import "../styles/Modal.css";
 import "../styles/Checkbox.css";
 import "../styles/styles.css";
 import "../styles/tailwind.css";
-import "../styles/index.css";
+// import "../styles/index.css";
 // import "tailwindcss/dist/tailwind.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
