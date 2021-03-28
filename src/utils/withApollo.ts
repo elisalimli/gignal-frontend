@@ -10,7 +10,7 @@ import { PaginatedMessagesResponse } from "../generated/graphql";
 // import createUploadLink from "../utils/createUploadLink";
 import createWithApollo from "./createWithApollo";
 
-const production = true;
+const production = false;
 const serverURL = production ? "192.168.99.100:8080" : "localhost:8080";
 console.log(serverURL);
 
