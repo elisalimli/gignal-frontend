@@ -3,6 +3,16 @@ import React from "react";
 import Loader from "react-loader-spinner";
 import { BorderRadiusTypes } from "../types/css/BorderRadiusTypes";
 
+const borderRadiusClassnames = {
+  sm: "rounded-sm",
+  md: "rounded-md",
+  lg: "rounded-lg",
+  xl: "rounded-xl",
+  "2xl": "rounded-2xl",
+  "3xl": "rounded-3xl",
+  full: "rounded-full",
+};
+
 interface Props {
   loading?: boolean;
   width?: string;
@@ -13,7 +23,7 @@ interface Props {
   disabled?: boolean;
   onClick?: () => void;
   variant: "solid" | "outline" | "icon";
-  borderRadius: BorderRadiusTypes;
+  borderRadius: keyof typeof borderRadiusClassnames;
   padding?: string;
 }
 const style = {
@@ -37,13 +47,6 @@ const Button: React.FC<Props> = ({
   borderRadius,
   padding = "py-2 px-6",
 }) => {
-  let body;
-  if (loading) {
-    body = <Loader type="TailSpin" color="#fff" height={25} width={25} />;
-  } else {
-    body = children;
-  }
-
   const extraStyles = `${centered ? "mx-auto" : ""} ${
     borderRadius ? `rounded-${borderRadius}` : ""
   }`;
@@ -56,7 +59,14 @@ const Button: React.FC<Props> = ({
       type={type}
       disabled={disabled}
     >
-      {body}
+      <span className={loading ? "opacity-0  bg-red-500" : `flex items-center`}>
+        {children}
+      </span>
+      {loading ? (
+        <span className="absolute">
+          <Loader type="TailSpin" color="#fff" height={25} width={25} />
+        </span>
+      ) : null}
     </button>
   );
 };

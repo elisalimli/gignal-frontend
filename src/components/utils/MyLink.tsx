@@ -13,7 +13,7 @@ const MyLink: React.FC<MyLinkProps> = ({
 }) => {
   return (
     <NextLink {...props} passHref>
-      <a target={target} className={`${extraClassName}`}>
+      <a target={target} className={extraClassName}>
         {children}
       </a>
     </NextLink>

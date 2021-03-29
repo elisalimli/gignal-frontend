@@ -7,19 +7,24 @@ module.exports = {
   },
   plugins: [require("@tailwindcss/custom-forms")],
   darkMode: "class",
-  purge: [
-    "./styles/*.{js,ts,jsx,tsx}",
-    "./src/utils/*.{js,ts,jsx,tsx}",
-    "./src/components/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/**/*.{js,ts,jsx,tsx}",
-    "./src/containers/*.{js,ts,jsx,tsx}",
-    "./src/containers/*.{js,ts,jsx,tsx}",
-    "./pages/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/**/**/**/*.{js,ts,jsx,tsx}",
-  ],
+
+  purge: {
+    enabled: true,
+    layers: ["components", "utilities"],
+    content: [
+      "./styles/*.{js,ts,jsx,tsx}",
+      "./src/utils/*.{js,ts,jsx,tsx}",
+      "./src/components/*.{js,ts,jsx,tsx}",
+      "./src/components/**/*.{js,ts,jsx,tsx}",
+      "./src/components/**/**/*.{js,ts,jsx,tsx}",
+      "./src/containers/*.{js,ts,jsx,tsx}",
+      "./src/containers/*.{js,ts,jsx,tsx}",
+      "./pages/*.{js,ts,jsx,tsx}",
+      "./pages/**/*.{js,ts,jsx,tsx}",
+      "./pages/**/*.{js,ts,jsx,tsx}",
+      "./pages/**/**/**/**/*.{js,ts,jsx,tsx}",
+    ],
+  },
 
   theme: {
     customForms: (theme) => ({
@@ -40,6 +45,7 @@ module.exports = {
       transparent: "transparent",
       current: "currentColor",
 
+      wheat: "#F6EFE8",
       black: "#000",
       white: "#fff",
       custom: {
@@ -718,7 +724,6 @@ module.exports = {
       "in-out": "cubic-bezier(0.4, 0, 0.2, 1)",
     },
     transitionDuration: {
-      75: "75ms",
       100: "100ms",
       150: "150ms",
       200: "200ms",
