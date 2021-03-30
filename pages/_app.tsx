@@ -4,6 +4,8 @@ import "../styles/Channel.css";
 import "../styles/Team.css";
 import "../styles/Modal.css";
 import "../styles/Checkbox.css";
+import "../styles/ScrollBottom.css";
+import "../styles/Scroll.css";
 // import "../styles/styles.css";
 import "../styles/tailwind.css";
 // import "../styles/index.css";

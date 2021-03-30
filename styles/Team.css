@@ -9,11 +9,9 @@
 }
 
 .teams {
-
     grid-column: 1;
     grid-row: 1 / 4;
     padding: 0.5rem 0px;
-
 }
 
 .team-icon:hover {

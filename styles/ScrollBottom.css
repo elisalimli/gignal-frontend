@@ -1,0 +1,18 @@
+.scroll-bottom-button-active {
+    transform: scaleX(1) scaleY(1);
+}
+
+.scroll-bottom-button-disable {
+    transform: scaleX(0) scaleY(0);
+}
+
+.scroll-bottom-button {
+    padding: 5px;
+    background-color: rgba(0, 0, 0, .3);
+    transition: .1s;
+}
+
+.scroll-bottom-button:focus,
+.scroll-bottom-button:hover {
+    background-color: rgba(0, 0, 0, .4);
+}

@@ -15,6 +15,7 @@
 - [x] Remove file error from graphql-upload package code 
 - [x] And implement file size error stuff 
 - [x] add cloudinary
-- [] think about if user don't select any users when create private channel
-- [] private channels at direct messaging  
+- [x] think about if user don't select any users when create private channel
+- [x] private channels at direct messaging  
 - [x] add custom audio player
+- [ ]  change scroll bar color to #B8B7B7
