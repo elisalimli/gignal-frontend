@@ -1,7 +1,9 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/button-has-type */
 import React, { ButtonHTMLAttributes, useState } from "react";
 import Loader from "react-loader-spinner";
 import ChevronRightIcon from "./icons/ChevronRightIcon";
+import ArrowRightIcon from "./icons/ArrowRightIcon";
 
 const buttonTypes = {
   common: `focus:outline-none text-lg flex items-center justify-center transition-colors duration-300`,
@@ -63,11 +65,18 @@ const Button: React.FC<Props> = ({
   extraStyles += borderRadius ? borderRadiusClassnames[borderRadius] : "";
 
   const handleHover = () => setHover(!hover);
+  const arrowBody = arrow ? (
+    hover ? (
+      <ArrowRightIcon className="w-4 ml-2" />
+    ) : (
+      <ChevronRightIcon className="w-4 ml-2" />
+    )
+  ) : null;
 
   return (
     <button
-      onMouseEnter={handleHover}
-      onMouseLeave={handleHover}
+      onMouseEnter={arrow ? handleHover : undefined}
+      onMouseLeave={arrow ? handleHover : undefined}
       onClick={onClick}
       className={`${buttonTypes.common} ${extraStyles} ${buttonTypes[variant]} ${extraClassName} ${padding} `}
       style={{ minWidth: width, height }}
@@ -76,7 +85,7 @@ const Button: React.FC<Props> = ({
     >
       <span className={loading ? "opacity-0" : `flex items-center`}>
         {children}
-        {arrow ? <ChevronRightIcon /> : null}
+        {arrowBody}
       </span>
       {loading ? (
         <span className="absolute">
