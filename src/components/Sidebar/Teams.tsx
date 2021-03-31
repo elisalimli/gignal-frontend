@@ -10,17 +10,19 @@ const Teams = () => {
   const { data, loading } = useAllTeamsQuery();
   if (loading) return null;
 
+  const teamsBody = [...data.teams, ...data.invitedTeams].map((t) => (
+    <Team team={t} key={`team-${t.id}`} />
+  ));
+
   return (
-    <div className="teams bg-custom-team  text-white flex flex-col justify-between overflow-y-auto w-full">
+    <div className="teams bg-team-bg  text-white flex flex-col justify-between overflow-y-auto w-full">
       <ul className="flex flex-col list-none overflow-y-auto">
         <MyLink href="/">
           <div className={teamListStyle}>
             <HomeIcon />
           </div>
         </MyLink>
-        {[...data.teams, ...data.invitedTeams].map((t) => (
-          <Team team={t} key={`team-${t.id}`} />
-        ))}
+        {teamsBody}
       </ul>
 
       <div className="mx-auto mt-1">

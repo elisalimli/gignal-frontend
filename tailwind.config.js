@@ -48,21 +48,20 @@ module.exports = {
       wheat: "#F6EFE8",
       black: "#000",
       white: "#fff",
-      custom: {
-        team: "#362233",
+      primary: {
+        100: "#611F69",
       },
-      icons: {
-        team: "#8A8A8A",
-      },
+      secondary: "#0A2540",
       team: {
+        bg: "#362233",
         border: "#767676",
+        icon: "#8A8A8A",
       },
       channel: {
         bg: "#52364e",
         color: "#b29fb3",
         list: "#3e313c",
       },
-
       gray: {
         100: "#f7fafc",
         200: "#edf2f7",
@@ -257,7 +256,7 @@ module.exports = {
     borderWidth: {
       default: "1px",
       0: "0",
-
+      1: "1px",
       2: "2px",
       4: "4px",
       8: "8px",
@@ -741,6 +740,29 @@ module.exports = {
       500: "500ms",
       700: "700ms",
       1000: "1000ms",
+    },
+    animation: {
+      "nav-active": "nav-active .5s",
+      "nav-deactive": "nav-deactive .5s",
+    },
+    keyframes: {
+      "nav-active": {
+        "0%": {
+          top: "-100px",
+        },
+        "100%": {
+          top: "0px",
+        },
+      },
+
+      "nav-deactive": {
+        "0%": {
+          top: "0px",
+        },
+        "100%": {
+          top: "-200px",
+        },
+      },
     },
   },
   variants: {

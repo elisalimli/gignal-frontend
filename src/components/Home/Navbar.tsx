@@ -67,13 +67,10 @@ const Navbar = () => {
 
   return (
     <div
-      onScroll={(e) => {
-        console.log(e);
-      }}
       className={`px-12 lg:px-40 py-4 flex items-center transition-colors duration-500 ${
         mobile ? "justify-between" : null
-      } ${active ? "sticky top-0  bg-white nav-active" : null} ${
-        animation ? "nav-deactive" : null
+      } ${active ? "sticky top-0  bg-white animate-nav-active" : null} ${
+        animation ? "animate-nav-deactive" : null
       }`}
       id="nav"
     >
@@ -88,7 +85,7 @@ const Navbar = () => {
                 <span
                   className={`font-semibold text-lg ${
                     router.asPath.substring(1) === link.to
-                      ? "border-b-2 rounded-sm border-purple-400"
+                      ? "border-b-2 rounded-sm border-primary-100"
                       : null
                   }`}
                 >
@@ -99,7 +96,12 @@ const Navbar = () => {
           </div>
           <div className="w-1/2 flex justify-end">
             <MyLink href="login">
-              <Button borderRadius="lg" type="button" variant="solid">
+              <Button
+                borderRadius="sm"
+                height="45px"
+                type="button"
+                variant="outlinePrimary"
+              >
                 Sign in
               </Button>
             </MyLink>

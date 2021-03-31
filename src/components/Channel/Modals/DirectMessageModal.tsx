@@ -109,7 +109,7 @@ const DirectMessageModal: React.FC<Props> = ({
               <Button
                 extraClassName="mr-4"
                 borderRadius="lg"
-                variant="solid"
+                variant="primaryDark"
                 loading={isSubmitting}
                 type="submit"
                 disabled={isSubmitting}
@@ -120,7 +120,7 @@ const DirectMessageModal: React.FC<Props> = ({
                 borderRadius="lg"
                 disabled={isSubmitting}
                 onClick={onClose}
-                variant="outline"
+                variant="transparent"
                 type="button"
               >
                 Close

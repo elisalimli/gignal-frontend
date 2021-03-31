@@ -76,23 +76,3 @@ body {
 .outline-disable {
     outline: none !important;
 }
-
- .nav-active {
-    animation-name: example;
-    animation-duration: .5s;
-  }
-
-  .nav-deactive{
-    animation-name: example2;
-    animation-duration: .5s;
-  }
-  
-  @keyframes example {
-    from {top: -100px;}
-    to {top: 0px;}
-  } 
-
-  @keyframes example2 {
-    from {top: 0px;}
-    to {top: -200px;}
-  } 

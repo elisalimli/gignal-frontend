@@ -8,7 +8,6 @@ import {
 import { useSubscribeToMessages } from "../../utils/hooks/useSubscribeToMessages";
 import Loading from "../utils/Loading";
 import RegularMessagesWrapper from "./RegularMessagesWrapper";
-import Button from "../Button";
 
 interface Props {
   channel: ChannelsSnippetFragment;

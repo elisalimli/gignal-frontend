@@ -1,8 +1,6 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import InputField from "../utils/InputField";
-import Button from "../Button";
-import PlusIcon from "../icons/PlusIcon";
 import FileUploadSection from "../Sections/FileUploadSection";
 
 interface Props {

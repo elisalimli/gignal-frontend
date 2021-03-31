@@ -51,7 +51,7 @@ const InvitePeopleModal = ({ open, onClick }: Props) => {
               <Button
                 extraClassName="mr-4"
                 borderRadius="lg"
-                variant="solid"
+                variant="primaryDark"
                 loading={isSubmitting}
                 type="submit"
                 disabled={isSubmitting}
@@ -62,7 +62,7 @@ const InvitePeopleModal = ({ open, onClick }: Props) => {
                 borderRadius="lg"
                 disabled={isSubmitting}
                 onClick={onClick}
-                variant="outline"
+                variant="transparent"
                 type="button"
               >
                 Close

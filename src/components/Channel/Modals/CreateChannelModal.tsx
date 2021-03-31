@@ -97,7 +97,7 @@ const CreateChannelModal: React.FC<Props> = ({
               <Button
                 extraClassName="mr-4"
                 borderRadius="lg"
-                variant="solid"
+                variant="primaryDark"
                 loading={isSubmitting}
                 type="submit"
                 disabled={isSubmitting}
@@ -108,7 +108,7 @@ const CreateChannelModal: React.FC<Props> = ({
                 borderRadius="lg"
                 disabled={isSubmitting}
                 onClick={onClick}
-                variant="outline"
+                variant="transparent"
                 type="button"
               >
                 Close

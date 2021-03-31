@@ -18,4 +18,5 @@
 - [x] think about if user don't select any users when create private channel
 - [x] private channels at direct messaging  
 - [x] add custom audio player
-- [ ]  change scroll bar color to #B8B7B7
+- [x] change scroll bar color to #B8B7B7
+- [ ] add button with arrow
