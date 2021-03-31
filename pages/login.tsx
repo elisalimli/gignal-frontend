@@ -82,7 +82,7 @@ const Login = () => {
               width="200px"
               loading={isSubmitting}
               centered
-              variant="solid"
+              variant="primaryDark"
               borderRadius="lg"
               extraClassName="mt-3"
               type="submit"
