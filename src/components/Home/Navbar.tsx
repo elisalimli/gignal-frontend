@@ -83,10 +83,10 @@ const Navbar = () => {
             {navbarLinks.map((link) => (
               <MyLink key={`nav-link-${link.text}`} href={link.to} scroll>
                 <span
-                  className={`font-semibold text-lg ${
+                  className={`font-semibold text-lg rounded-sm border-b-2 ${
                     router.asPath.substring(1) === link.to
-                      ? "border-b-2 rounded-sm border-primary-100"
-                      : null
+                      ? "border-primary-100"
+                      : "border-transparent hover:border-gray-300"
                   }`}
                 >
                   {link.text}

@@ -51,7 +51,10 @@ module.exports = {
       primary: {
         100: "#611F69",
       },
-      secondary: "#0A2540",
+      secondary: {
+        100: "#02AED6",
+        200: "#0A2540",
+      },
       team: {
         bg: "#362233",
         border: "#767676",

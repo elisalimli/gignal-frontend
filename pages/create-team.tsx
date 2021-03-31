@@ -49,7 +49,7 @@ const CreateTeam = () => {
                 loading={isSubmitting}
                 centered
                 extraClassName="mt-3"
-                variant="solid"
+                variant="primaryDark"
                 borderRadius="lg"
                 type="submit"
               >

@@ -7,7 +7,7 @@ import ArrowRightIcon from "./icons/ArrowRightIcon";
 
 const buttonTypes = {
   common: `focus:outline-none text-lg flex items-center justify-center transition-colors duration-300`,
-  primary: "bg-primary-100 hover:opacity-95 text-white",
+  primary: "bg-primary-100 hover:bg-secondary-200 text-white",
   primaryDark: "bg-channel-bg hover:opacity-95 text-white",
   outlinePrimary:
     "border-1 border-primary-100 hover:bg-primary-100 hover:text-white",
