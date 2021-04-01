@@ -105,7 +105,7 @@ const DirectMessageModal: React.FC<Props> = ({
               />
               {error && <div className={textFieldStyle.error}>{error}</div>}
             </div>
-            <ModalFooter mt={10}>
+            <ModalFooter mt="mt-10">
               <Button
                 extraClassName="mr-4"
                 borderRadius="lg"

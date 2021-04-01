@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/button-has-type */
-import React, { ButtonHTMLAttributes, useState } from "react";
+import React, { ButtonHTMLAttributes, useEffect, useState } from "react";
 import Loader from "react-loader-spinner";
 import ChevronRightIcon from "./icons/ChevronRightIcon";
 import ArrowRightIcon from "./icons/ArrowRightIcon";
@@ -59,10 +59,16 @@ const Button: React.FC<Props> = ({
   padding = "py-2 px-6",
 }) => {
   const [hover, setHover] = useState(false);
+  const [extraStyles, setExtraStyles] = useState("");
 
-  let extraStyles = "";
-  extraStyles += centered ? "mx-auto" : "";
-  extraStyles += borderRadius ? borderRadiusClassnames[borderRadius] : "";
+  useEffect(() => {
+    const borderRadiusClassname = borderRadius
+      ? borderRadiusClassnames[borderRadius]
+      : "";
+    const centeredClassName = centered ? "mx-auto" : "";
+
+    setExtraStyles(`${borderRadiusClassname} ${centeredClassName}`);
+  }, []);
 
   const handleHover = () => setHover(!hover);
   const arrowBody = arrow ? (
@@ -72,13 +78,13 @@ const Button: React.FC<Props> = ({
       <ChevronRightIcon className="w-4 ml-2" />
     )
   ) : null;
-
+  console.log(extraStyles);
   return (
     <button
       onMouseEnter={arrow ? handleHover : undefined}
       onMouseLeave={arrow ? handleHover : undefined}
       onClick={onClick}
-      className={`${buttonTypes.common} ${extraStyles} ${buttonTypes[variant]} ${extraClassName} ${padding} `}
+      className={`${buttonTypes.common} ${buttonTypes[variant]} ${padding} ${extraClassName} ${extraStyles} `}
       style={{ minWidth: width, height }}
       type={type}
       disabled={disabled}

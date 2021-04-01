@@ -1,4 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap');
+
 
 *,
 *:before,
@@ -75,4 +80,14 @@ body {
 
 .outline-disable {
     outline: none !important;
+}
+
+
+.home-title::before{
+    content: "";
+    display: inline-block;
+    background: #02AED6;
+    width: 1px;
+    height: 12.5px;
+   transform: translateX(-10px);
 }

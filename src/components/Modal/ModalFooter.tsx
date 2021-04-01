@@ -1,11 +1,11 @@
 import React from "react";
 
 interface Props {
-  mt?: number;
+  mt?: string;
 }
 
-const ModalFooter: React.FC<Props> = ({ children, mt = 8 }) => {
-  return <footer className={`flex justify-end mt-${mt}`}>{children}</footer>;
+const ModalFooter: React.FC<Props> = ({ children, mt = "mt-8" }) => {
+  return <footer className={`flex justify-end ${mt}`}>{children}</footer>;
 };
 
 export default ModalFooter;

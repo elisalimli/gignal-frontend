@@ -72,9 +72,9 @@ const Register: React.FC<Props> = () => {
             width="200px"
             loading={isSubmitting}
             centered
-            variant="primaryDark"
+            variant="primary"
             borderRadius="lg"
-            extraClassName="mt-3"
+            extraClassName="mt-6"
             type="submit"
           >
             Register

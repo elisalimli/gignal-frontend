@@ -19,4 +19,5 @@
 - [x] private channels at direct messaging  
 - [x] add custom audio player
 - [x] change scroll bar color to #B8B7B7
-- [ ] add button with arrow
+- [x] add button with arrow
+- [x] change button colors when hover it
