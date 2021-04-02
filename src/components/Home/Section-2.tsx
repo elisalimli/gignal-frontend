@@ -1,18 +1,21 @@
 import React from "react";
 import { HomeSectionProps } from "./LandingPage";
 
-const Section2: React.FC<HomeSectionProps> = ({ paddingClassname }) => {
+const Section2: React.FC<HomeSectionProps> = ({
+  paddingClassname,
+  extraClassname,
+}) => {
   return (
     <section
-      className={`bg-secondary-200 text-white w-full px-12 md:${paddingClassname} py-20`}
+      className={`bg-secondary-200 text-white w-full px-4 md:${paddingClassname} ${extraClassname} py-20`}
     >
-      <header className="mb-8">
+      <header className="mb-8 px-2 md:px-0">
         <h2 className="text-secondary-100 font-bold text-2xl">Why Gignal</h2>
         <h1 className="font-bold text-4xl md:w-3/4">
           An app for chat with people realtime
         </h1>
       </header>
-      <div className="w-full h-96 flex flex-col smormd:flex-row space-y-16 smormd:space-y-0 justify-between  flex-wrap">
+      <div className="w-full h-96 grid grid-cols-1 smormd:grid-cols-2 lg:grid-cols-4 gap-12">
         {[
           {
             header: "Close to the metal",
@@ -35,7 +38,7 @@ const Section2: React.FC<HomeSectionProps> = ({ paddingClassname }) => {
               "We offer client and server libraries in everything from React and PHP to .NET and iOS.",
           },
         ].map((item) => (
-          <div className="mx-auto">
+          <div className="smormd:mx-auto">
             <div className="mb-2">
               <svg
                 className="w-12 h-12 text-secondary-100"
@@ -57,9 +60,7 @@ const Section2: React.FC<HomeSectionProps> = ({ paddingClassname }) => {
                 <span className="title-line inline-block bg-secondary-100" />
                 {item.header}
               </h1>
-              <div style={{ maxWidth: 225 }} className="text-gray-500">
-                {item.text}
-              </div>
+              <div className="w-full text-gray-500">{item.text}</div>
             </div>
           </div>
         ))}

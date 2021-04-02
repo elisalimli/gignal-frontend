@@ -67,7 +67,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`px-12 lg:px-40 py-4 z-20 flex items-center transition-colors duration-500 ${
+      className={`px-12 lg:px-40 bg-wheat py-4 z-20 flex items-center transition-colors duration-500 ${
         mobile ? "justify-between" : null
       } ${active ? "sticky top-0  bg-white animate-nav-active" : null} ${
         animation ? "animate-nav-deactive" : null

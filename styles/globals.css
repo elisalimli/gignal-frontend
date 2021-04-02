@@ -17,6 +17,7 @@ button{
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
     --scrollbarBG: #CFD8DC;
     --thumbBG: #B8B7B7;
 }
@@ -34,12 +35,6 @@ body {
     height: 100vh;
     grid-template-columns: 100px 250px 1fr;
     grid-template-rows: auto 1fr auto;
-}
-
-@media (max-width: 400px) {
-    .home-container {
-        width: fit-content;
-    }
 }
 
 @media (max-width: 568px) {

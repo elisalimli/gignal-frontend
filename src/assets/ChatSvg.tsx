@@ -3,7 +3,7 @@ import React from "react";
 const ChatSvg = () => {
   return (
     <svg
-      className="mx-auto lg:ml-auto lg:mr-8  w-3/4 sm:w-full h-64"
+      className="mx-auto lg:ml-auto lg:mr-8 w-2/3 md:w-full mt-8 lg:mt-0 h-64"
       id="ab6fc918-4b91-4509-b18c-ea99d764448f"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"

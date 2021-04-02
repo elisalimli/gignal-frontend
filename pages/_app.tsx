@@ -13,6 +13,7 @@ import "../styles/index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "next-themes";
 import { ToastContainer, toast } from "react-toastify";
+import Head from "next/head";
 
 function App({ Component, pageProps }) {
   return (
@@ -20,6 +21,12 @@ function App({ Component, pageProps }) {
       <ThemeProvider attribute="class">
         <Component {...pageProps} />
         <ToastContainer />
+        <Head>
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,user-scalable=no,user-scalable=0"
+          />
+        </Head>
       </ThemeProvider>
     </div>
   );

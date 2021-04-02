@@ -13,13 +13,13 @@ const Menu = (props: Props) => {
   const [open, setOpen] = useState(false);
   const handleClick = () => setOpen(!open);
   return (
-    <div>
+    <div className="relative">
       <MyIcon onClick={handleClick} borderRadius="full" className="home-icon">
         <MenuIcon />
       </MyIcon>
       <div
         style={{ left: open ? 0 : "100%" }}
-        className="fixed min-h-full min-w-full z-40 transition-all duration-700 top-0  bg-white p-6"
+        className="fixed min-h-full w-full z-40 transition-all duration-700 top-0  bg-white p-6"
       >
         <div className="flex justify-between">
           <Brand />

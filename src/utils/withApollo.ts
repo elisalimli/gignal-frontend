@@ -68,14 +68,19 @@ const createClient = (ctx: NextPageContext) => {
                 incoming: PaginatedMessagesResponse,
                 { args }
               ): PaginatedMessagesResponse => {
-                console.log(existing, incoming);
+                console.log("boom", channelId, existing, incoming, args.input);
+                let beforeChannelId = channelId;
+                channelId = args.input.channelId;
                 if (incoming?.messages && existing?.messages) {
-                  if (channelId > 0 && args.input.channelId !== channelId) {
-                    channelId = args.input.channelId;
+                  if (
+                    beforeChannelId > 0 &&
+                    args.input.channelId !== beforeChannelId
+                  ) {
+                    beforeChannelId = args.input.channelId;
 
                     return incoming;
                   }
-                  channelId = args.input.channelId;
+                  beforeChannelId = args.input.beforeChannelId;
 
                   const result =
                     (existing.messages.length - 1) / incoming.messages.length;
