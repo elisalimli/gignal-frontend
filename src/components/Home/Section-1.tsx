@@ -6,9 +6,9 @@ import { HomeSectionProps } from "./LandingPage";
 const Section: React.FC<HomeSectionProps> = ({ paddingClassname }) => {
   return (
     <section className="mt-16" id="about">
-      <div className={`md:${paddingClassname}`}>
+      <div className="md:px-24">
         <div className="flex justify-between items-center flex-col lg:flex-row">
-          <div className="w-3/4 md:w-full xl:w-2/3">
+          <div className="w-11/12 md:w-full xl:w-2/3">
             <h1 className="font-semibold text-3xl md:text-5xl">
               This is your moment. Let’s reinvent work.
             </h1>

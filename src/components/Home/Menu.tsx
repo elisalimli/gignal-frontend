@@ -5,6 +5,7 @@ import CloseIcon from "../icons/CloseIcon";
 import Brand from "./Brand";
 import { navbarLinks } from "./Navbar";
 import MyLink from "../utils/MyLink";
+import Button from "../Button";
 
 interface Props {}
 
@@ -18,7 +19,7 @@ const Menu = (props: Props) => {
       </MyIcon>
       <div
         style={{ left: open ? 0 : "100%" }}
-        className="fixed min-h-screen min-w-full transition-all duration-700 top-0  bg-white p-6"
+        className="fixed min-h-full min-w-full z-40 transition-all duration-700 top-0  bg-white p-6"
       >
         <div className="flex justify-between">
           <Brand />
@@ -45,6 +46,18 @@ const Menu = (props: Props) => {
               </MyLink>
             </button>
           ))}
+          <MyLink href="login">
+            <Button
+              borderRadius="sm"
+              width="100%"
+              extraClassName="mt-4"
+              height="45px"
+              type="button"
+              variant="primary"
+            >
+              Sign in
+            </Button>
+          </MyLink>
         </div>
       </div>
     </div>

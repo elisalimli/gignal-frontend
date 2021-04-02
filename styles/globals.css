@@ -36,6 +36,12 @@ body {
     grid-template-rows: auto 1fr auto;
 }
 
+@media (max-width: 400px) {
+    .home-container {
+        width: fit-content;
+    }
+}
+
 @media (max-width: 568px) {
     .app_layout {
         min-height: 100vh;
@@ -82,12 +88,9 @@ body {
     outline: none !important;
 }
 
-
-.home-title::before{
-    content: "";
-    display: inline-block;
-    background: #02AED6;
+.title-line{
     width: 1px;
     height: 12.5px;
-   transform: translateX(-10px);
+    transform: translateX(-10px);
 }
+

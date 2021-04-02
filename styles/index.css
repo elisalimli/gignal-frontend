@@ -644,6 +644,12 @@ video {
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-y-16 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(4rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(4rem * var(--tw-space-y-reverse));
+}
+
 .space-y-56 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(14rem * calc(1 - var(--tw-space-y-reverse)));
@@ -663,6 +669,11 @@ video {
 .bg-primary-100 {
   --tw-bg-opacity: 1;
   background-color: rgba(136, 53, 147, var(--tw-bg-opacity));
+}
+
+.bg-secondary-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(2, 174, 214, var(--tw-bg-opacity));
 }
 
 .bg-secondary-200 {
@@ -823,6 +834,10 @@ video {
   cursor: pointer;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .flex {
   display: flex;
 }
@@ -837,6 +852,10 @@ video {
 
 .flex-col {
   flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .items-start {
@@ -1049,6 +1068,10 @@ video {
   max-width: 42rem;
 }
 
+.min-h-full {
+  min-height: 100%;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1101,10 +1124,6 @@ video {
 
 .p-6 {
   padding: 1.5rem;
-}
-
-.p-10 {
-  padding: 2.5rem;
 }
 
 .p-12 {
@@ -1340,16 +1359,24 @@ video {
   width: 66.666667%;
 }
 
-.w-3\/4 {
-  width: 75%;
-}
-
 .w-1\/6 {
   width: 16.666667%;
 }
 
+.w-11\/12 {
+  width: 91.666667%;
+}
+
 .w-full {
   width: 100%;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.z-40 {
+  z-index: 40;
 }
 
 .gap-4 {
@@ -1454,6 +1481,15 @@ video {
 }
 
 @media (min-width: 600px) {
+  .smormd\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
+  .smormd\:flex-row {
+    flex-direction: row;
+  }
 }
 
 @media (min-width: 768px) {
@@ -1467,6 +1503,19 @@ video {
 
   .md\:mt-0 {
     margin-top: 0;
+  }
+
+  .md\:p-10 {
+    padding: 2.5rem;
+  }
+
+  .md\:px-24 {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+
+  .md\:w-3\/4 {
+    width: 75%;
   }
 
   .md\:w-full {

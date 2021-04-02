@@ -55,9 +55,7 @@ const createClient = (ctx: NextPageContext) => {
 
   return new ApolloClient({
     // uri: "http://localhost:4000/graphql",
-
     link: link as any,
-
     cache: new InMemoryCache({
       typePolicies: {
         Query: {

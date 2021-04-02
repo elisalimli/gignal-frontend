@@ -4,15 +4,15 @@ import { HomeSectionProps } from "./LandingPage";
 const Section2: React.FC<HomeSectionProps> = ({ paddingClassname }) => {
   return (
     <section
-      className={`bg-secondary-200 text-white w-full ${paddingClassname} py-20`}
+      className={`bg-secondary-200 text-white w-full px-12 md:${paddingClassname} py-20`}
     >
       <header className="mb-8">
         <h2 className="text-secondary-100 font-bold text-2xl">Why Gignal</h2>
-        <h1 className="font-bold text-4xl w-3/4">
+        <h1 className="font-bold text-4xl md:w-3/4">
           An app for chat with people realtime
         </h1>
       </header>
-      <div className="w-full h-96 flex justify-between">
+      <div className="w-full h-96 flex flex-col smormd:flex-row space-y-16 smormd:space-y-0 justify-between  flex-wrap">
         {[
           {
             header: "Close to the metal",
@@ -35,7 +35,7 @@ const Section2: React.FC<HomeSectionProps> = ({ paddingClassname }) => {
               "We offer client and server libraries in everything from React and PHP to .NET and iOS.",
           },
         ].map((item) => (
-          <div>
+          <div className="mx-auto">
             <div className="mb-2">
               <svg
                 className="w-12 h-12 text-secondary-100"
@@ -53,7 +53,8 @@ const Section2: React.FC<HomeSectionProps> = ({ paddingClassname }) => {
               </svg>
             </div>
             <div className="pl-1">
-              <h1 className="tracking-wide home-title font-semibold mb-1">
+              <h1 className="tracking-wide font-semibold mb-1">
+                <span className="title-line inline-block bg-secondary-100" />
                 {item.header}
               </h1>
               <div style={{ maxWidth: 225 }} className="text-gray-500">
