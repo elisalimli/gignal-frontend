@@ -4,27 +4,9 @@ import Button from "../Button";
 import MyLink from "../utils/MyLink";
 import Brand from "./Brand";
 import Menu from "./Menu";
+import content from "./content";
 
 const MOBILE_SIZE = 900;
-
-export const navbarLinks = [
-  {
-    to: "#about",
-    text: "About",
-  },
-  {
-    to: "#discover",
-    text: "Discover",
-  },
-  {
-    to: "#services",
-    text: "Services",
-  },
-  {
-    to: "#signup",
-    text: "Sign up",
-  },
-];
 
 const Navbar = () => {
   const [mobile, setMobile] = useState(false);
@@ -67,47 +49,53 @@ const Navbar = () => {
 
   return (
     <div
-      className={`px-12 lg:px-40 bg-wheat py-4 z-20 flex items-center transition-colors duration-500 ${
-        mobile ? "justify-between" : null
-      } ${active ? "sticky top-0  bg-white animate-nav-active" : null} ${
-        animation ? "animate-nav-deactive" : null
-      }`}
+      className={`px-12 lg:px-40 py-4 z-20  transition-colors duration-500 ${
+        active
+          ? "sticky top-0 bg-wheat 2xl:rounded-bl-md 2xl:rounded-br-md animate-nav-active"
+          : null
+      } ${animation ? "animate-nav-deactive" : null}`}
       id="nav"
     >
-      <Brand />
-      {mobile ? (
-        <Menu />
-      ) : (
-        <div className="px-8 w-full flex items-center justify-around">
-          <div className="flex justify-end space-x-4 w-2/3">
-            {navbarLinks.map((link) => (
-              <MyLink key={`nav-link-${link.text}`} href={link.to} scroll>
-                <span
-                  className={`font-semibold text-lg rounded-sm border-b-2 ${
-                    router.asPath.substring(1) === link.to
-                      ? "border-primary-100"
-                      : "border-transparent hover:border-gray-300"
-                  }`}
+      <div
+        className={`flex mx-auto w-full max-w-screen-2xl  items-center ${
+          mobile ? "justify-between" : null
+        }  `}
+      >
+        <Brand />
+        {mobile ? (
+          <Menu />
+        ) : (
+          <div className="px-8 w-full flex items-center justify-around">
+            <div className="flex justify-end space-x-4 w-2/3">
+              {content.navbar.map((link) => (
+                <MyLink key={`nav-link-${link.text}`} href={link.to} scroll>
+                  <span
+                    className={`font-semibold text-lg rounded-sm border-b-2 ${
+                      router.asPath.substring(1) === link.to
+                        ? "border-primary-100"
+                        : "border-transparent hover:border-gray-300"
+                    }`}
+                  >
+                    {link.text}
+                  </span>
+                </MyLink>
+              ))}
+            </div>
+            <div className="w-1/2 flex justify-end">
+              <MyLink href="login">
+                <Button
+                  borderRadius="sm"
+                  height="45px"
+                  type="button"
+                  variant="outlinePrimary"
                 >
-                  {link.text}
-                </span>
+                  Sign in
+                </Button>
               </MyLink>
-            ))}
+            </div>
           </div>
-          <div className="w-1/2 flex justify-end">
-            <MyLink href="login">
-              <Button
-                borderRadius="sm"
-                height="45px"
-                type="button"
-                variant="outlinePrimary"
-              >
-                Sign in
-              </Button>
-            </MyLink>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

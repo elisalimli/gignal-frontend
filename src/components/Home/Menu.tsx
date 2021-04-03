@@ -3,9 +3,9 @@ import MenuIcon from "../icons/MenuIcon";
 import MyIcon from "../utils/MyIcon";
 import CloseIcon from "../icons/CloseIcon";
 import Brand from "./Brand";
-import { navbarLinks } from "./Navbar";
 import MyLink from "../utils/MyLink";
 import Button from "../Button";
+import content from "./content";
 
 interface Props {}
 
@@ -32,7 +32,7 @@ const Menu = (props: Props) => {
           </MyIcon>
         </div>
         <div className="flex flex-col space-y-4 mt-8">
-          {navbarLinks.map((link) => (
+          {content.navbar.map((link) => (
             <button
               key={`nav-menu-link-${link.text}`}
               type="button"

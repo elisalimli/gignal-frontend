@@ -40,6 +40,7 @@ module.exports = {
       md: "768px",
       lg: "1024px",
       xl: "1280px",
+      "2xl": "1368px",
     },
     colors: {
       transparent: "transparent",
@@ -313,16 +314,9 @@ module.exports = {
     },
     fontFamily: {
       serif: ["Georgia", "Cambria", '"Times New Roman"', "Times", "serif"],
-      mono: [
-        "Menlo",
-        "Monaco",
-        "Consolas",
-        '"Liberation Mono"',
-        '"Courier New"',
-        "monospace",
-      ],
+
       nunito: [
-        "Nunito",
+        "Poppins",
         "system-ui",
         "-apple-system",
         "BlinkMacSystemFont",

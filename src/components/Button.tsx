@@ -12,6 +12,7 @@ const buttonTypes = {
   outlinePrimary:
     "border-1 border-primary-100 hover:bg-primary-100 hover:text-white",
   secondary: "hover:bg-gray-200",
+  white: "bg-white font-semibold",
   transparent: "hover:bg-gray-100 focus:bg-gray-200",
   icon: "bg-gray-200 hover:bg-gray-300 text-gray-500 py-1 px-3",
 };

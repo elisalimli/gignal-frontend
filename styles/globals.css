@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 *,
 *:before,
 *:after {
@@ -24,11 +22,10 @@ html {
 
 body {
     margin: 0;
-    font-family: 'Nunito', sans-serif !important;
+    font-family: 'Poppins', sans-serif;
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
-
 
 .app_layout {
     display: grid;
@@ -50,7 +47,6 @@ body {
 }
 
 /* Our Grid Code */
-
 .header-grid {
     grid-column: 3;
     grid-row: 1;
@@ -85,7 +81,17 @@ body {
 
 .title-line{
     width: 1px;
-    height: 12.5px;
+height: 12.5px;
     transform: translateX(-10px);
+}
+
+.home-get-started {
+    clip-path: ellipse(75% 100% at center top);
+}
+
+@media(max-width:1024px) {
+    .home-get-started {
+        clip-path: ellipse(105% 100% at center top);
+    }
 }
 
